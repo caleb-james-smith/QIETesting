@@ -44,8 +44,8 @@ def uniqueID(rm,slot):
     # b.sleep(20)
     # b.sendBatch()
     b.write(q.QIEi2c[slot],[0x11,0x04,0,0,0])
-    b.write(0x50,[0x01])
-    b.read(0x50,9)
+    b.write(0x50,[0x00])
+    b.read(0x50,8)
     raw_bus = b.sendBatch()
     print raw_bus
     return raw_bus[-1]
