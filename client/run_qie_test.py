@@ -7,7 +7,7 @@ u = uniqueID
 t = TestLib
 
 def run(RMList, num_slots):
-    uniqueIDArray = range(4)
+    uniqueIDArray = []
     # Iterate through RM 0, 1, 2, 3 (include desired RMs in list)
     for rm in RMList:
         idList = []
@@ -15,7 +15,7 @@ def run(RMList, num_slots):
         for slot in range(num_slots):
             idList.append(u.uniqueID(rm,slot))
             # b.clearBus()
-        uniqueIDArray[rm] = idList
+        uniqueIDArray.append(idList)
     return uniqueIDArray
 
 def printRun(RMList, num_slots):
