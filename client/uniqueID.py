@@ -30,20 +30,18 @@ def openChannel(rm,slot):
     b.write(q.MUXs["ngccm"]["u10"], [q.RMi2c[rm]])
     return b.sendBatch()
 
-# Read UniqueID
+# Read UniqueID 8 bytes from SSN, U48 on QIE Card
 def uniqueID(rm,slot):
     openChannel(rm,slot)
-    # Read UniqueID 8 bytes from SSN, U48 on QIE Card
-    # Note that the i2c_select has register address 0x11
-    # Value : 4 = 0x04 (or 0x10 for Bit 4... we need to find out!)
-    # Note that the SSN expects 32 bits (4 bytes)
-    # The SSN may also expect 8 bits (1 byte) for write!
     print '##### Read UniqueID #####'
-    # b.write(q.QIEi2c[slot],[0x11,0x00,0,0,0])
+    # Reset entire board by writing 0x6 to 0x0.
     b.write(0x00,[0x06])
-    # b.sleep(20)
-    # b.sendBatch()
+    # Note that the i2c_select has register address 0x11
+    # Value : 4 = 0x04 selects 0x50
+    # Note that the SSN expects 32 bits (4 bytes) for writing (send 0x4, 0, 0, 0)
     b.write(q.QIEi2c[slot],[0x11,0x04,0,0,0])
+    # Send 0x0 to 0x50 in order to set pointer for reading ID
+    # This removes the permutation problem!
     b.write(0x50,[0x00])
     b.read(0x50,8)
     raw_bus = b.sendBatch()
