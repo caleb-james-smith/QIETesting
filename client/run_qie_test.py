@@ -26,6 +26,7 @@ def printRun(RMList, num_slots):
             print 'UniqueID: ', t.toHex(t.reverseBytes(uniqueIDArray[rm][slot]))
 
 printRun([0], 4)
+printRun([0], 4)
 # print u.uniqueID(0,3)
 
 # That output, though? It's Greek to me!
