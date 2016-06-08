@@ -10,10 +10,10 @@ def run(RMList, num_slots):
     uniqueIDArray = range(4)
     # Iterate through RM 0, 1, 2, 3 (include desired RMs in list)
     for rm in RMList:
-        idList = range(num_slots)
+        idList = []
         # Iterate through Slot 0, 1, 2, 3 (run for all 4 slots by default)
         for slot in range(num_slots):
-            idList[slot] = u.uniqueID(rm,slot)
+            idList.append(u.uniqueID(rm,slot))
             # b.clearBus()
         uniqueIDArray[rm] = idList
     return uniqueIDArray
