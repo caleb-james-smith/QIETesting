@@ -24,7 +24,7 @@ def printRun(RMList, num_slots):
         for slot in range(num_slots):
             print 'RM: ', rm, ' slot: ', slot
             print 'UniqueID: ', uniqueIDArray
-            print 'UniqueID: ', uniqueIDArray[rm][slots]
+            print 'UniqueID: ', uniqueIDArray[rm][slot]
             print 'UniqueID: ', t.toHex(t.reverseBytes(uniqueIDArray[rm][slot]))
 
 printRun([0], 3)
