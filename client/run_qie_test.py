@@ -1,8 +1,10 @@
 # Run complete QIE Test Sweet
 from client import webBus
 import uniqueID
+import TestLib
 b = webBus("pi5")
 u = uniqueID
+t = TestLib
 
 def run(RMList, num_slots):
     uniqueIDArray = range(4)
@@ -21,7 +23,7 @@ def printRun(RMList, num_slots):
     for rm in RMList:
         for slot in range(num_slots):
             print 'RM: ', rm, ' slot: ', slot
-            print 'UniqueID: ', uniqueIDArray[rm][slot]
+            print 'UniqueID: ', t.toHex(t.reverseBytes(uniqueIDArray[rm][slot]))
 
 printRun([0], 4)
 # print u.uniqueID(0,3)
