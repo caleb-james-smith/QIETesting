@@ -19,9 +19,12 @@ def read_qie_reg():
 # Bridge Register Tests
 
 def runBasicBridgeTests(RMList,num_slots,num_tests):
-    for rm in RML
+    for rm in RMList:
+        for slot in xrange(num_slots):
+            openChannel(rm,slot)
+            basicBridgeTests(rm,slot)
 
-def basicBridgeTests(rm,slots,num_tests):
+def basicBridgeTests(rm,slot,num_tests):
     for n in xrange(num_tests):
         function = t.bridgeDict[n]['function']
         address = t.bridgeDict[n]['address']
