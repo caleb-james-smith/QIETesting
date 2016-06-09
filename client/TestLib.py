@@ -72,23 +72,35 @@ bridgeDict = {
 
 # Bridge Register Tests
 
-def idString(rm,slot,address):
-    # openChannel(rm,slot)
+def idString(slot,address):
+    b.write(q.QIEi2c[slot],[adress])
+    b.read(q.QIEi2c[slot],4)
+    return b.sendBatch()[-1]
 
-def idStringCont(rm,slot,address):
-    # openChannel(rm,slot)
+def idStringCont(slot,address):
+    b.write(q.QIEi2c[slot],[adress])
+    b.read(q.QIEi2c[slot],4)
+    return b.sendBatch()[-1]
 
-def fwVersion(rm,slot,address):
-    # openChannel(rm,slot)
+def fwVersion(slot,address):
+    b.write(q.QIEi2c[slot],[adress])
+    b.read(q.QIEi2c[slot],4)
+    return b.sendBatch()[-1]
 
-def ones(rm,slot,address):
-    # openChannel(rm,slot)
+def ones(slot,address):
+    b.write(q.QIEi2c[slot],[adress])
+    b.read(q.QIEi2c[slot],4)
+    return b.sendBatch()[-1]
 
-def zeroes(rm,slot,address):
-    # openChannel(rm,slot)
+def zeroes(slot,address):
+    b.write(q.QIEi2c[slot],[adress])
+    b.read(q.QIEi2c[slot],4)
+    return b.sendBatch()[-1]
 
-def onesZeroes(rm,slot,address):
-    # openChannel(rm,slot)
+def onesZeroes(slot,address):
+    b.write(q.QIEi2c[slot],[adress])
+    b.read(q.QIEi2c[slot],4)
+    return b.sendBatch()[-1]
 
 ######## open channel to RM and Slot! ######################
 
