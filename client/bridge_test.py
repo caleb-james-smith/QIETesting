@@ -18,21 +18,10 @@ def read_qie_reg():
 
 # Bridge Register Tests
 
-def basicBridgeTests(num_tests):
+def runBasicBridgeTests(RMList,num_slots,num_tests):
+    for rm in RML
+
+def basicBridgeTests(rm,slots,num_tests):
     for n in xrange(num_tests):
-        function = bridgeDict[n]['function']
-        address = bridgeDict[n]['address']
-
-
-def idString(rm,slot,address):
-    address = bridgeDict[index]['address']
-
-def idStringCont():
-
-def fwVersion():
-
-def ones():
-
-def zeroes():
-
-def onesZeroes():
+        function = t.bridgeDict[n]['function']
+        address = t.bridgeDict[n]['address']
