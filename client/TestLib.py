@@ -73,17 +73,22 @@ bridgeDict = {
 # Bridge Register Tests
 
 def idString(rm,slot,address):
-    address = bridgeDict[index]['address']
+    openChannel(rm,slot)
 
-def idStringCont():
+def idStringCont(rm,slot,address):
+    openChannel(rm,slot)
 
-def fwVersion():
+def fwVersion(rm,slot,address):
+    openChannel(rm,slot)
 
-def ones():
+def ones(rm,slot,address):
+    openChannel(rm,slot)
 
-def zeroes():
+def zeroes(rm,slot,address):
+    openChannel(rm,slot)
 
-def onesZeroes():
+def onesZeroes(rm,slot,address):
+    openChannel(rm,slot)
 
 ######## open channel to RM and Slot! ######################
 
