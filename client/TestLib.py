@@ -43,33 +43,6 @@ QIEi2c = {
 
 ######## Bridge Test Function Dictionary
 
-bridgeDict = {
-    0 : {
-        'function' : idString,
-        'address' : 0x00,
-    },
-    1 : {
-        'function' : idStringCont,
-        'address' : 0x01,
-    },
-    2 : {
-        'function' : fwVersion,
-        'address' : 0x04,
-    },
-    3 : {
-        'function' : ones,
-        'address' : 0x08,
-    },
-    4 : {
-        'function' : zeroes,
-        'address' : 0x09,
-    },
-    5 : {
-        'function' : onesZeroes,
-        'address' : 0x0A,
-    },
-}
-
 # Bridge Register Tests
 
 def idString(slot,address):
@@ -101,6 +74,33 @@ def onesZeroes(slot,address):
     b.write(q.QIEi2c[slot],[adress])
     b.read(q.QIEi2c[slot],4)
     return b.sendBatch()[-1]
+
+bridgeDict = {
+    0 : {
+        'function' : idString,
+        'address' : 0x00,
+    },
+    1 : {
+        'function' : idStringCont,
+        'address' : 0x01,
+    },
+    2 : {
+        'function' : fwVersion,
+        'address' : 0x04,
+    },
+    3 : {
+        'function' : ones,
+        'address' : 0x08,
+    },
+    4 : {
+        'function' : zeroes,
+        'address' : 0x09,
+    },
+    5 : {
+        'function' : onesZeroes,
+        'address' : 0x0A,
+    },
+}
 
 ######## open channel to RM and Slot! ######################
 
