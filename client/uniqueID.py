@@ -55,13 +55,13 @@ def uniqueID(rm,slot):
 # Read UniqueID for all QIE Cards in Backplane
 # To read IDs for RM 1, pass RMList = [0]
 # To read IDs for all RMS, pass RMList = [0, 1, 2, 3]
-def getUniqueIDs(RMList):
-    uniqueIDArray = range(4)
+def getUniqueIDs(RMList,num_slots=4):
+    uniqueIDArray = []
     # Iterate through RM 0, 1, 2, 3 (include desired RMs in list)
     for rm in RMList:
-        idList = range(4)
+        idList = []
         # Iterate through Slot 0, 1, 2, 3 (run for all 4 slots by default)
-        for slot in range(4):
-            idList[slot] = uniqueID(rm,slot)
-        uniqueIDArray[rm] = idList
+        for slot in xrange(num_slots):
+            idList.append(uniqueID(rm,slot))
+        uniqueIDArray.append(idList)
     return uniqueIDArray

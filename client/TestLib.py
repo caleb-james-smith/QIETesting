@@ -1,9 +1,9 @@
 #TestLib.py
 #Testing Library for QIE Tests.
 
-# from client import webBus
+from client import webBus
 import QIELib
-# b = webBus("pi5")
+b = webBus("pi5")
 q = QIELib
 
 #MUX slave addresses (slave i2c addresses)
@@ -41,6 +41,35 @@ QIEi2c = {
     3 : 0x1c
         }
 
+######## Bridge Test Function Dictionary
+
+bridgeDict = {
+    0 : {
+        'function' : idString,
+        'address' : 0x00,
+    },
+    1 : {
+        'function' : idStringCont,
+        'address' : 0x01,
+    },
+    2 : {
+        'function' : fwVersion,
+        'address' : 0x04,
+    },
+    3 : {
+        'function' : ones,
+        'address' : 0x08,
+    },
+    4 : {
+        'function' : zeroes,
+        'address' : 0x09,
+    },
+    5 : {
+        'function' : onesZeroes,
+        'address' : 0x0A,
+    },
+}
+
 ######## open channel to RM and Slot! ######################
 
 def openChannel(rm,slot):
@@ -64,6 +93,24 @@ def openChannel(rm,slot):
     b.write(q.MUXs["ngccm"]["u10"], [q.RMi2c[rm]])
     return b.sendBatch()
 
+# Print UniqueID Arrary
+# RN = Registration Number
+# SN = Serial Number
+def printIDs(uniqueIDArray):
+    print
+    for rm in xrange(len(uniqueIDArray)):
+        for slot in xrange(len(uniqueIDArray[0])):
+            revRN = reverseBytes(uniqueIDArray[rm][slot])
+            hexRN = toHex(revRN)
+            revSN = serialNum(revRN)
+            hexSN = toHex(revSN)
+            print 'RM: ', rm, ' slot: ', slot
+            # print 'Unique Registration Number (dec): ', revRN
+            # print 'Unique Registration Number (hex): ', hexRN
+            # print 'Serial Number (dec): ', revSN
+            print 'Serial Number (hex): ', hexSN
+            print
+
 # Reverse order of string of bytes separated by spaces.
 def reverseBytes(message):
     message_list = message.split()
@@ -72,15 +119,30 @@ def reverseBytes(message):
     return s.join(message_list)
 
 # Convert string of ints with spaces to a string of hex values with no spaces... one long string.
-def toHex(message):
+def toHex(message,colon=1):
     message_list = message.split()
     for byte in xrange(len(message_list)):
         message_list[byte] = hex(int(message_list[byte]))
         message_list[byte] = message_list[byte][2:]
         if len(message_list[byte]) == 1:
             message_list[byte] = '0' + message_list[byte]
+    if colon:
+        s = ":"
+        return s.join(message_list)
     s = ""
+    return '0x' + s.join(message_list)
+
+# Parse Serial Number from 8 byte Registration Number.
+def serialNum(message):
+    message_list = message.split()
+    message_list = message_list[1:-1]
+    s = " "
     return s.join(message_list)
 
 #ASCII
-# def toASCII(message):
+def toASCII(message):
+    message_list = message.split()
+    for byte in xrange(len(message_list)):
+        message_list[byte] = chr(int(message_list[byte]))
+    s = ""
+    return s.join(message_list)
