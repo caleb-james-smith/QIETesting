@@ -45,28 +45,40 @@ QIEi2c = {
 
 # Bridge Register Tests
 
-def WRS(slot,address):
+def readRegister(slot,address):
     b.write(q.QIEi2c[slot],[address])
     b.read(q.QIEi2c[slot],4)
     message = b.sendBatch()[-1]
     return reverseBytes(message)
 
+def passFail(result):
+    if result:
+        return 'PASS'
+    return 'FAIL'
+
 def idString(message):
     correct_value = "HERM"
+    return passFail(message==correct_value)
 
 def idStringCont(message):
     correct_value = "Brdg"
+    return passFail(message==correct_value)
 
 def fwVersion(message):
-    correct_value
+    correct_value = "N/A"
+    return passFail(message)
 
 def ones(message):
-
+    correct_value = 0xFF
+    return passFail(message==correct_value)
 
 def zeroes(message):
-
+    correct_value = 0x00
+    return passFail(message==correct_value)
 
 def onesZeroes(message):
+    correct_value = 0xAAAAAAAA
+    return passFail(message==correct_value)
 
 
 bridgeDict = {
@@ -96,9 +108,9 @@ bridgeDict = {
     },
 }
 
-######## open channel to RM and Slot! ######################
+######## open channel to RM! ######################
 
-def openChannel(rm,slot):
+def openChannel(rm):
     if rm in [0,1]:
         # Open channel to ngCCM for RM 1,2: J1 - J10
         print '##### RM in 0,1 #####'
