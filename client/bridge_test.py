@@ -6,7 +6,7 @@ b = webBus("pi5")
 t = TestLib
 
 def bridge0(rm,slot):
-    t.openChannel(rm)
+    t.openRM(rm)
     b.write(q.QIEi2c[slot],[0x00])
     b.read(q.QIEi2c[slot],4)
     return b.sendBatch()[-1]
@@ -20,7 +20,7 @@ def read_qie_reg():
 
 def runBridgeTests(RMList,num_slots,num_tests):
     for rm in RMList:
-        openChannel(rm)
+        t.openRM(rm)
         print 'Test RM: ', rm
         for slot in xrange(num_slots):
             b.write(0x00,0x06)
