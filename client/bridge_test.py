@@ -33,6 +33,37 @@ def basicTests(slot,num_tests):
         address = t.bridgeDict[n]['address']
         message = t.readRegister(slot,address)
         print 'Register Value: ', message
-        print 'Test Result ', t.function(message)
+        print 'Test Result ', function(message)
+
+##### TestLib ########
+
+def passFail(result):
+    if result:
+        return 'PASS'
+    return 'FAIL'
+
+def idString(message):
+    correct_value = "HERM"
+    return passFail(message==correct_value)
+
+def idStringCont(message):
+    correct_value = "Brdg"
+    return passFail(message==correct_value)
+
+def fwVersion(message):
+    correct_value = "N/A"
+    return passFail(message)
+
+def ones(message):
+    correct_value = 0xFF
+    return passFail(message==correct_value)
+
+def zeroes(message):
+    correct_value = 0x00
+    return passFail(message==correct_value)
+
+def onesZeroes(message):
+    correct_value = 0xAAAAAAAA
+    return passFail(message==correct_value)
 
 runBridgeTests([0],4,6)
