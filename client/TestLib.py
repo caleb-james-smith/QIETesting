@@ -49,7 +49,7 @@ def readRegister(slot,address):
     b.write(q.QIEi2c[slot],[address])
     b.read(q.QIEi2c[slot],4)
     message = b.sendBatch()[-1]
-    return message
+    return reverseBytes(message)
 
 def passFail(result):
     if result:

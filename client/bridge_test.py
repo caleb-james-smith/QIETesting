@@ -1,10 +1,10 @@
 from client import webBus
 from operator import add
-# import QIELib
 import TestLib
+# import QIELib
 b = webBus("pi5",0)
-# q = QIELib
 t = TestLib
+# q = QIELib
 
 def bridge0(rm,slot):
     t.openRM(rm)
@@ -51,7 +51,8 @@ def basicTests(slot,num_tests):
         function = t.bridgeDict[test]['function']
         address = t.bridgeDict[test]['address']
         message = t.readRegister(slot,address)
-        result = function(message)
+        # result = function(message)
+        result = idString(message)
         print 'FUNCTION = ', function
         print 'RESULT = ', result
         if result == 'PASS':
