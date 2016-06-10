@@ -71,33 +71,6 @@ def basicTests(slot,num_tests):
 
 ##### TestLib ########
 
-bridgeDict = {
-    0 : {
-        'function' : idString,
-        'address' : 0x00,
-    },
-    1 : {
-        'function' : idStringCont,
-        'address' : 0x01,
-    },
-    2 : {
-        'function' : fwVersion,
-        'address' : 0x04,
-    },
-    3 : {
-        'function' : ones,
-        'address' : 0x08,
-    },
-    4 : {
-        'function' : zeroes,
-        'address' : 0x09,
-    },
-    5 : {
-        'function' : onesZeroes,
-        'address' : 0x0A,
-    },
-}
-
 def passFail(result):
     if result:
         return 'PASS'
@@ -147,6 +120,33 @@ def onesZeroes(message):
     print 'correct value: ', correct_value
     print 'message: ', message
     return passFail(message==correct_value)
+
+bridgeDict = {
+    0 : {
+        'function' : idString,
+        'address' : 0x00,
+    },
+    1 : {
+        'function' : idStringCont,
+        'address' : 0x01,
+    },
+    2 : {
+        'function' : fwVersion,
+        'address' : 0x04,
+    },
+    3 : {
+        'function' : ones,
+        'address' : 0x08,
+    },
+    4 : {
+        'function' : zeroes,
+        'address' : 0x09,
+    },
+    5 : {
+        'function' : onesZeroes,
+        'address' : 0x0A,
+    },
+}
 
 ###############################################################################
 
