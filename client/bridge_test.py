@@ -23,14 +23,14 @@ def runBridgeTests(RMList,num_slots,num_tests):
         t.openRM(rm)
         print 'Test RM: ', rm
         for slot in xrange(num_slots):
-            b.write(0x00,0x06)
+            b.write(0x00,[0x06])
             basicTests(slot,num_tests)
 
 def basicTests(slot,num_tests):
     for test in xrange(num_tests):
         print 'Bridge Test: ', test
-        function = t.bridgeDict[n]['function']
-        address = t.bridgeDict[n]['address']
+        function = t.bridgeDict[test]['function']
+        address = t.bridgeDict[test]['address']
         message = t.readRegister(slot,address)
         print 'Register Value: ', message
         print 'Test Result ', function(message)
