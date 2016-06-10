@@ -110,7 +110,7 @@ bridgeDict = {
 
 ######## open channel to RM! ######################
 
-def openChannel(rm):
+def openRM(rm):
     if rm in [0,1]:
         # Open channel to ngCCM for RM 1,2: J1 - J10
         print '##### RM in 0,1 #####'
