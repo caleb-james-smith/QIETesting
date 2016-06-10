@@ -52,6 +52,7 @@ def basicTests(slot,num_tests):
         address = t.bridgeDict[test]['address']
         message = t.readRegister(slot,address)
         result = function(message)
+        print 'FUNCTION = ', function
         if result == 'PASS':
             passed += 1
         elif result == 'FAIL':
