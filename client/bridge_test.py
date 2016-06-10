@@ -20,36 +20,48 @@ def read_qie_reg():
 
 def runBridgeTests(RMList,num_slots,num_tests):
     print '\n\nBRIDGE TEST\n\n'
-    passed = 0
-    failed = 0
-    neither = 0
+    total_passed = 0
+    total_failed = 0
+    total_neither = 0
+    total_test_list = [total_passed, total_failed, total_neither]
     for rm in RMList:
         t.openRM(rm)
         print '\n### Test RM: ', rm, ' ######'
         for slot in xrange(num_slots):
             b.write(0x00,[0x06])
-            result = basicTests(slot,num_tests)
-            if result == 'PASS':
-                passed += 1
-            elif result == 'FAIL':
-                failed += 1
-            else:
-                print 'Neither PASS Nor FAIL'
-                neither += 1
-    print 'Number passed = ', passed
-    print 'Number failed = ', failed
-    print 'Number neither pass nor fail = ', neither, '\n'
+            test_list = basicTests(slot,num_tests)
+            test_list = map(add, total_test_list, test_list)
+            print 'Number passed = ', test_list[0]
+            print 'Number failed = ', test_list[1]
+            print 'Number neither pass nor fail = ', test_list[2], '\n'
+    print 'Number passed = ', total_test_list[0]
+    print 'Number failed = ', total_test_list[1]
+    print 'Number neither pass nor fail = ', total_test_list[2], '\n'
+
 
 def basicTests(slot,num_tests):
+    passed = 0
+    failed = 0
+    neither = 0
     print '## Number of Tests: ', num_tests
     for test in xrange(num_tests):
         print '\n##### Bridge Test: ', test, ' ########'
         function = t.bridgeDict[test]['function']
         address = t.bridgeDict[test]['address']
         message = t.readRegister(slot,address)
+        result = function(message)
+        if result == 'PASS':
+            passed += 1
+        elif result == 'FAIL':
+            failed += 1
+        else:
+            print 'Neither PASS Nor FAIL'
+            neither += 1
+
         print 'Register Value: ', message
-        print 'Test Result ', function(message)
-        return function(message)
+        print 'Test Result: ', result
+    test_list = [passed, failed, neither]
+    return test_list
 
 ##### TestLib ########
 
