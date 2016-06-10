@@ -36,11 +36,10 @@ def runBridgeTests(RMList,num_slots,num_tests):
             print 'Number failed = ', test_list[1]
             print 'Number neither pass nor fail = ', test_list[2], '\n'
 
-    print '\n\n\n########   Final Test Results  ########'
+    print '\n\n########   Final Test Results  ########\n\n'
     print 'Number passed = ', total_test_list[0]
     print 'Number failed = ', total_test_list[1]
     print 'Number neither pass nor fail = ', total_test_list[2], '\n'
-
 
 def basicTests(slot,num_tests):
     passed = 0
@@ -76,36 +75,46 @@ def passFail(result):
 def idString(message):
     correct_value = "HERM"
     message = t.toASCII(message)
-    print message
+    print 'correct value: ',correct_value
+    print 'message: ', message
     return passFail(message==correct_value)
 
 def idStringCont(message):
     correct_value = "Brdg"
     message = t.toASCII(message)
-    print message
+    print 'correct value: ',correct_value
+    print 'message: ', message
     return passFail(message==correct_value)
 
 def fwVersion(message):
     correct_value = "N/A" # We need to find Firmware Version
     message = t.toHex(message)
+    print 'correct value: ',correct_value
+    print 'message: ', message
     return message
 
 def ones(message):
     correct_value = 0xFF
     hex_message = toHex(message)
     print hex_message
+    print 'correct value: ',correct_value
+    print 'message: ', message
     return passFail(message==correct_value)
 
 def zeroes(message):
     correct_value = 0x00
     hex_message = toHex(message)
     print hex_message
+    print 'correct value: ',correct_value
+    print 'message: ', message
     return passFail(message==correct_value)
 
 def onesZeroes(message):
     correct_value = 0xAAAAAAAA
     hex_message = toHex(message)
     print hex_message
+    print 'correct value: ',correct_value
+    print 'message: ', message
     return passFail(message==correct_value)
 
 runBridgeTests([0],4,6)
