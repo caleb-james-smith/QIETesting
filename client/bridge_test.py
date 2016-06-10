@@ -32,11 +32,11 @@ def runBridgeTests(RMList,num_slots,num_tests):
             b.write(0x00,[0x06])
             test_list = basicTests(slot,num_tests)
             total_test_list = map(add, total_test_list, test_list)
-            print 'Number passed = ', test_list[0]
+            print '\nNumber passed = ', test_list[0]
             print 'Number failed = ', test_list[1]
             print 'Number neither pass nor fail = ', test_list[2], '\n'
 
-    print '\n\n########   Final Test Results  ########\n\n'
+    print '\n\n########   Final Test Results  ########\n'
     print 'Number passed = ', total_test_list[0]
     print 'Number failed = ', total_test_list[1]
     print 'Number neither pass nor fail = ', total_test_list[2], '\n'
@@ -147,4 +147,5 @@ bridgeDict = {
 
 ###############################################################################
 
-runBridgeTests([0],1,1)
+# runBridgeTests(RMList,num_slots,num_tests)
+runBridgeTests([0],1,6)
