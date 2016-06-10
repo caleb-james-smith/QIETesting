@@ -45,35 +45,29 @@ QIEi2c = {
 
 # Bridge Register Tests
 
-def idString(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
+def WRS(slot,address):
+    b.write(q.QIEi2c[slot],[address])
     b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+    message = b.sendBatch()[-1]
+    return reverseBytes(message)
 
-def idStringCont(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
-    b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+def idString(message):
+    correct_value = "HERM"
 
-def fwVersion(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
-    b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+def idStringCont(message):
+    correct_value = "Brdg"
 
-def ones(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
-    b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+def fwVersion(message):
+    correct_value
 
-def zeroes(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
-    b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+def ones(message):
 
-def onesZeroes(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
-    b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+
+def zeroes(message):
+
+
+def onesZeroes(message):
+
 
 bridgeDict = {
     0 : {
