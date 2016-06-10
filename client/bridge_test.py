@@ -100,7 +100,7 @@ def ones(message):
     print 'correct value: ', correct_value
     print 'message: ', message
     print 'hex message: ', hex_message
-    return passFail(message==correct_value)
+    return passFail(hex_message==correct_value)
 
 def zeroes(message):
     correct_value = '0x00000000'
@@ -108,7 +108,7 @@ def zeroes(message):
     print 'correct value: ', correct_value
     print 'message: ', message
     print 'hex message: ', hex_message
-    return passFail(message==correct_value)
+    return passFail(hex_message==correct_value)
 
 def onesZeroes(message):
     correct_value = '0xaaaaaaaa'
@@ -116,7 +116,7 @@ def onesZeroes(message):
     print 'correct value: ', correct_value
     print 'message: ', message
     print 'hex message: ', hex_message
-    return passFail(message==correct_value)
+    return passFail(hex_message==correct_value)
 
 bridgeDict = {
     0 : {
