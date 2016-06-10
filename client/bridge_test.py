@@ -19,21 +19,35 @@ def read_qie_reg():
 # Bridge Register Tests
 
 def runBridgeTests(RMList,num_slots,num_tests):
+    passed = 0
+    failed = 0
+    neither = 0
     for rm in RMList:
         t.openRM(rm)
-        print 'Test RM: ', rm
+        print '\n### Test RM: ', rm, ' ######'
         for slot in xrange(num_slots):
             b.write(0x00,[0x06])
-            basicTests(slot,num_tests)
+            result = basicTests(slot,num_tests)
+            if result == 'PASS':
+                passed += 1
+            elif result == 'FAIL':
+                failed += 1
+            else:
+                print 'Neither PASS Nor FAIL'
+                neither += 1
+    print 'Number passed = ', passed
+    print 'Number failed = ', failed
+    print 'Number neither pass nor fail = ', neither
 
 def basicTests(slot,num_tests):
     for test in xrange(num_tests):
-        print 'Bridge Test: ', test
+        print '\n##### Bridge Test: ', test, ' ########'
         function = t.bridgeDict[test]['function']
         address = t.bridgeDict[test]['address']
         message = t.readRegister(slot,address)
         print 'Register Value: ', message
         print 'Test Result ', function(message)
+        return function(message)
 
 ##### TestLib ########
 
@@ -44,26 +58,37 @@ def passFail(result):
 
 def idString(message):
     correct_value = "HERM"
+    message = t.toASCII(message)
+    print message
     return passFail(message==correct_value)
 
 def idStringCont(message):
     correct_value = "Brdg"
+    message = t.toASCII(message)
+    print message
     return passFail(message==correct_value)
 
 def fwVersion(message):
-    correct_value = "N/A"
-    return passFail(message)
+    correct_value = "N/A" # We need to find Firmware Version
+    message = t.toHex(message)
+    return message
 
 def ones(message):
     correct_value = 0xFF
+    hex_message = toHex(message)
+    print hex_message
     return passFail(message==correct_value)
 
 def zeroes(message):
     correct_value = 0x00
+    hex_message = toHex(message)
+    print hex_message
     return passFail(message==correct_value)
 
 def onesZeroes(message):
     correct_value = 0xAAAAAAAA
+    hex_message = toHex(message)
+    print hex_message
     return passFail(message==correct_value)
 
 runBridgeTests([0],4,6)
