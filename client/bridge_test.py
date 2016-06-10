@@ -35,6 +35,8 @@ def runBridgeTests(RMList,num_slots,num_tests):
             print 'Number passed = ', test_list[0]
             print 'Number failed = ', test_list[1]
             print 'Number neither pass nor fail = ', test_list[2], '\n'
+
+    print '\n\n\n########   Final Test Results  ########'
     print 'Number passed = ', total_test_list[0]
     print 'Number failed = ', total_test_list[1]
     print 'Number neither pass nor fail = ', total_test_list[2], '\n'
