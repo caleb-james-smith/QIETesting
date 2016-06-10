@@ -48,11 +48,11 @@ def basicTests(slot,num_tests):
     print '## Number of Tests: ', num_tests
     for test in xrange(num_tests):
         print '\n##### Bridge Test: ', test, ' ########'
-        function = t.bridgeDict[test]['function']
-        address = t.bridgeDict[test]['address']
+        function = bridgeDict[test]['function']
+        address = bridgeDict[test]['address']
         message = t.readRegister(slot,address)
-        # result = function(message)
-        result = idString(message)
+        result = function(message)
+        # result = idString(message)
         print 'FUNCTION = ', function
         print 'RESULT = ', result
         if result == 'PASS':
@@ -68,7 +68,35 @@ def basicTests(slot,num_tests):
     test_list = [passed, failed, neither]
     return test_list
 
+
 ##### TestLib ########
+
+bridgeDict = {
+    0 : {
+        'function' : idString,
+        'address' : 0x00,
+    },
+    1 : {
+        'function' : idStringCont,
+        'address' : 0x01,
+    },
+    2 : {
+        'function' : fwVersion,
+        'address' : 0x04,
+    },
+    3 : {
+        'function' : ones,
+        'address' : 0x08,
+    },
+    4 : {
+        'function' : zeroes,
+        'address' : 0x09,
+    },
+    5 : {
+        'function' : onesZeroes,
+        'address' : 0x0A,
+    },
+}
 
 def passFail(result):
     if result:
@@ -119,5 +147,7 @@ def onesZeroes(message):
     print 'correct value: ', correct_value
     print 'message: ', message
     return passFail(message==correct_value)
+
+###############################################################################
 
 runBridgeTests([0],1,1)
