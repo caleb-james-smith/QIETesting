@@ -148,4 +148,4 @@ bridgeDict = {
 ###############################################################################
 
 # runBridgeTests(RMList,num_slots,num_tests)
-runBridgeTests([0],1,6)
+runBridgeTests([0],4,6)
