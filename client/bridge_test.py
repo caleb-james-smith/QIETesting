@@ -19,6 +19,7 @@ def read_qie_reg():
 # Bridge Register Tests
 
 def runBridgeTests(RMList,num_slots,num_tests):
+    print '\n\nBRIDGE TEST\n\n'
     passed = 0
     failed = 0
     neither = 0
@@ -37,7 +38,7 @@ def runBridgeTests(RMList,num_slots,num_tests):
                 neither += 1
     print 'Number passed = ', passed
     print 'Number failed = ', failed
-    print 'Number neither pass nor fail = ', neither
+    print 'Number neither pass nor fail = ', neither, '\n'
 
 def basicTests(slot,num_tests):
     for test in xrange(num_tests):
