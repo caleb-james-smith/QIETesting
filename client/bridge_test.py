@@ -41,6 +41,7 @@ def runBridgeTests(RMList,num_slots,num_tests):
     print 'Number neither pass nor fail = ', neither, '\n'
 
 def basicTests(slot,num_tests):
+    print '## Number of Tests: ', num_tests
     for test in xrange(num_tests):
         print '\n##### Bridge Test: ', test, ' ########'
         function = t.bridgeDict[test]['function']
