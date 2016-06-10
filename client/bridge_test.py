@@ -95,27 +95,27 @@ def fwVersion(message):
     return message
 
 def ones(message):
-    correct_value = 0xFF
-    hex_message = t.toHex(message)
-    print hex_message
+    correct_value = '0xffffffff'
+    hex_message = t.toHex(message,0)
     print 'correct value: ', correct_value
     print 'message: ', message
+    print 'hex message: ', hex_message
     return passFail(message==correct_value)
 
 def zeroes(message):
-    correct_value = 0x00
-    hex_message = t.toHex(message)
-    print hex_message
+    correct_value = '0x00000000'
+    hex_message = t.toHex(message,0)
     print 'correct value: ', correct_value
     print 'message: ', message
+    print 'hex message: ', hex_message
     return passFail(message==correct_value)
 
 def onesZeroes(message):
-    correct_value = 0xAAAAAAAA
-    hex_message = t.toHex(message)
-    print hex_message
+    correct_value = '0xaaaaaaaa'
+    hex_message = t.toHex(message,0)
     print 'correct value: ', correct_value
     print 'message: ', message
+    print 'hex message: ', hex_message
     return passFail(message==correct_value)
 
 bridgeDict = {
