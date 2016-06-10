@@ -77,21 +77,21 @@ def passFail(result):
 def idString(message):
     correct_value = "HERM"
     message = t.toASCII(message)
-    print 'correct value: ',correct_value
+    print 'correct value: ', correct_value
     print 'message: ', message
     return passFail(message==correct_value)
 
 def idStringCont(message):
     correct_value = "Brdg"
     message = t.toASCII(message)
-    print 'correct value: ',correct_value
+    print 'correct value: ', correct_value
     print 'message: ', message
     return passFail(message==correct_value)
 
 def fwVersion(message):
     correct_value = "N/A" # We need to find Firmware Version
     message = t.toHex(message)
-    print 'correct value: ',correct_value
+    print 'correct value: ', correct_value
     print 'message: ', message
     return message
 
@@ -99,7 +99,7 @@ def ones(message):
     correct_value = 0xFF
     hex_message = toHex(message)
     print hex_message
-    print 'correct value: ',correct_value
+    print 'correct value: ', correct_value
     print 'message: ', message
     return passFail(message==correct_value)
 
@@ -107,7 +107,7 @@ def zeroes(message):
     correct_value = 0x00
     hex_message = toHex(message)
     print hex_message
-    print 'correct value: ',correct_value
+    print 'correct value: ', correct_value
     print 'message: ', message
     return passFail(message==correct_value)
 
@@ -115,8 +115,8 @@ def onesZeroes(message):
     correct_value = 0xAAAAAAAA
     hex_message = toHex(message)
     print hex_message
-    print 'correct value: ',correct_value
+    print 'correct value: ', correct_value
     print 'message: ', message
     return passFail(message==correct_value)
 
-runBridgeTests([0],4,6)
+runBridgeTests([0],1,1)
