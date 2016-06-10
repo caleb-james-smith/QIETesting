@@ -31,7 +31,7 @@ def runBridgeTests(RMList,num_slots,num_tests):
         for slot in xrange(num_slots):
             b.write(0x00,[0x06])
             test_list = basicTests(slot,num_tests)
-            test_list = map(add, total_test_list, test_list)
+            total_test_list = map(add, total_test_list, test_list)
             print 'Number passed = ', test_list[0]
             print 'Number failed = ', test_list[1]
             print 'Number neither pass nor fail = ', test_list[2], '\n'
@@ -52,9 +52,6 @@ def basicTests(slot,num_tests):
         address = bridgeDict[test]['address']
         message = t.readRegister(slot,address)
         result = function(message)
-        # result = idString(message)
-        print 'FUNCTION = ', function
-        print 'RESULT = ', result
         if result == 'PASS':
             passed += 1
         elif result == 'FAIL':
