@@ -45,35 +45,41 @@ QIEi2c = {
 
 # Bridge Register Tests
 
-def idString(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
+def readRegister(slot,address):
+    b.write(q.QIEi2c[slot],[address])
     b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+    message = b.sendBatch()[-1]
+    return reverseBytes(message)
 
-def idStringCont(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
-    b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+def passFail(result):
+    if result:
+        return 'PASS'
+    return 'FAIL'
 
-def fwVersion(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
-    b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+def idString(message):
+    correct_value = "HERM"
+    return passFail(message==correct_value)
 
-def ones(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
-    b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+def idStringCont(message):
+    correct_value = "Brdg"
+    return passFail(message==correct_value)
 
-def zeroes(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
-    b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+def fwVersion(message):
+    correct_value = "N/A"
+    return passFail(message)
 
-def onesZeroes(slot,address):
-    b.write(q.QIEi2c[slot],[adress])
-    b.read(q.QIEi2c[slot],4)
-    return b.sendBatch()[-1]
+def ones(message):
+    correct_value = 0xFF
+    return passFail(message==correct_value)
+
+def zeroes(message):
+    correct_value = 0x00
+    return passFail(message==correct_value)
+
+def onesZeroes(message):
+    correct_value = 0xAAAAAAAA
+    return passFail(message==correct_value)
+
 
 bridgeDict = {
     0 : {
@@ -102,9 +108,9 @@ bridgeDict = {
     },
 }
 
-######## open channel to RM and Slot! ######################
+######## open channel to RM! ######################
 
-def openChannel(rm,slot):
+def openChannel(rm):
     if rm in [0,1]:
         # Open channel to ngCCM for RM 1,2: J1 - J10
         print '##### RM in 0,1 #####'
