@@ -53,6 +53,7 @@ def basicTests(slot,num_tests):
         message = t.readRegister(slot,address)
         result = function(message)
         print 'FUNCTION = ', function
+        print 'RESULT = ', result
         if result == 'PASS':
             passed += 1
         elif result == 'FAIL':
