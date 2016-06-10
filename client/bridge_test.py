@@ -24,6 +24,7 @@ def runBridgeTests(RMList,num_slots,num_tests):
     total_passed = 0
     total_failed = 0
     total_neither = 0
+    total_number_tests = num_slots * num_tests
     total_test_list = [total_passed, total_failed, total_neither]
     for rm in RMList:
         t.openRM(rm)
@@ -37,9 +38,11 @@ def runBridgeTests(RMList,num_slots,num_tests):
             print 'Number neither pass nor fail = ', test_list[2], '\n'
 
     print '\n\n########   Final Test Results  ########\n'
+    print 'Total Number of Tests = ', num_tests
     print 'Number passed = ', total_test_list[0]
     print 'Number failed = ', total_test_list[1]
     print 'Number neither pass nor fail = ', total_test_list[2], '\n'
+    print 'Check total number of tests: ',num_tests == sum(total_test_list)
 
 def basicTests(slot,num_tests):
     passed = 0
