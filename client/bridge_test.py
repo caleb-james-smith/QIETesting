@@ -96,7 +96,7 @@ def fwVersion(message):
 
 def ones(message):
     correct_value = 0xFF
-    hex_message = toHex(message)
+    hex_message = t.toHex(message)
     print hex_message
     print 'correct value: ', correct_value
     print 'message: ', message
@@ -104,7 +104,7 @@ def ones(message):
 
 def zeroes(message):
     correct_value = 0x00
-    hex_message = toHex(message)
+    hex_message = t.toHex(message)
     print hex_message
     print 'correct value: ', correct_value
     print 'message: ', message
@@ -112,7 +112,7 @@ def zeroes(message):
 
 def onesZeroes(message):
     correct_value = 0xAAAAAAAA
-    hex_message = toHex(message)
+    hex_message = t.toHex(message)
     print hex_message
     print 'correct value: ', correct_value
     print 'message: ', message

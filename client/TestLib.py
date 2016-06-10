@@ -139,9 +139,9 @@ def printIDs(uniqueIDArray):
     for rm in xrange(len(uniqueIDArray)):
         for slot in xrange(len(uniqueIDArray[0])):
             revRN = reverseBytes(uniqueIDArray[rm][slot])
-            hexRN = t.toHex(revRN)
+            hexRN = toHex(revRN)
             revSN = serialNum(revRN)
-            hexSN = t.toHex(revSN)
+            hexSN = toHex(revSN)
             print 'RM: ', rm, ' slot: ', slot
             # print 'Unique Registration Number (dec): ', revRN
             # print 'Unique Registration Number (hex): ', hexRN
