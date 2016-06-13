@@ -319,7 +319,7 @@ bridgeDict = {
     # Conflict between Orbits 0, 1 and Daisy Chains 0, 1.
     # Addresses 0x30, 0x31.
     24 : {
-        'name' : 'QIE Daisy Chain 0'
+        'name' : 'QIE Daisy Chain 0',
         # 'function' : qieDaisyChain0,
         'function' : simplePrint,
         'address' : 0x30,
@@ -327,7 +327,7 @@ bridgeDict = {
         'write' : True
     },
     25 : {
-        'name' : 'QIE Daisy Chain 1'
+        'name' : 'QIE Daisy Chain 1',
         # 'function' : qieDaisyChain1,
         'function' : simplePrint,
         'address' : 0x31,
@@ -335,7 +335,7 @@ bridgeDict = {
         'write' : True
     },
     26 : {
-        'name' : 'Thermometer One Wire'
+        'name' : 'Thermometer One Wire',
         # 'function' : thermOneWire,
         # 'function' : simplePrint,
         'function' : simplePrint,
@@ -348,48 +348,48 @@ bridgeDict = {
 # I2C_SELECT Table (address 0x11)
 i2cDict = {
     0 : {
-        'name' : 'no select'
+        'name' : 'no select',
         # 'function' : noSelect,
         'function' : simplePrint,
         'value' : 0x00
     },
     1 : {
-        'name' : 'VTTX 1 (Twin Transmitter)'
+        'name' : 'VTTX 1 (Twin Transmitter)',
         # 'function' : vttx1,
         'function' : simplePrint,
         'value' : 0x01,
         'address' : 0x7E
     },
     2 : {
-        'name' : 'VTTX 2 (Twin Transmitter)'
+        'name' : 'VTTX 2 (Twin Transmitter)',
         # 'function' : vttx2,
         'function' : simplePrint,
         'value' : 0x02,
         'address' : 0x7E
     },
     3 : {
-        'name' : 'igloo2 FPGA (unique FPGA for HE, Top for HB)'
+        'name' : 'igloo2 FPGA (unique FPGA for HE, Top for HB)',
         # 'function' : vttx1,
         'function' : simplePrint,
         'value' : 0x03,
         'address' : 0x09
     },
     4 : {
-        'name' : 'DS28CM00 Silicon Serial Number (Unique ID)'
+        'name' : 'DS28CM00 Silicon Serial Number (Unique ID)',
         # 'function' : uniqueID,
         'function' : simplePrint,
         'value' : 0x04,
         'address' : 0x50
     },
     5 : {
-        'name' : 'SHT21 Humidity and Temperature Sensor'
+        'name' : 'SHT21 Humidity and Temperature Sensor',
         # 'function' : temp,
         'function' : simplePrint,
         'value' : 0x05,
         'address' : 0x40
     },
     7 : {
-        'name' : 'igloo2 Bot_FPGA'
+        'name' : 'igloo2 Bot_FPGA',
         # 'function' : temp,
         'function' : simplePrint,
         'value' : 0x07,
