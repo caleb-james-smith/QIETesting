@@ -95,7 +95,7 @@ def idStringCont(message):
 def fwVersion(message):
     # correct_value = "N/A" # We need to find Firmware Version
     message = t.toHex(message)
-    print 'correct value: ', correct_value
+    # print 'correct value: ', correct_value
     print 'message: ', message
     return message
 
