@@ -129,49 +129,49 @@ def simplePrint(message):
 
 bridgeDict = {
     0 : {
-        'name' : 'ID string'
+        'name' : 'ID string',
         'function' : idString,
         'address' : 0x00,
         'bits' : 32,
         'write' : False
     },
     1 : {
-        'name' : 'ID string cont'
+        'name' : 'ID string cont',
         'function' : idStringCont,
         'address' : 0x01,
         'bits' : 32,
         'write' : False
     },
     2 : {
-        'name' : 'FW Version'
+        'name' : 'FW Version',
         'function' : fwVersion,
         'address' : 0x04,
         'bits' : 32,
         'write' : False
     },
     3 : {
-        'name' : 'Ones'
+        'name' : 'Ones',
         'function' : ones,
         'address' : 0x08,
         'bits' : 32,
         'write' : False
     },
     4 : {
-        'name' : 'Zeroes'
+        'name' : 'Zeroes',
         'function' : zeroes,
         'address' : 0x09,
         'bits' : 32,
         'write' : False
     },
     5 : {
-        'name' : 'OnesZeroes'
+        'name' : 'OnesZeroes',
         'function' : onesZeroes,
         'address' : 0x0A,
         'bits' : 32,
         'write' : False
     },
     6 : {
-        'name' : 'Scratch'
+        'name' : 'Scratch',
         # 'function' : scratch,
         'function' : simplePrint,
         'address' : 0x0B,
@@ -179,7 +179,7 @@ bridgeDict = {
         'write' : True
     },
     7 : {
-        'name' : 'Status'
+        'name' : 'Status',
         # 'function' : status,
         'function' : simplePrint,
         'address' : 0x10,
@@ -187,7 +187,7 @@ bridgeDict = {
         'write' : False
     },
     8 : {
-        'name' : 'I2C_SELECT'
+        'name' : 'I2C_SELECT',
         # 'function' : i2cSelect,
         'function' : simplePrint,
         'address' : 0x11,
@@ -195,7 +195,7 @@ bridgeDict = {
         'write' : True
     },
     9 : {
-        'name' : 'Clock Counter'
+        'name' : 'Clock Counter',
         # 'function' : clockCounter,
         'function' : simplePrint,
         'address' : 0x12,
@@ -203,7 +203,7 @@ bridgeDict = {
         'write' : False
     },
     10 : {
-        'name' : 'RES_QIE Counter'
+        'name' : 'RES_QIE Counter',
         # 'function' : resQieCounter,
         'function' : simplePrint,
         'address' : 0x13,
@@ -211,7 +211,7 @@ bridgeDict = {
         'write' : False
     },
     11 : {
-        'name' : 'WTE Counter'
+        'name' : 'WTE Counter',
         # 'function' : wteCounter,
         'function' : simplePrint,
         'address' : 0x14,
@@ -219,7 +219,7 @@ bridgeDict = {
         'write' : False
     },
     12 : {
-        'name' : 'BkPln_Spare_1 Counter'
+        'name' : 'BkPln_Spare_1 Counter',
         # 'function' : bkPlnCounter1,
         'function' : simplePrint,
         'address' : 0x15,
@@ -227,7 +227,7 @@ bridgeDict = {
         'write' : False
     },
     13 : {
-        'name' : 'BkPln_Spare_2 Counter'
+        'name' : 'BkPln_Spare_2 Counter',
         # 'function' : bkPlnCounter2,
         'function' : simplePrint,
         'address' : 0x16,
@@ -235,7 +235,7 @@ bridgeDict = {
         'write' : False
     },
     14 : {
-        'name' : 'BkPln_Spare_3 Counter'
+        'name' : 'BkPln_Spare_3 Counter',
         # 'function' : bkPlnCounter3,
         'function' : simplePrint,
         'address' : 0x17,
@@ -243,7 +243,7 @@ bridgeDict = {
         'write' : False
     },
     15 : {
-        'name' : 'igloo2 FPGA Control'
+        'name' : 'igloo2 FPGA Control',
         # 'function' : iglooControl,
         'function' : simplePrint,
         'address' : 0x22,
@@ -251,7 +251,7 @@ bridgeDict = {
         'write' : True
     },
     16 : {
-        'name' : 'ControlReg'
+        'name' : 'ControlReg',
         # 'function' : controlReg,
         'function' : simplePrint,
         'address' : 0x2A,
@@ -259,7 +259,7 @@ bridgeDict = {
         'write' : True
     },
     17 : {
-        'name' : 'orbit_histo[167:144]'
+        'name' : 'orbit_histo[167:144]',
         # 'function' : orbitHisto6,
         'function' : simplePrint,
         'address' : 0x2B,
@@ -267,7 +267,7 @@ bridgeDict = {
         'write' : False
     },
     18 : {
-        'name' : 'orbit_histo[143:120]'
+        'name' : 'orbit_histo[143:120]',
         # 'function' : orbitHisto5,
         'function' : simplePrint,
         'address' : 0x2C,
@@ -275,7 +275,7 @@ bridgeDict = {
         'write' : False
     },
     19 : {
-        'name' : 'orbit_histo[119:96]'
+        'name' : 'orbit_histo[119:96]',
         # 'function' : orbitHisto4,
         'function' : simplePrint,
         'address' : 0x2D,
@@ -283,7 +283,7 @@ bridgeDict = {
         'write' : False
     },
     20 : {
-        'name' : 'orbit_histo[95:72]'
+        'name' : 'orbit_histo[95:72]',
         # 'function' : orbitHisto3,
         'function' : simplePrint,
         'address' : 0x2E,
@@ -291,7 +291,7 @@ bridgeDict = {
         'write' : False
     },
     21 : {
-        'name' : 'orbit_histo[71:48]'
+        'name' : 'orbit_histo[71:48]',
         # 'function' : orbitHisto2,
         'function' : simplePrint,
         'address' : 0x2F,
@@ -299,7 +299,7 @@ bridgeDict = {
         'write' : False
     },
     22 : {
-        'name' : 'orbit_histo[47:24]'
+        'name' : 'orbit_histo[47:24]',
         # 'function' : orbitHisto1,
         'function' : simplePrint,
         'address' : 0x30,
@@ -307,7 +307,7 @@ bridgeDict = {
         'write' : False
     },
     23 : {
-        'name' : 'orbit_histo[23:0]'
+        'name' : 'orbit_histo[23:0]',
         # 'function' : orbitHisto0,
         'function' : simplePrint,
         'address' : 0x31,
