@@ -1,10 +1,8 @@
 from client import webBus
 from operator import add
-import TestLib
-# import QIELib
+import TestLib as t
+import QIELib as q
 b = webBus("pi5",0)
-t = TestLib
-# q = QIELib
 
 # Examlpe...
 def bridge0(rm,slot):
@@ -30,6 +28,7 @@ def runBridgeTests(RMList, num_slots, num_tests, verbosity=0):
             print '\n-------------------- Test Slot: ', slot, ' --------------------'
             test_list = basicTests(slot,num_tests)
             total_test_list = map(add, total_test_list, test_list)
+            daisyChain = q.qCard(b,q.QIEi2c[slot])
             if verbosity:
                 print '\nNumber passed = ', test_list[0]
                 print 'Number failed = ', test_list[1]
@@ -123,6 +122,20 @@ def onesZeroes(message):
     print 'int message: ', message
     print 'hex message: ', hex_message
     return passFail(hex_message==correct_value)
+
+# def qieDaisyChain0(messgae):
+#     hex_message = t.toHex(message,1)
+#     print 'int message: ', message
+#     print 'hex message:', hex_message
+#     qCard0 = q.qCard(b,0x30)
+#     return hex_message
+#
+# def qieDaisyChain1(message):
+#     hex_message = t.toHex(message,1)
+#     print 'int message: ', message
+#     print 'hex message:', hex_message
+#     qCard1 = q.qCard(b,0x31)
+#     return hex_message
 
 def simplePrint(message):
     hex_message = t.toHex(message,1)
@@ -340,7 +353,6 @@ bridgeDict = {
     26 : {
         'name' : 'Thermometer One Wire',
         # 'function' : thermOneWire,
-        # 'function' : simplePrint,
         'function' : simplePrint,
         'address' : 0x40,
         'bits' : 32, # TBD in documentation
