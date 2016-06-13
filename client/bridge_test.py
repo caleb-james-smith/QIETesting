@@ -27,6 +27,7 @@ def runBridgeTests(RMList, num_slots, num_tests, verbosity=0):
         print '\n-------------------- Test RM: ', rm, ' --------------------'
         for slot in xrange(num_slots):
             b.write(0x00,[0x06])
+            print '\n-------------------- Test Slot: ', slot, ' --------------------'
             test_list = basicTests(slot,num_tests)
             total_test_list = map(add, total_test_list, test_list)
             if verbosity:
@@ -63,7 +64,7 @@ def basicTests(slot, num_tests, verbosity=0):
             print 'Neither PASS Nor FAIL'
             neither += 1
         if verbosity:
-            print 'Register Name: ', bridgeDict[test]['address']
+            print 'Register Name: ', bridgeDict[test]['name']
             print 'Register Value: ', message
             print 'Test Result: ', result
 
