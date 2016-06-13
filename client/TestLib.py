@@ -45,9 +45,9 @@ QIEi2c = {
 
 # Bridge Register Tests
 
-def readRegister(slot,address):
+def readRegister(slot, address, num_bytes):
     b.write(q.QIEi2c[slot],[address])
-    b.read(q.QIEi2c[slot],4)
+    b.read(q.QIEi2c[slot], num_bytes)
     message = b.sendBatch()[-1]
     return reverseBytes(message)
 
@@ -83,26 +83,32 @@ def onesZeroes(message):
 
 bridgeDict = {
     0 : {
+        'name' : 'idString'
         'function' : idString,
         'address' : 0x00,
     },
     1 : {
+        'name' : 'idStringCont'
         'function' : idStringCont,
         'address' : 0x01,
     },
     2 : {
+        'name' : 'fwVersion'
         'function' : fwVersion,
         'address' : 0x04,
     },
     3 : {
+        'name' : 'ones'
         'function' : ones,
         'address' : 0x08,
     },
     4 : {
+        'name' : 'zeroes'
         'function' : zeroes,
         'address' : 0x09,
     },
     5 : {
+        'name' : 'onesZeroes'
         'function' : onesZeroes,
         'address' : 0x0A,
     },
