@@ -83,32 +83,32 @@ def onesZeroes(message):
 
 bridgeDict = {
     0 : {
-        'name' : 'idString'
+        'name' : 'idString',
         'function' : idString,
         'address' : 0x00,
     },
     1 : {
-        'name' : 'idStringCont'
+        'name' : 'idStringCont',
         'function' : idStringCont,
         'address' : 0x01,
     },
     2 : {
-        'name' : 'fwVersion'
+        'name' : 'fwVersion',
         'function' : fwVersion,
         'address' : 0x04,
     },
     3 : {
-        'name' : 'ones'
+        'name' : 'ones',
         'function' : ones,
         'address' : 0x08,
     },
     4 : {
-        'name' : 'zeroes'
+        'name' : 'zeroes',
         'function' : zeroes,
         'address' : 0x09,
     },
     5 : {
-        'name' : 'onesZeroes'
+        'name' : 'onesZeroes',
         'function' : onesZeroes,
         'address' : 0x0A,
     },
