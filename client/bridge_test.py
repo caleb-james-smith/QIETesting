@@ -24,7 +24,7 @@ def runBridgeTests(RMList, num_slots, num_tests, verbosity=0):
     total_test_list = [total_passed, total_failed, total_neither]
     for rm in RMList:
         t.openRM(rm)
-        print '\n### Test RM: ', rm, ' ######'
+        print '\n-------------------- Test RM: ', rm, ' --------------------'
         for slot in xrange(num_slots):
             b.write(0x00,[0x06])
             test_list = basicTests(slot,num_tests)
@@ -400,4 +400,4 @@ i2cDict = {
 ###############################################################################
 
 # runBridgeTests(RMList, num_slots, num_tests, verbosity=0)
-runBridgeTests([0],1,6,1)
+runBridgeTests([0],4,6,0)
