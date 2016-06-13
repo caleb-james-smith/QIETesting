@@ -37,7 +37,7 @@ def runBridgeTests(RMList, num_slots, num_tests, verbosity=0):
 
     # Print Final Test Results for Bridge FPGA
     print '\n\n########   Final Test Results  ########\n'
-    print 'Total Number of Tests = ', num_tests
+    print 'Total Number of Tests = ', total_number_tests
     print 'Number passed = ', total_test_list[0]
     print 'Number failed = ', total_test_list[1]
     print 'Number neither pass nor fail = ', total_test_list[2]
