@@ -63,7 +63,7 @@ def basicTests(slot, num_tests, verbosity=0):
             print 'Neither PASS Nor FAIL'
             neither += 1
         if verbosity:
-            print '':
+            print 'Register Name: ', bridgeDict[test]['address']
             print 'Register Value: ', message
             print 'Test Result: ', result
 
