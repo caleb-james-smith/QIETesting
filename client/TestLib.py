@@ -163,15 +163,18 @@ def reverseBytes(message):
     return s.join(message_list)
 
 # Convert string of ints with spaces to a string of hex values with no spaces... one long string.
-def toHex(message,colon=1):
+def toHex(message, colon=2):
     message_list = message.split()
     for byte in xrange(len(message_list)):
         message_list[byte] = hex(int(message_list[byte]))
         message_list[byte] = message_list[byte][2:]
         if len(message_list[byte]) == 1:
             message_list[byte] = '0' + message_list[byte]
-    if colon:
+    if colon == 2:
         s = ":"
+        return s.join(message_list)
+    if colon == 1:
+        s = " "
         return s.join(message_list)
     s = ""
     return '0x' + s.join(message_list)

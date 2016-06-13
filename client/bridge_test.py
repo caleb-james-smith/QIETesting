@@ -83,28 +83,28 @@ def idString(message):
     correct_value = "HERM"
     message = t.toASCII(message)
     print 'correct value: ', correct_value
-    print 'message: ', message
+    print 'ASCII message: ', message
     return passFail(message==correct_value)
 
 def idStringCont(message):
     correct_value = "Brdg"
     message = t.toASCII(message)
     print 'correct value: ', correct_value
-    print 'message: ', message
+    print 'ASCII message: ', message
     return passFail(message==correct_value)
 
 def fwVersion(message):
     # correct_value = "N/A" # We need to find Firmware Version
     message = t.toHex(message)
     # print 'correct value: ', correct_value
-    print 'message: ', message
+    print 'hex message: ', message
     return message
 
 def ones(message):
     correct_value = '0xffffffff'
     hex_message = t.toHex(message,0)
     print 'correct value: ', correct_value
-    print 'message: ', message
+    print 'int message: ', message
     print 'hex message: ', hex_message
     return passFail(hex_message==correct_value)
 
@@ -112,7 +112,7 @@ def zeroes(message):
     correct_value = '0x00000000'
     hex_message = t.toHex(message,0)
     print 'correct value: ', correct_value
-    print 'message: ', message
+    print 'int message: ', message
     print 'hex message: ', hex_message
     return passFail(hex_message==correct_value)
 
@@ -120,13 +120,15 @@ def onesZeroes(message):
     correct_value = '0xaaaaaaaa'
     hex_message = t.toHex(message,0)
     print 'correct value: ', correct_value
-    print 'message: ', message
+    print 'int message: ', message
     print 'hex message: ', hex_message
     return passFail(hex_message==correct_value)
 
 def simplePrint(message):
-    print 'message: ', message
-    return message
+    hex_message = t.toHex(message,1)
+    print 'int message: ', message
+    print 'hex message:', hex_message
+    return hex_message
 
 bridgeDict = {
     0 : {
@@ -401,4 +403,4 @@ i2cDict = {
 ###############################################################################
 
 # runBridgeTests(RMList, num_slots, num_tests, verbosity=0)
-runBridgeTests([0],1,27,0)
+runBridgeTests([0],4,27,0)
