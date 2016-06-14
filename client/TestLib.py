@@ -123,7 +123,7 @@ def readRegisterBridge(slot, address, num_bytes):
     b.read(q.QIEi2c[slot], num_bytes)
     message = b.sendBatch()[-1]
     # return reverseBytes(message)
-    return reverseBytes(message)
+    return message
 
 # Read number of bytes from register for Igloo
 
