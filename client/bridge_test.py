@@ -125,19 +125,25 @@ def onesZeroes(message):
     print 'hex message: ', hex_message
     return passFail(hex_message==correct_value)
 
-# def qieDaisyChain0(messgae):
-#     hex_message = t.toHex(message,1)
-#     print 'int message: ', message
-#     print 'hex message:', hex_message
-#     qCard0 = q.qCard(b,0x30)
-#     return hex_message
-#
-# def qieDaisyChain1(message):
-#     hex_message = t.toHex(message,1)
-#     print 'int message: ', message
-#     print 'hex message:', hex_message
-#     qCard1 = q.qCard(b,0x31)
-#     return hex_message
+def qieDaisyChain0(messgae):
+    hex_message = t.toHex(message,1)
+    print 'int message: ', message
+    print 'hex message:', hex_message
+    split_message = t.splitMessage(hex_message)
+    for i in xrange(len(split_message)):
+        print 'QIE ',i+1,': ',split_message[i]
+    return hex_message
+
+def qieDaisyChain1(message):
+    hex_message = t.toHex(message,1)
+    print 'int message: ', message
+    print 'hex message:', hex_message
+    split_message = t.splitMessage(hex_message)
+    for i in xrange(len(split_message)):
+        print 'QIE ',i+7,': ',split_message[i]
+    return hex_message
+
+    return hex_message
 
 def simplePrint(message):
     hex_message = t.toHex(message,1)
@@ -340,19 +346,19 @@ bridgeDict = {
     # Addresses 0x30, 0x31.
     24 : {
         'name' : 'QIE Daisy Chain 0',
-        # 'function' : qieDaisyChain0,
-        'function' : simplePrint,
-        # 'address' : 0x30,
-        'address' : 0x32,
+        'function' : qieDaisyChain0,
+        # 'function' : simplePrint,
+        'address' : 0x30,
+        # 'address' : 0x32,
         'bits' : 384,
         'write' : True
     },
     25 : {
         'name' : 'QIE Daisy Chain 1',
-        # 'function' : qieDaisyChain1,
-        'function' : simplePrint,
-        # 'address' : 0x31,
-        'address' : 0x33,
+        'function' : qieDaisyChain1,
+        # 'function' : simplePrint,
+        'address' : 0x31,
+        # 'address' : 0x33,
         'bits' : 384,
         'write' : True
     },

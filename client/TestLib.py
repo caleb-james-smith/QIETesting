@@ -175,6 +175,17 @@ def printIDs(uniqueIDArray):
             print 'Serial Number (hex): ', hexSN
             print
 
+# Split message into a list of messages. Use for QIE Dasiy Chains.
+def splitMessage(message, num_parts):
+    message_list = message.split()
+    size = len(message_list) / num_parts
+    final_message_list = []
+    s = " "
+    for n in xrange(num_parts):
+        part_list = message_list[n*size:(n+1)*size]
+        final_message_list.append(s.join(part_list))
+    return final_message_list
+
 # Reverse order of string of bytes separated by spaces.
 def reverseBytes(message):
     message_list = message.split()
