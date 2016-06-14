@@ -4,7 +4,7 @@
 from client import webBus
 import QIELib as q
 import TestLib as t
-b = webBus("pi5",0)
+b = webBus("pi5")
 
 #MUX slave addresses (slave i2c addresses)
 MUXs = {
@@ -122,6 +122,7 @@ def readRegisterBridge(slot, address, num_bytes):
     b.write(q.QIEi2c[slot],[address])
     b.read(q.QIEi2c[slot], num_bytes)
     message = b.sendBatch()[-1]
+    # return reverseBytes(message)
     return reverseBytes(message)
 
 # Read number of bytes from register for Igloo
