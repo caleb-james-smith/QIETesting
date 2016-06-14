@@ -195,6 +195,17 @@ def writeToRegister(bus, address, register, bytesToWrite):
     return None
 
 ################################################################################
+# BridgeRegister Class
+################################################################################
+class bridgeRegisters:
+    def __init__(self, name, correctVal, address, bits, write):
+        self.name = name
+        self.correctVal = correctVal
+        self.address = address
+        self.bits = bits
+        self.write = write
+
+################################################################################
 # QIEshiftRegister Class
 ################################################################################
 class QIEshiftRegister:

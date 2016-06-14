@@ -43,18 +43,18 @@ QIEi2c = {
 
 ######## Bridge Test Function Dictionary
 
-# Bridge Register Tests
-
-def readRegister(slot, address, num_bytes):
-    b.write(q.QIEi2c[slot],[address])
-    b.read(q.QIEi2c[slot], num_bytes)
-    message = b.sendBatch()[-1]
-    return reverseBytes(message)
+def simplePrint(message):
+    hex_message = t.toHex(message,1)
+    print 'int message: ', message
+    print 'hex message:', hex_message
+    return hex_message
 
 def passFail(result):
     if result:
         return 'PASS'
     return 'FAIL'
+
+# Bridge Register Tests
 
 def idString(message):
     correct_value = "HERM"
@@ -113,6 +113,26 @@ bridgeDict = {
         'address' : 0x0A,
     },
 }
+
+# Read from I2C_SELECT device
+
+# Read number of bytes from register for Bridge
+
+def readRegisterBridge(slot, address, num_bytes):
+    b.write(q.QIEi2c[slot],[address])
+    b.read(q.QIEi2c[slot], num_bytes)
+    message = b.sendBatch()[-1]
+    return reverseBytes(message)
+
+# Read number of bytes from register for Igloo
+
+def readRegisterIgloo(slot, address, num_bytes):
+    b.write(0x00,[0x06])
+    b.write(q.QIEi2c[slot],[0x11,0x03,0,0,0])
+    b.write(0x09,[address])
+    b.read(0x09, num_bytes)
+    message = b.sendBatch()[-1]
+    return reverseBytes(message)
 
 ######## open channel to RM! ######################
 

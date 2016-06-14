@@ -4,7 +4,7 @@ import TestLib as t
 import QIELib as q
 b = webBus("pi5",0)
 
-# Examlpe...
+# Examlpe for register address 0x00
 def bridge0(rm,slot):
     t.openRM(rm)
     b.write(q.QIEi2c[slot],[0x00])
@@ -26,7 +26,7 @@ def runBridgeTests(RMList, num_slots, num_tests, verbosity=0):
         for slot in xrange(num_slots):
             b.write(0x00,[0x06])
             print '\n-------------------- Test Slot: ', slot, ' --------------------'
-            test_list = basicTests(slot,num_tests)
+            test_list = bridgeTests(slot,num_tests)
             total_test_list = map(add, total_test_list, test_list)
             # daisyChain = q.qCard(webBus("pi5",0), q.QIEi2c[slot])
             # print '\n~~~~~~~~~~ QIE Daisy Chain ~~~~~~~~~~'
@@ -44,7 +44,7 @@ def runBridgeTests(RMList, num_slots, num_tests, verbosity=0):
     print 'Number neither pass nor fail = ', total_test_list[2]
     print 'Check total number of tests: ', total_number_tests == sum(total_test_list), '\n'
 
-def basicTests(slot, num_tests, verbosity=0):
+def bridgeTests(slot, num_tests, verbosity=0):
     passed = 0
     failed = 0
     neither = 0
@@ -55,7 +55,7 @@ def basicTests(slot, num_tests, verbosity=0):
         function = bridgeDict[test]['function']
         address = bridgeDict[test]['address']
         num_bytes = bridgeDict[test]['bits']/8
-        message = t.readRegister(slot, address, num_bytes)
+        message = t.readRegisterBridge(slot, address, num_bytes)
         result = function(message)
         if result == 'PASS':
             passed += 1
@@ -144,6 +144,8 @@ def simplePrint(message):
     print 'int message: ', message
     print 'hex message:', hex_message
     return hex_message
+
+# Input and compare all correct values in same format...
 
 bridgeDict = {
     0 : {
@@ -404,14 +406,8 @@ i2cDict = {
         'function' : simplePrint,
         'value' : 0x05,
         'address' : 0x40
-    },
-    7 : {
-        'name' : 'igloo2 Bot_FPGA',
-        # 'function' : temp,
-        'function' : simplePrint,
-        'value' : 0x07,
-        'address' : 0x09
     }
+    # igloo2 Bot_FPGA does not exist for HE (only for HF)!
 }
 
 ###############################################################################
