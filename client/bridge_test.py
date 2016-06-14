@@ -56,7 +56,7 @@ def bridgeTests(slot, num_tests, verbosity=0):
         address = bridgeDict[test]['address']
         num_bytes = bridgeDict[test]['bits']/8
         message = t.readRegisterBridge(slot, address, num_bytes)
-        print '\n*********** RAW MESSAGE :', reverseBytes(message),'\n'
+        print '\n*********** RAW MESSAGE :', t.reverseBytes(message),'\n'
         result = function(message)
         if result == 'PASS':
             passed += 1
