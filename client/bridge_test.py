@@ -422,4 +422,4 @@ i2cDict = {
 ###############################################################################
 
 # runBridgeTests(RMList, num_slots, num_tests, verbosity=0)
-runBridgeTests([0],4,27,0)
+runBridgeTests([0],1,6,0)
