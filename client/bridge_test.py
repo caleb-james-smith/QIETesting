@@ -2,7 +2,7 @@ from client import webBus
 from operator import add
 import TestLib as t
 import QIELib as q
-b = webBus("pi5",0)
+b = webBus("pi5")
 
 # Examlpe for register address 0x00
 def bridge0(rm,slot):
