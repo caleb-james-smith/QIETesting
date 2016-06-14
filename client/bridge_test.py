@@ -342,7 +342,8 @@ bridgeDict = {
         'name' : 'QIE Daisy Chain 0',
         # 'function' : qieDaisyChain0,
         'function' : simplePrint,
-        'address' : 0x30,
+        # 'address' : 0x30,
+        'address' : 0x32,
         'bits' : 384,
         'write' : True
     },
@@ -350,7 +351,8 @@ bridgeDict = {
         'name' : 'QIE Daisy Chain 1',
         # 'function' : qieDaisyChain1,
         'function' : simplePrint,
-        'address' : 0x31,
+        # 'address' : 0x31,
+        'address' : 0x33,
         'bits' : 384,
         'write' : True
     },
