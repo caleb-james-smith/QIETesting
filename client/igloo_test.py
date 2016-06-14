@@ -1,4 +1,5 @@
 from client import webBus
+from operator import add
 import TestLib as t
 import QIELib as q
 b = webBus("pi5")
