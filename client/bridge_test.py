@@ -129,7 +129,7 @@ def qieDaisyChain0(message):
     hex_message = t.toHex(message,1)
     print 'int message: ', message
     print 'hex message:', hex_message
-    split_message = t.splitMessage(hex_message)
+    split_message = t.splitMessage(hex_message,6)
     for i in xrange(len(split_message)):
         print 'QIE ',i+1,': ',split_message[i]
     return hex_message
@@ -138,7 +138,7 @@ def qieDaisyChain1(message):
     hex_message = t.toHex(message,1)
     print 'int message: ', message
     print 'hex message:', hex_message
-    split_message = t.splitMessage(hex_message)
+    split_message = t.splitMessage(hex_message,6)
     for i in xrange(len(split_message)):
         print 'QIE ',i+7,': ',split_message[i]
     return hex_message
