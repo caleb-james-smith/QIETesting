@@ -125,7 +125,7 @@ def onesZeroes(message):
     print 'hex message: ', hex_message
     return passFail(hex_message==correct_value)
 
-def qieDaisyChain0(messgae):
+def qieDaisyChain0(message):
     hex_message = t.toHex(message,1)
     print 'int message: ', message
     print 'hex message:', hex_message
