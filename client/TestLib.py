@@ -122,8 +122,7 @@ def readRegisterBridge(slot, address, num_bytes):
     b.write(q.QIEi2c[slot],[address])
     b.read(q.QIEi2c[slot], num_bytes)
     message = b.sendBatch()[-1]
-    # return reverseBytes(message)
-    return message
+    return reverseBytes(message)
 
 # Read number of bytes from register for Igloo
 
@@ -133,8 +132,7 @@ def readRegisterIgloo(slot, address, num_bytes):
     b.write(0x09,[address])
     b.read(0x09, num_bytes)
     message = b.sendBatch()[-1]
-    # return reverseBytes(message)
-    return message
+    return reverseBytes(message)
 
 ######## open channel to RM! ######################
 
