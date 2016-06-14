@@ -132,7 +132,8 @@ def readRegisterIgloo(slot, address, num_bytes):
     b.write(0x09,[address])
     b.read(0x09, num_bytes)
     message = b.sendBatch()[-1]
-    return reverseBytes(message)
+    # return reverseBytes(message)
+    return message
 
 ######## open channel to RM! ######################
 
