@@ -28,10 +28,10 @@ REGs = {
 # Simplify your life today with RMi2c and QIEi2c. Boom dog.
 
 RMi2c = {
-    0 : 0x02,
-    1 : 0x20,
-    2 : 0x10,
-    3 : 0x01
+    0 : 0x02, # Bit 1 = 2
+    1 : 0x20, # Bit 5 = 32
+    2 : 0x10, # Bit 4 = 16
+    3 : 0x01  # Bit 0 = 1
         }
 
 QIEi2c = {

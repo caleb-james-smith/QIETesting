@@ -8,4 +8,5 @@ def test(rmList):
         b.read(0x74,1)
         print b.sendBatch()
 
-test([0])
+# test([0])
+b.write(1111,[1])
