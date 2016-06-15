@@ -8,8 +8,8 @@ def readTemp(slot, num_bytes):
     b.write(q.QIEi2c[slot],[0x11,0x05,0,0,0])
     b.write(0x40,[0xF3])
     b.read(0x40, num_bytes)
-    message = b.sendBatch()[-1]
-    return reverseBytes(message)
+    message = b.sendBatch()
+    return message
 
 t.openRM(0)
-print readTemp(0,)
+print readTemp(0,3)
