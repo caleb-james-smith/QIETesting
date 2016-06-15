@@ -28,9 +28,9 @@ def runBridgeTests(RMList, num_slots, num_tests, verbosity=0):
             print '\n-------------------- Test Slot: ', slot, ' --------------------'
             test_list = bridgeTests(slot,num_tests)
             total_test_list = map(add, total_test_list, test_list)
-            # daisyChain = q.qCard(webBus("pi5",0), q.QIEi2c[slot])
-            # print '\n~~~~~~~~~~ QIE Daisy Chain ~~~~~~~~~~'
-            # print str(daisyChain)
+            daisyChain = q.qCard(webBus("pi5",0), q.QIEi2c[slot])
+            print '\n~~~~~~~~~~ QIE Daisy Chain ~~~~~~~~~~'
+            print str(daisyChain)
             if verbosity:
                 print '\nNumber passed = ', test_list[0]
                 print 'Number failed = ', test_list[1]
@@ -422,4 +422,5 @@ i2cDict = {
 ###############################################################################
 
 # runBridgeTests(RMList, num_slots, num_tests, verbosity=0)
-runBridgeTests([0],1,6,0)
+# 27 is max num of tests
+runBridgeTests([0],4,27,0)

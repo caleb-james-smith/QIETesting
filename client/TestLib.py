@@ -193,6 +193,13 @@ def reverseBytes(message):
     s = " "
     return s.join(message_list)
 
+# Convert string of ints to list of ints.
+def toIntList(message):
+    message_list = message.split()
+    for byte in xrange(len(message_list)):
+        message_list[byte] = int(message_list[byte])
+    return message_list
+
 # Convert string of ints with spaces to a string of hex values with no spaces... one long string.
 def toHex(message, colon=2):
     message_list = message.split()
