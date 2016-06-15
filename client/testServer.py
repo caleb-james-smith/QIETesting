@@ -5,5 +5,7 @@ b = webBus("pi5")
 def test(rmList):
     for rm in rmList:
         print t.openRM(rm)
+        b.read(0x74,1)
+        print b.sendBatch()
 
-test([0,1,2,3])
+test([0])
