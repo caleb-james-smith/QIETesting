@@ -8,7 +8,7 @@ bus = webBus("pi5",0)
 # intDataHappy = '0 112 60 131'
 # value = 28732
 
-def readTemp(slot, num_bytes):
+def readTemp(slot, num_bytes, verbosity=0):
     bus.write(0x00,[0x06])
     bus.write(q.QIEi2c[slot],[0x11,0x05,0,0,0])
     bus.write(0x40,[0xF3])
@@ -16,16 +16,17 @@ def readTemp(slot, num_bytes):
     message = bus.sendBatch()[-1]
     # message = intDataHappy
     value = getValue(message)
-    print 'message: ', message
-    print 'checksum: ', cc.checkCRC(message, 2)
-    print 'value: ', value
-    return calcTemp(value)
+    crc = cc.checkCRC(message, 2)
+    if verbosity:
+        print 'message: ', message
+        print 'checksum: ', crc
+        print 'value: ', value
+    return (crc,calcTemp(value))
 
 def getValue(message):
     value = ''
     mList = message.split()
     mList = mList[1:-1]
-    print mList
     for byte in xrange(len(mList)):
         initialByte = bin(int(mList[byte]))[2:]
         length = len(initialByte)
@@ -33,7 +34,6 @@ def getValue(message):
         fullByte = zeros + initialByte
         value += fullByte
     value = value[:-2] + '00'
-    print 'BINARY VALUE: ', value
     return int(value,2)
 
 def calcTemp(s):
@@ -42,10 +42,10 @@ def calcTemp(s):
 def calcHumi(s):
     return -6 + 125.0 * s/2**16
 
-def readManyTemps(rm,slot,nTemps):
+def readManyTemps(rm,slot,nTemps,verbosity=0):
+    t.openRM(rm)
     for i in xrange(nTemps):
-        t.openRM(rm)
-        print readTemp(slot,2)
+        print readTemp(slot,2,verbosity)
 
 # Set last two bits of LSB to 0 (these are status bits).
 # message = '0 01100011 01010010 01100100'
