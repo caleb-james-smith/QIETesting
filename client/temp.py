@@ -17,7 +17,7 @@ def readTemp(slot, num_bytes, verbosity=0):
     # message = intDataHappy
     value = getValue(message)
     crc = cc.checkCRC(message, 2)
-    if verbosity:
+    if verbosity > 1:
         print 'message: ', message
         print 'checksum: ', crc
         print 'value: ', value
@@ -50,7 +50,7 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
     t.openRM(rm)
     for i in xrange(nTemps):
         tempList = readTemp(slot,2,verbosity)
-        if verbosity:
+        if verbosity > 0:
             print tempList
         tempArray.append(tempList)
         if tempList[0] != 'CHECKSUM_OK':
