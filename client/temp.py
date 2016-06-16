@@ -18,28 +18,6 @@ bus = webBus("pi5",0)
 # Trigger T measurement     no hold master  1111'0011   0xF3
 # Trigger RH measurement    no hold master  1111'0101   0xF5
 
-# triggerList = [0xE3,0xE5,0xF3,0xF5]
-trigger = collections.OrderedDict()
-trigger['tempHold'] = 0xE3
-trigger['humiHold'] = 0xE5
-trigger['tempNoHold'] = 0xF3
-trigger['humiNoHold'] = 0xF5
-
-def readTemp(slot, num_bytes, verbosity=0):
-    bus.write(0x00,[0x06])
-    bus.write(q.QIEi2c[slot],[0x11,0x05,0,0,0])
-    bus.write(0x40,[0xF3])
-    bus.read(0x40, num_bytes + 1) # also read checksum byte
-    message = bus.sendBatch()[-1]
-    # message = intDataHappy
-    value = getValue(message)
-    crc = cc.checkCRC(message, 2)
-    if verbosity > 1:
-        print 'message: ', message
-        print 'checksum: ', crc
-        print 'value: ', value
-    return [crc,calcTemp(value)]
-
 def getValue(message):
     value = ''
     mList = message.split()
@@ -61,6 +39,46 @@ def calcHumi(s):
 
 def mean(myList):
     return float(sum(myList))/len(myList)
+
+# triggerList = [0xE3,0xE5,0xF3,0xF5]
+trigger = collections.OrderedDict()
+trigger['tempHold'] = 0xE3
+trigger['humiHold'] = 0xE5
+trigger['tempNoHold'] = 0xF3
+trigger['humiNoHold'] = 0xF5
+
+triggerDict = {
+    'temp' : {
+        'hold' : 0xE3,
+        'nohold' : 0xF3
+    }
+    'humi' : {
+        'hold' : 0xE5,
+        'nohold' : 0xF5
+    }
+}
+
+function = {
+    'temp' : calcTemp,
+    'humi' : calcHumi
+}
+
+# We have used 0xF3 for nohold, which has worked for temp.
+
+def readTempHumi(slot, num_bytes, key, hold, verbosity=0):
+    bus.write(0x00,[0x06])
+    bus.write(q.QIEi2c[slot],[0x11,0x05,0,0,0])
+    bus.write(0x40,[triggerDict[key][hold]])
+    bus.read(0x40, num_bytes + 1) # also read checksum byte
+    message = bus.sendBatch()[-1]
+    # message = intDataHappy
+    value = getValue(message)
+    crc = cc.checkCRC(message, 2)
+    if verbosity > 1:
+        print 'message: ', message
+        print 'checksum: ', crc
+        print 'value: ', value
+    return [crc,function[key](value)]
 
 def readManyTemps(rm,slot,nTemps,verbosity=0):
     tempArray = []
@@ -85,12 +103,10 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
     print 'Temp Mean: ', tempMean
     print 'Temp Mode List: ', tempModeList
 
-# def humiAndTemp
-
 def run(rmList,slotList,iterations,verbosity=0):
     for rm in rmList:
         for slot in slotList:
             print '\n--- RM: ',rm,' Slot: ',slot,'---\n'
             readManyTemps(rm,slot,iterations,verbosity)
 
-run([0],[0,1,2,3],10,1)
+run([0],[0,1,2,3],1,1)
