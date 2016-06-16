@@ -50,6 +50,8 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
     t.openRM(rm)
     for i in xrange(nTemps):
         tempList = readTemp(slot,2,verbosity)
+        if verbosity:
+            print tempList
         tempArray.append(tempList)
         if tempList[0] != 'CHECKSUM_OK':
             print '~~~~~ ERROR for Test ', i,' : ', tempList
