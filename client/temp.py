@@ -97,10 +97,10 @@ def readManyTemps(slot,nTemps,key,hold,verbosity=0):
     tempCounter = collections.Counter(finalTempList)
     tempModeList = tempCounter.most_common()
 
-    print '\nTemp Min: ', tempMin
-    print 'Temp Max: ', tempMax
-    print 'Temp Mean: ', tempMean
-    print 'Temp Mode List: ', tempModeList
+    print '\n',key,' Min: ', tempMin
+    print key,' Max: ', tempMax
+    print key,' Mean: ', tempMean
+    print key,' Mode List: ', tempModeList
 
 def run(rmList,slotList,iterations,verbosity=0):
     for rm in rmList:
