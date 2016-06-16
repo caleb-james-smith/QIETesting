@@ -4,12 +4,16 @@ import TestLib as t
 import QIELib as q
 bus = webBus("pi5",0)
 
+binDataHappy = '0 01110000 00111100 10000011'
+intDataHappy = '0 112 60 131'
+
 def readTemp(slot, num_bytes):
     bus.write(0x00,[0x06])
     bus.write(q.QIEi2c[slot],[0x11,0x05,0,0,0])
     bus.write(0x40,[0xF3])
     bus.read(0x40, num_bytes + 1) # also read checksum byte
-    message = bus.sendBatch()[-1]
+    # message = bus.sendBatch()[-1]
+    messgae = intDataHappy
     value = getValue(message)
     print 'message: ', message
     print 'checksum: ', cc.checkCRC(message, 2)
@@ -30,6 +34,8 @@ def calcTemp(s):
 
 def calcHumi(s):
     return -6 + 125.0 * s/2**16
+
+
 
 t.openRM(0)
 print readTemp(0,2)
