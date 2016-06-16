@@ -23,14 +23,20 @@ def readTemp(slot, num_bytes):
 
 def getValue(message):
     value = ''
-    message_list = message.split()
-    message_list = message_list[1:-1]
-    print message_list
-    for byte in xrange(len(message_list)):
-        value += bin(int(message_list[byte]))[2:]
+    mList = message.split()
+    mList = mList[1:-1]
+    print mList
+    for byte in xrange(len(mList)):
+        initialByte = bin(int(mList[byte]))[2:]
+        length = len(initialByte)
+        zeros = "".join(list('0' for i in xrange(8-length)))
+        fullByte = zeros + initialByte
+        value += fullByte
     value = value[:-2] + '00'
     print 'BINARY VALUE: ', value
     return int(value,2)
+
+
 
 def calcTemp(s):
     return -46.85 + 175.72 * s/2**16
