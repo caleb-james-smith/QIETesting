@@ -1,5 +1,4 @@
 from client import webBus
-import numpy
 import caleb_checksum as cc
 import TestLib as t
 import QIELib as q
@@ -43,6 +42,9 @@ def calcTemp(s):
 def calcHumi(s):
     return -6 + 125.0 * s/2**16
 
+def mean(myList):
+    return float(sum(myList))/len(myList)
+
 def readManyTemps(rm,slot,nTemps,verbosity=0):
     tempArray = []
     t.openRM(rm)
@@ -51,11 +53,11 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
         tempArray.append(tempList)
         if tempTuple[0] != 'CHECKSUM_OK':
             print '~~~~~ ERROR for Test ', i,' : ', tempTuple
-    numpyTempArray = numpy.array(tempArray)
-    finalTempList = numpyTempArray[:,1]
+    transpose = zip(*tempArray)
+    finalTempList = transpose[1]
     tempMin = min(finalTempList)
     tempMax = max(finalTempList)
-    tempMean = numpy.mean(finalTempList)
+    tempMean = mean(finalTempList)
 
     print '\nTemp Min: ', tempMin
     print 'Temp Max: ', tempMax
