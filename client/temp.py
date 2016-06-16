@@ -10,14 +10,18 @@ def readTemp(slot, num_bytes):
     bus.write(0x40,[0xF3])
     bus.read(0x40, num_bytes + 1) # also read checksum byte
     message = bus.sendBatch()[-1]
-    print 'check that sum'
-    print cc.checkCRC(message, 2)
-    return message
+    print 'message: ', message
+    print 'checksum: ', cc.checkCRC(message, 2)
+    return getValue(message)
 
 def getValue(message):
+    value = ''
     message_list = message.split()
-    message_list = message_list[1:]
-    return ' '.join(message_list)
+    message_list = message_list[1:-1]
+    for byte in xrange(len(message_list)):
+        value += bin(message_list[byte])[2:]
+    value = value[:-2] + '00'
+    return int(value,2)
 
 def calcTemp(s):
     return -46.85 + 175.72 * s/2**16
