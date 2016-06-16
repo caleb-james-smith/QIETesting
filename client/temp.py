@@ -1,4 +1,5 @@
 from client import webBus
+import numpy
 import caleb_checksum as cc
 import TestLib as t
 import QIELib as q
@@ -21,7 +22,7 @@ def readTemp(slot, num_bytes, verbosity=0):
         print 'message: ', message
         print 'checksum: ', crc
         print 'value: ', value
-    return (crc,calcTemp(value))
+    return [crc,calcTemp(value)]
 
 def getValue(message):
     value = ''
@@ -43,9 +44,22 @@ def calcHumi(s):
     return -6 + 125.0 * s/2**16
 
 def readManyTemps(rm,slot,nTemps,verbosity=0):
+    tempArray = []
     t.openRM(rm)
     for i in xrange(nTemps):
-        print readTemp(slot,2,verbosity)
+        tempList = readTemp(slot,2,verbosity)
+        tempArray.append(tempList)
+        if tempTuple[0] != 'CHECKSUM_OK':
+            print '~~~~~ ERROR for Test ', i,' : ', tempTuple
+    numpyTempArray = numpy.array(tempArray)
+    finalTempList = numpyTempArray[:,1]
+    tempMin = min(finalTempList)
+    tempMax = max(finalTempList)
+    tempMean = numpy.mean(finalTempList)
+
+    print '\nTemp Min: ', tempMin
+    print 'Temp Max: ', tempMax
+    print 'Temp Mean: ', tempMean, '\n'
 
 # Set last two bits of LSB to 0 (these are status bits).
 # message = '0 01100011 01010010 01100100'
