@@ -84,7 +84,7 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
     tempArray = []
     t.openRM(rm)
     for i in xrange(nTemps):
-        tempList = readTemp(slot,2,verbosity)
+        tempList = readTempHumi(slot,2,verbosity)
         if verbosity > 0:
             print tempList
         tempArray.append(tempList)
