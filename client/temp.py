@@ -1,4 +1,5 @@
 from client import webBus
+from collections import Counter
 import caleb_checksum as cc
 import TestLib as t
 import QIELib as q
@@ -60,10 +61,13 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
     tempMin = min(finalTempList)
     tempMax = max(finalTempList)
     tempMean = mean(finalTempList)
+    tempCounter = Counter(finalTempList)
+    tempModeList = tempCounter.most_common()
 
     print '\nTemp Min: ', tempMin
     print 'Temp Max: ', tempMax
-    print 'Temp Mean: ', tempMean, '\n'
+    print 'Temp Mean: ', tempMean
+    print 'Temp Mode List: ', tempModeList
 
 # Set last two bits of LSB to 0 (these are status bits).
 # message = '0 01100011 01010010 01100100'
