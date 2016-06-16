@@ -2,14 +2,14 @@ from client import webBus
 import caleb_checksum as cc
 import TestLib as t
 import QIELib as q
-b = webBus("pi5",0)
+bus = webBus("pi5")
 
 def readTemp(slot, num_bytes):
-    b.write(0x00,[0x06])
-    b.write(q.QIEi2c[slot],[0x11,0x05,0,0,0])
-    b.write(0x40,[0xF3])
-    b.read(0x40, num_bytes + 2)
-    message = b.sendBatch()[-1]
+    bus.write(0x00,[0x06])
+    bus.write(q.QIEi2c[slot],[0x11,0x05,0,0,0])
+    bus.write(0x40,[0xF3])
+    bus.read(0x40, num_bytes + 2)
+    message = bus.sendBatch()[-1]
     message_list = message.split()
     a = message_list[1]
     b = message_list[2]
