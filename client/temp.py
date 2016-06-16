@@ -6,6 +6,7 @@ bus = webBus("pi5",0)
 
 binDataHappy = '0 01110000 00111100 10000011'
 intDataHappy = '0 112 60 131'
+# value = 28732
 
 def readTemp(slot, num_bytes):
     bus.write(0x00,[0x06])
@@ -27,6 +28,7 @@ def getValue(message):
     for byte in xrange(len(message_list)):
         value += bin(int(message_list[byte]))[2:]
     value = value[:-2] + '00'
+    print value
     return int(value,2)
 
 def calcTemp(s):
