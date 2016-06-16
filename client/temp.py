@@ -51,8 +51,8 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
     for i in xrange(nTemps):
         tempList = readTemp(slot,2,verbosity)
         tempArray.append(tempList)
-        if tempTuple[0] != 'CHECKSUM_OK':
-            print '~~~~~ ERROR for Test ', i,' : ', tempTuple
+        if tempList[0] != 'CHECKSUM_OK':
+            print '~~~~~ ERROR for Test ', i,' : ', tempList
     transpose = zip(*tempArray)
     finalTempList = transpose[1]
     tempMin = min(finalTempList)
