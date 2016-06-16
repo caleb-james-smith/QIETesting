@@ -93,4 +93,4 @@ def run(rmList,slotList,iterations,verbosity=0):
             print '\nRM: ',rm,' Slot: ',slot
             readManyTemps(rm,slot,iterations,verbosity)
 
-run([0],[0,1,2,3],10)
+run([0],[0,1,2,3],10,1)
