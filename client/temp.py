@@ -108,8 +108,9 @@ def run(rmList,slotList,iterations,verbosity=0):
         for slot in slotList:
             print '\n--- RM: ',rm,' Slot: ',slot,'---\n'
             for key in triggerDict:
-                for hold in triggerDict[key]:
-                    print '\n-----\n',key, ' ', hold,'\n-----\n'
-                    readManyTemps(slot,iterations,key,hold,verbosity)
+                # for hold in triggerDict[key]:
+                hold = 'nohold'
+                print '\n-----\n',key, ' ', hold,'\n-----\n'
+                readManyTemps(slot,iterations,key,hold,verbosity)
 
 run([0],[0,1,2,3],10,0)
