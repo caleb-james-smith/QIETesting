@@ -90,7 +90,7 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
 def run(rmList,slotList,iterations,verbosity=0):
     for rm in rmList:
         for slot in slotList:
-            print '\nRM: ',rm,' Slot: ',slot
+            print '\n--- RM: ',rm,' Slot: ',slot,'---\n'
             readManyTemps(rm,slot,iterations,verbosity)
 
 run([0],[0,1,2,3],10,1)
