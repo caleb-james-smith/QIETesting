@@ -32,7 +32,7 @@ print readTemp(0,2)
 
 # Set last two bits of LSB to 0 (these are status bits).
 # message = '0 01100011 01010010 01100100'
-# ‘0110’0011’0101’0000’ = 25424.
+# 0110'0011'0101'0000 = 25424.
 
 
 # Trigger T measurement     hold master     1110'0011   0xE3
