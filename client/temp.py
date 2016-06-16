@@ -86,3 +86,11 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
     print 'Temp Mode List: ', tempModeList
 
 # def humiAndTemp
+
+def run(rmList,slotList,iterations,verbosity=0):
+    for rm in rmList:
+        for slot in slotList:
+            print '\nRM: ',rm,' Slot: ',slot
+            readManyTemps(rm,slot,iterations,verbosity)
+
+run([0],[0,1,2,3],10)
