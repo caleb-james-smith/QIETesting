@@ -51,7 +51,7 @@ triggerDict = {
     'temp' : {
         'hold' : 0xE3,
         'nohold' : 0xF3
-    }
+    },
     'humi' : {
         'hold' : 0xE5,
         'nohold' : 0xF5
