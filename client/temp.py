@@ -1,5 +1,5 @@
 from client import webBus
-from collections import Counter
+import collections
 import caleb_checksum as cc
 import TestLib as t
 import QIELib as q
@@ -8,6 +8,22 @@ bus = webBus("pi5",0)
 # binDataHappy = '0 01110000 00111100 10000011'
 # intDataHappy = '0 112 60 131'
 # value = 28732
+
+# Set last two bits of LSB to 0 (these are status bits).
+# message = '0 01100011 01010010 01100100'
+# 0110'0011'0101'0000 = 25424.
+
+# Trigger T measurement     hold master     1110'0011   0xE3
+# Trigger RH measurement    hold master     1110'0101   0xE5
+# Trigger T measurement     no hold master  1111'0011   0xF3
+# Trigger RH measurement    no hold master  1111'0101   0xF5
+
+# triggerList = [0xE3,0xE5,0xF3,0xF5]
+trigger = collections.OrderedDict()
+trigger['tempHold'] = 0xE3
+trigger['humiHold'] = 0xE5
+trigger['tempNoHold'] = 0xF3
+trigger['humiNoHold'] = 0xF5
 
 def readTemp(slot, num_bytes, verbosity=0):
     bus.write(0x00,[0x06])
@@ -61,7 +77,7 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
     tempMin = min(finalTempList)
     tempMax = max(finalTempList)
     tempMean = mean(finalTempList)
-    tempCounter = Counter(finalTempList)
+    tempCounter = collections.Counter(finalTempList)
     tempModeList = tempCounter.most_common()
 
     print '\nTemp Min: ', tempMin
@@ -69,12 +85,4 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
     print 'Temp Mean: ', tempMean
     print 'Temp Mode List: ', tempModeList
 
-# Set last two bits of LSB to 0 (these are status bits).
-# message = '0 01100011 01010010 01100100'
-# 0110'0011'0101'0000 = 25424.
-
-
-# Trigger T measurement     hold master     1110'0011   0xE3
-# Trigger RH measurement    hold master     1110'0101   0xE5
-# Trigger T measurement     no hold master  1111'0011   0xF3
-# Trigger RH measurement    no hold master  1111'0101   0xF5
+# def humiAndTemp
