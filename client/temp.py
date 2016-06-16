@@ -80,9 +80,9 @@ def readTempHumi(slot, num_bytes, key, hold, verbosity=0):
         print 'value: ', value
     return [crc,function[key](value)]
 
-def readManyTemps(slot,nTemps,key,hold,verbosity=0):
+def readManyTemps(slot,iterations,key,hold,verbosity=0):
     tempArray = []
-    for i in xrange(nTemps):
+    for i in xrange(iterations):
         tempList = readTempHumi(slot,2,key,hold,verbosity)
         if verbosity > 0:
             print tempList
