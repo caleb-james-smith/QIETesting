@@ -25,6 +25,7 @@ def getValue(message):
     value = ''
     message_list = message.split()
     message_list = message_list[1:-1]
+    print message_list
     for byte in xrange(len(message_list)):
         value += bin(int(message_list[byte]))[2:]
     value = value[:-2] + '00'
