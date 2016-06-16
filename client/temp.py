@@ -28,7 +28,7 @@ def getValue(message):
     for byte in xrange(len(message_list)):
         value += bin(int(message_list[byte]))[2:]
     value = value[:-2] + '00'
-    print value
+    print 'BINARY VALUE: ', value
     return int(value,2)
 
 def calcTemp(s):
