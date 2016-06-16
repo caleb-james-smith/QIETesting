@@ -80,11 +80,10 @@ def readTempHumi(slot, num_bytes, key, hold, verbosity=0):
         print 'value: ', value
     return [crc,function[key](value)]
 
-def readManyTemps(rm,slot,nTemps,verbosity=0):
+def readManyTemps(slot,nTemps,key,hold,verbosity=0):
     tempArray = []
-    t.openRM(rm)
     for i in xrange(nTemps):
-        tempList = readTempHumi(slot,2,verbosity)
+        tempList = readTempHumi(slot,2,key,hold,verbosity)
         if verbosity > 0:
             print tempList
         tempArray.append(tempList)
@@ -105,8 +104,12 @@ def readManyTemps(rm,slot,nTemps,verbosity=0):
 
 def run(rmList,slotList,iterations,verbosity=0):
     for rm in rmList:
+        t.openRM(rm)
         for slot in slotList:
             print '\n--- RM: ',rm,' Slot: ',slot,'---\n'
-            readManyTemps(rm,slot,iterations,verbosity)
+            for key in triggerDict:
+                for hold in triggerDict[key]:
+                    print key, ' ', hold
+                    readManyTemps(slot,iterations,key,hold,verbosity)
 
 run([0],[0,1,2,3],1,1)
