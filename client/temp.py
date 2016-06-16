@@ -10,13 +10,11 @@ def readTemp(slot, num_bytes):
     bus.write(0x40,[0xF3])
     bus.read(0x40, num_bytes + 1) # also read checksum byte
     message = bus.sendBatch()[-1]
-    message_list = message.split()
-    a = message_list[1]
-    b = message_list[2]
-    checksum = message_list[3]
-    return getMessage(message)
+    print 'check that sum'
+    print cc.checkCRC(message, 2)
+    return message
 
-def getMessage(message):
+def getValue(message):
     message_list = message.split()
     message_list = message_list[1:]
     return ' '.join(message_list)
