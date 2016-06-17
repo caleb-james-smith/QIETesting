@@ -202,6 +202,18 @@ def reverseBytes(message):
     s = " "
     return s.join(finalList)
 
+# Reverse order of string of bytes separated by spaces.
+# Leaves errorCode as first (leftmost) byte.
+# Leaves checksum as last (rightmost) byte.
+def reverseBytesCRC(message):
+    mList = message.split()
+    errorCode = mList.pop(0)
+    checksum = mList.pop()
+    mList.reverse()
+    finalList = [errorCode] + mList + [checksum]
+    s = " "
+    return s.join(finalList)
+
 # Convert string of ints to list of ints.
 def toIntList(message):
     message_list = message.split()
