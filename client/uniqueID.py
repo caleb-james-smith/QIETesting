@@ -39,5 +39,5 @@ def getUniqueIDs(rmList, slotList, verbose=0):
     return uniqueIDArray
 
 rmList = [3,0]
-slotList = [ [0,3], 0, 0, [1,2,3] ]
+slotList = [ [1,2,3], 0, 0, [0,3] ]
 print getUniqueIDs(rmList, slotList, 1)
