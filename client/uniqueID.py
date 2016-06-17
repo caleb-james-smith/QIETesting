@@ -31,6 +31,8 @@ def getUniqueIDs(rmList, slotList):
         for slot in slotList[rm]:
             idList.append(uniqueID(slot))
         uniqueIDArray.append(idList)
+        print 'RM ',rm
+        print idList
     return uniqueIDArray
 
 rmList = [0,3]
