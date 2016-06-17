@@ -5,8 +5,7 @@ import QIELib as q
 b = webBus("pi5",0)
 
 # Read UniqueID 8 bytes from SSN, U48 on QIE Card
-def uniqueID(rm,slot):
-    openChannel(rm,slot)
+def uniqueID(slot):
     # Reset entire board by writing 0x6 to 0x0.
     b.write(0x00,[0x06])
     # Note that the i2c_select has register address 0x11
@@ -26,6 +25,7 @@ def getUniqueIDs(rmList, slotList):
     uniqueIDArray = []
     # Iterate through RM 0, 1, 2, 3 (include desired RMs in list)
     for rm in rmList:
+        t.openRM(rm)
         idList = []
         # Iterate through Slot 0, 1, 2, 3 (run for all 4 slots by default)
         for slot in slotList[rm]:
