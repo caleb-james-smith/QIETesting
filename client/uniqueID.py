@@ -66,4 +66,4 @@ def getUniqueIDs(RMList,num_slots=4):
         uniqueIDArray.append(idList)
     return uniqueIDArray
 
-print getUniqueIDs([0,4],4)
+print getUniqueIDs([0,3],4)
