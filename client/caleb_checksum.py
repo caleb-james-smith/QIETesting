@@ -11,7 +11,7 @@ def toIntList(message, base=10):
     return mList
 
 # Check Sum function from Temp/Humi Documentation.
-def checkCRC(message, numBytes, base=10):
+def checkCRC(message, numBytes, base=10, verbose=0):
     POLYNOMIAL = 0x131 # x^8 + x^5 + x^4 + 1 -> 9'b100110001 = 0x131
     crc = 0
     mList = toIntList(message, base)
@@ -23,14 +23,17 @@ def checkCRC(message, numBytes, base=10):
     # calculates 8-bit checksum with give polynomial
     for byteCtr in xrange(numBytes):
         crc ^= dataList[byteCtr]
-        print "CRC = ",crc
+        if verbose:
+            print "CRC = ",crc
         for bit in xrange(8,0,-1):
             if crc & 0x80: # True if crc >= 128, False if crc < 128
                 crc = (crc << 1) ^ POLYNOMIAL
-                print 'true crc = ',crc
+                if verbose:
+                    print 'true crc = ',crc
             else: # crc < 128
                 crc = (crc << 1)
-                print 'false crc = ',crc
+                if verbose:
+                    print 'false crc = ',crc
     if crc != checksum:
         return 'CHECKSUM_ERROR'
     return 'CHECKSUM_OK'
