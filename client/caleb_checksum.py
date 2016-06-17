@@ -36,6 +36,7 @@ def checkCRC(message, numBytes, base=10, verbose=0):
                     print 'false crc = ',crc
     if verbose > 0:
         print 'CRC = ',crc
+        print 'checksum = ',checksum
     if crc != checksum:
         return 'CHECKSUM_ERROR'
     return 'CHECKSUM_OK'
