@@ -23,11 +23,14 @@ def checkCRC(message, numBytes, base=10):
     # calculates 8-bit checksum with give polynomial
     for byteCtr in xrange(numBytes):
         crc ^= dataList[byteCtr]
+        print "CRC = ",crc
         for bit in xrange(8,0,-1):
-            if crc & 0x80:
+            if crc & 0x80: # True if crc >= 128, False if crc < 128
                 crc = (crc << 1) ^ POLYNOMIAL
-            else:
+                print 'true crc = ',crc
+            else: # crc < 128
                 crc = (crc << 1)
+                print 'false crc = ',crc
     if crc != checksum:
         return 'CHECKSUM_ERROR'
     return 'CHECKSUM_OK'
@@ -42,6 +45,7 @@ binaryChecksum = '10000011'
 # Happy Data has a valid checksum! :)
 binDataHappy = '0 01110000 00111100 10000011'
 intDataHappy = '0 112 60 131'
+# value = 28732
 
 # Sad Data has an invalid checksum. :(
 binDataSad = '0 01110000 00111100 10000010'
@@ -63,4 +67,4 @@ def testCRC(numTests):
         print intDataList[test], ' : ', checkCRC(intDataList[test], 2, 10),'\n'
 
 # numTests = 3... happy, sad, and I2C Error
-# testCRC(3)
+# testCRC(1)
