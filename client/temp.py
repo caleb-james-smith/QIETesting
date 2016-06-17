@@ -107,7 +107,7 @@ def readManyTemps(slot,iterations,key,hold,verbosity=0):
 def run(rmList,slotList,iterations,verbosity=0):
     for rm in rmList:
         t.openRM(rm)
-        for slot in slotList:
+        for slot in slotList[rm]:
             print '\n--- RM: ',rm,' Slot: ',slot,'---\n'
             for key in triggerDict:
                 # for hold in triggerDict[key]:
@@ -117,4 +117,4 @@ def run(rmList,slotList,iterations,verbosity=0):
 
 rmList = [3,0]
 slotList = [ [1,2,3], 0, 0, [0,3] ]
-run(rmList,slotList,100,0)
+run(rmList,slotList,10,0)
