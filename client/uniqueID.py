@@ -29,7 +29,7 @@ def getUniqueIDs(rmList, slotList):
         idList = []
         # Iterate through Slot 0, 1, 2, 3 (run for all 4 slots by default)
         for slot in slotList[rm]:
-            idList.append(uniqueID(rm,slot))
+            idList.append(uniqueID(slot))
         uniqueIDArray.append(idList)
     return uniqueIDArray
 
