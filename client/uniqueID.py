@@ -40,4 +40,4 @@ def getUniqueIDs(rmList, slotList, verbose=0):
 
 rmList = [3,0] # Run RM 3 tests, then run RM 0 tests
 slotList = [ [0,3], 0, 0, [1,2,3] ]
-print getUniqueIDs(rmList, slotList, 1)
+print getUniqueIDs(rmList, slotList, 0)
