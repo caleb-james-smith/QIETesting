@@ -23,17 +23,19 @@ def checkCRC(message, numBytes, base=10, verbose=0):
     # calculates 8-bit checksum with give polynomial
     for byteCtr in xrange(numBytes):
         crc ^= dataList[byteCtr]
-        if verbose:
+        if verbose > 1:
             print "CRC = ",crc
         for bit in xrange(8,0,-1):
             if crc & 0x80: # True if crc >= 128, False if crc < 128
                 crc = (crc << 1) ^ POLYNOMIAL
-                if verbose:
+                if verbose > 1:
                     print 'true crc = ',crc
             else: # crc < 128
                 crc = (crc << 1)
-                if verbose:
+                if verbose > 1:
                     print 'false crc = ',crc
+    if verbose > 0:
+        print 'CRC = ',crc
     if crc != checksum:
         return 'CHECKSUM_ERROR'
     return 'CHECKSUM_OK'
