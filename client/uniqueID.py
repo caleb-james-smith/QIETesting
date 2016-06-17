@@ -31,7 +31,7 @@ def getUniqueIDs(rmList, slotList, verbose=0):
         # Iterate through Slot 0, 1, 2, 3 (run for all 4 slots by default)
         for slot in slotList[rm]:
             message = uniqueID(slot)
-            print checkCRC(message,7)
+            print checkCRC(message,7,10,1)
             idList.append(message)
         uniqueIDArray.append(idList)
         print 'RM ',rm
