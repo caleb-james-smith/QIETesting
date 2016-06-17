@@ -208,9 +208,10 @@ def reverseBytes(message):
 def reverseBytesCRC(message):
     mList = message.split()
     errorCode = mList.pop(0)
+    familyCode = mList.pop(0)
     checksum = mList.pop()
     mList.reverse()
-    finalList = [errorCode] + mList + [checksum]
+    finalList = [errorCode] + [familyCode] + mList + [checksum]
     s = " "
     return s.join(finalList)
 
