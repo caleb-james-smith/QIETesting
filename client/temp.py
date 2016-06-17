@@ -115,6 +115,6 @@ def run(rmList,slotList,iterations,verbosity=0):
                 print '\n-----\n',key, ' ', hold,'\n-----\n'
                 readManyTemps(slot,iterations,key,hold,verbosity)
 
-rmList = [3,0]
-slotList = [ [1,2,3], 0, 0, [0,3] ]
+rmList = [3,0] # Run RM 3 tests, then run RM 0 tests
+slotList = [ [0,3], 0, 0, [1,2,3] ]
 run(rmList,slotList,10,0)
