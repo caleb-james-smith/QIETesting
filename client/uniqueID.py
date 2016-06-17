@@ -16,7 +16,8 @@ def uniqueID(slot):
     # This removes the permutation problem!
     b.write(0x50,[0x00])
     b.read(0x50,8)
-    return b.sendBatch()[-1]
+    raw_message = b.sendBatch()[-1]
+    return t.reverseBytes(raw_message)
 
 # Read UniqueID for all QIE Cards in Backplane
 # To read IDs for RM 1, pass RMList = [0]
