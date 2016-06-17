@@ -17,7 +17,7 @@ def uniqueID(slot):
     b.write(0x50,[0x00])
     b.read(0x50,8)
     raw_message = b.sendBatch()[-1]
-    return t.reverseBytesCRC(raw_message)
+    return raw_message
 
 # Read UniqueID for all QIE Cards in Backplane
 # To read IDs for RM 1, pass RMList = [0]
