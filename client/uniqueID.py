@@ -39,7 +39,7 @@ def getUniqueIDs(rmList, slotList, verbose=0):
             final_message = t.reverse(final_message)
             final_message = t.toHex(final_message)
             idList.append(message)
-            print 'Slot ',slot,': ',message,' -> ',final_message
+            print 'Slot ',slot,': ',message,'\t-> ',final_message
         uniqueIDArray.append(idList)
     return uniqueIDArray
 
