@@ -38,7 +38,7 @@ def findRM(rmList):
         print bridgeRead([1,3],1)
 
 def search(nGroups):
-    b.write(0x72,[0x01])
+    b.write(0x72,[0x02])
     b.read(0x72,1)
     print '0x72 = ',b.sendBatch()
     for i in xrange(nGroups):
