@@ -25,7 +25,7 @@ def openRM(rm):
         return 'closed channel'
     # Open channel to i2c group
     b.write(0x74, [ngccmGroup(rm)])
-    b.read(0x74,1)
+    # b.read(0x74,1)
     # b.write(0x74, [0xFF])
     return b.sendBatch()
 
@@ -53,10 +53,15 @@ def search(nGroups):
         print 'Bridge Read = ',bridgeRead([0,1,2,3],4)
 
 def write70(rm):
-    print openRM(rm)
+    b.write(0x72,[0x01])
+    b.write(0x74,[0x08])
+    b.read(0x74,1)
+    print b.sendBatch()
+
     b.write(0x70,[0x40])
     b.read(0x70,2)
     print b.sendBatch()
+
     b.write(0x70,[0x2,0xFF])
     b.read(0x70,2)
     print b.sendBatch()
