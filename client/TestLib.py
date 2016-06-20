@@ -191,6 +191,13 @@ def splitMessage(message, num_parts):
         final_message_list.append(s.join(part_list))
     return final_message_list
 
+
+def reverse(message):
+    mList = message.split()
+    mList.reverse()
+    s = " "
+    return s.join(finalList)
+
 # Reverse order of string of bytes separated by spaces.
 # Leaves errorCode as first (leftmost) byte
 def reverseBytes(message):
