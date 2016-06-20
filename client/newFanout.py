@@ -9,7 +9,7 @@ def ngccmGroup(rm):
     i2cGroups = [0x01,0x10,0x20,0x02]
     return i2cGroups[rm-1]
 
-def open(rm):
+def openRM(rm):
     b.write(0x00,[0x06])
     if rm in [0,1]:
         # Open channel to ngCCM for RM 0,1: J1 - J10
@@ -24,8 +24,8 @@ def open(rm):
         print 'Please choose RM = {0,1,2,3}'
         return 'closed channel'
     # Open channel to i2c group
-    # b.write(0x74, [ngccmGroup(rm)])
-    b.write(0x74, [0xFF])
+    b.write(0x74, [ngccmGroup(rm)])
+    # b.write(0x74, [0xFF])
     return b.sendBatch()
 
 def bridgeRead(cardList,nBytes):
@@ -36,7 +36,7 @@ def bridgeRead(cardList,nBytes):
 
 def findRM(rmList):
     for rm in rmList:
-        print open(rm)
+        print openRM(rm)
         print bridgeRead([1,3],1)
 
 def search(nGroups):
@@ -50,3 +50,12 @@ def search(nGroups):
         b.read(0x74,1)
         print '0x74 = ',b.sendBatch()
         print 'Bridge Read = ',bridgeRead([0,1,2,3],4)
+
+def write70(rm):
+    print openRM(rm)
+    b.write(0x70,[0x40])
+    print sendBatch()
+    b.write(0x70,[0x2,0xFF])
+    print sendBatch()
+
+write70(3)
