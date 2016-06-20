@@ -33,7 +33,7 @@ def open(rm):
 def bridgeRead(cardList,nBytes):
     for card in cardList:
         print 'Card: ',card
-        b.read(bridgeAddress[cardList],nBytes)
+        b.read(bridgeAddress[card],nBytes)
     return b.sendBatch()
 
 print open(3)
