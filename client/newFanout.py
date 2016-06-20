@@ -68,4 +68,4 @@ def write70(bus):
     print bus.sendBatch()
 
 # write70(bus6)
-search(8)
+search(1)
