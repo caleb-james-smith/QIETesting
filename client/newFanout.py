@@ -59,10 +59,10 @@ def write70(rm):
     print b.sendBatch()
 
     b.write(0x70,[0x40])
-    b.read(0x70,2)
+    b.write(0x70,[0x2,0xFF])
     print b.sendBatch()
 
-    b.write(0x70,[0x2,0xFF])
+    b.write(0x70,[0x40])
     b.read(0x70,2)
     print b.sendBatch()
 
