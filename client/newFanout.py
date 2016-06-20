@@ -54,7 +54,7 @@ def search(nGroups):
 def write70(rm):
     print openRM(rm)
     b.write(0x70,[0x40])
-    print sendBatch()
+    print b.sendBatch()
     b.write(0x70,[0x2,0xFF])
     print b.sendBatch()
 
