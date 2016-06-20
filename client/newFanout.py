@@ -52,7 +52,7 @@ def search(nGroups):
         print '0x74 = ',b.sendBatch()
         print 'Bridge Read = ',bridgeRead([0,1,2,3],4)
 
-def write70(rm):
+def write70():
     b.write(0x72,[0x01])
     b.write(0x74,[0x08])
     b.read(0x74,1)
@@ -66,5 +66,5 @@ def write70(rm):
     b.read(0x70,2)
     print b.sendBatch()
 
-write70(3)
+write70()
 # search(8)
