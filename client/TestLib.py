@@ -196,7 +196,7 @@ def reverse(message):
     mList = message.split()
     mList.reverse()
     s = " "
-    return s.join(finalList)
+    return s.join(mList)
 
 # Reverse order of string of bytes separated by spaces.
 # Leaves errorCode as first (leftmost) byte
