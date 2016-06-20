@@ -30,4 +30,4 @@ def open(rm):
     b.write(0x74, [ngccmGroup(rm)])
     return b.sendBatch()
 
-print open(0)
+print open(3)
