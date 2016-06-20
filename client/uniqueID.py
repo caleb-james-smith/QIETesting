@@ -1,8 +1,8 @@
 # Read UniqueID from QIE Card
-from client import webBus
+# from client import webBus
 import TestLib as t
 from caleb_checksum import checkCRC
-b = webBus("pi5",0)
+# b = webBus("pi5",0)
 
 # Read UniqueID 8 bytes from SSN, U48 on QIE Card
 def uniqueID(slot):
@@ -17,7 +17,7 @@ def uniqueID(slot):
     b.write(0x50,[0x00])
     b.read(0x50,8)
     raw_message = b.sendBatch()[-1]
-    return t.reverseBytesCRC(raw_message)
+    return raw_message
 
 # Read UniqueID for all QIE Cards in Backplane
 # To read IDs for RM 1, pass RMList = [0]
@@ -40,4 +40,10 @@ def getUniqueIDs(rmList, slotList, verbose=0):
 
 rmList = [3,0] # Run RM 3 tests, then run RM 0 tests
 slotList = [ [0,3], 0, 0, [1,2,3] ]
-print getUniqueIDs(rmList, slotList, 1)
+# print getUniqueIDs(rmList, slotList, 1)
+
+raw_message = '0 112 138 191 234 0 0 0 132'
+message = raw_message
+print raw_message
+print message
+print checkCRC(message,7,10,1)

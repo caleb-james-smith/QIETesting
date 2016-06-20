@@ -1,10 +1,9 @@
 #TestLib.py
 #Testing Library for QIE Tests.
 
-from client import webBus
-import QIELib as q
-import TestLib as t
-b = webBus("pi5",0)
+# from client import webBus
+# import QIELib as q
+# b = webBus("pi5",0)
 
 #MUX slave addresses (slave i2c addresses)
 MUXs = {
@@ -46,7 +45,7 @@ QIEi2c = {
 ######## Bridge Test Function Dictionary
 
 def simplePrint(message):
-    hex_message = t.toHex(message,1)
+    hex_message = toHex(message,1)
     print 'int message: ', message
     print 'hex message:', hex_message
     return hex_message
@@ -202,10 +201,19 @@ def reverseBytes(message):
     s = " "
     return s.join(finalList)
 
+def reverseKeepCRC(message):
+    mList = message.split()
+    errorCode = mList.pop(0)
+    checksum = mList.pop()
+    mList.reverse()
+    finalList = [errorCode] + mList + [checksum]
+    s = " "
+    return s.join(finalList)
+
 # Reverse order of string of bytes separated by spaces.
 # Leaves errorCode as first (leftmost) byte.
 # Leaves checksum as last (rightmost) byte.
-def reverseBytesCRC(message):
+def reverseSerial(message):
     mList = message.split()
     errorCode = mList.pop(0)
     familyCode = mList.pop(0)
@@ -214,6 +222,23 @@ def reverseBytesCRC(message):
     finalList = [errorCode] + [familyCode] + mList + [checksum]
     s = " "
     return s.join(finalList)
+
+def moveFamilyCode(message):
+    mList = message.split()
+    errorCode = mList.pop(0)
+    familyCode = mList.pop(0)
+    checksum = mList.pop()
+    finalList = [errorCode] + mList + [familyCode] + [checksum]
+    s = " "
+    return s.join(finalList)
+
+# only use serial (6 bytes)
+def onlySerial():
+    return 0
+
+# reverse all bits
+def reverseBits():
+    return 0
 
 # Convert string of ints to list of ints.
 def toIntList(message):
