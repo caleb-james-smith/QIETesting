@@ -1,7 +1,9 @@
 # new fanout pi6
 
 from client import webBus
-b = webBus("pi6",0)
+b = webBus("pi5",0)
+bus5 = webBus("pi5",0)
+bus6 = webBus("pi6",0)
 
 bridgeAddress = [0x19, 0x1a,0x1b, 0x1c]
 
@@ -52,15 +54,15 @@ def search(nGroups):
         print '0x74 = ',b.sendBatch()
         print 'Bridge Read = ',bridgeRead([0,1,2,3],4)
 
-def write70():
+def write70(b):
     b.write(0x72,[0x01])
     b.write(0x74,[0x08])
     b.read(0x74,1)
     print b.sendBatch()
 
-    b.read(0x70,4)
+    b.read(0x70,1)
     print b.sendBatch()
-    
+
     b.write(0x70,[0x40])
     b.write(0x70,[0x2,0xFF])
     print b.sendBatch()
@@ -69,5 +71,5 @@ def write70():
     b.read(0x70,2)
     print b.sendBatch()
 
-write70()
+write70(bus5)
 # search(8)
