@@ -146,12 +146,12 @@ def openRM(rm):
         # Open channel to ngCCM for RM 0,1: J1 - J10
         # print '##### RM ', rm
         b.write(q.MUXs["fanout"],[0x02])
-        b.sendBatch()
+        # b.sendBatch()
     elif rm in [2,3]:
         # Open channel to ngCCM for RM 2,3: J17 - J26
         # print '##### RM ', rm
         b.write(q.MUXs["fanout"],[0x01])
-        b.sendBatch()
+        # b.sendBatch()
     else:
         print 'Invalid RM = ', rm
         print 'Please choose RM = {0,1,2,3}'
