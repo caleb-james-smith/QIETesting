@@ -77,7 +77,7 @@ def readClock(rm,slot,bus):
     for i in xrange(4):
         bus.write(address,[0x12])
         bus.read(address,4)
-        print bus.sendBatch
+        print bus.sendBatch()
 
 # write70(bus6)
 # openRM(1)
