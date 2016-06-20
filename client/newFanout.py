@@ -28,6 +28,7 @@ def open(rm):
     # print '##### open i2c ' + hex(q.RMi2c[rm])
     # b.clearBus()
     b.write(0x74, [ngccmGroup(rm)])
+    b.read(0x1a,1)
     return b.sendBatch()
 
 print open(3)
