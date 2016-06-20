@@ -34,16 +34,17 @@ def getUniqueIDs(rmList, slotList, verbose=0):
             print checkCRC(message,7,10, verbose)
             idList.append(message)
         uniqueIDArray.append(idList)
-        print 'RM ',rm
+        print '--- RM ',rm, ' ---'
         print idList
     return uniqueIDArray
 
+def testCRC():
+    raw_message = '0 112 138 191 234 0 0 0 132'
+    message = raw_message
+    print raw_message
+    print message
+    print checkCRC(message,7,10,1)
+
 rmList = [3,0] # Run RM 3 tests, then run RM 0 tests
 slotList = [ [0,3], 0, 0, [1,2,3] ]
-# print getUniqueIDs(rmList, slotList, 1)
-
-raw_message = '0 112 138 191 234 0 0 0 132'
-message = raw_message
-print raw_message
-print message
-print checkCRC(message,7,10,1)
+print getUniqueIDs(rmList, slotList, 1)
