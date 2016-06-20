@@ -42,8 +42,9 @@ def search(nGroups):
     b.read(0x72,1)
     print '0x72 = ',b.sendBatch()
     for i in xrange(nGroups):
-        print '--- Write to 0x74: ',ngccmGroup(i)
-        b.write(0x74,[ngccmGroup(i)])
+        byte = 2**i
+        print '\n--- Write to 0x74: ',hex(byte),' = ',byte
+        b.write(0x74,[byte])
         b.read(0x74,1)
         print '0x74 = ',b.sendBatch()
         print 'Bridge Read = ',bridgeRead([1,3],4)
