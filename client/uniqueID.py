@@ -51,5 +51,5 @@ def testCRC():
     print checkCRC(message,7,10,1)
 
 rmList = [0,3] # Run RM 3 tests, then run RM 0 tests
-slotList = [ [0,3], 0, 0, [2,3] ]
+slotList = [ [0,3], 0, 0, [3] ]
 getUniqueIDs(rmList, slotList, 1)
