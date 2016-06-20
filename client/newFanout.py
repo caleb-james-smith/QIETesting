@@ -3,7 +3,11 @@
 from client import webBus
 import TestLib as t
 from caleb_checksum import checkCRC
-b = webBus("pi6",0)
+b = webBus("pi6",1)
+
+def ngccmGroup(rm):
+    i2cGroups = [0x01,0x10,0x20,0x02]
+    return i2cGroups[rm-1]
 
 def open(rm):
     if rm in [0,1]:
@@ -23,7 +27,7 @@ def open(rm):
     # Open channel to i2c group
     # print '##### open i2c ' + hex(q.RMi2c[rm])
     # b.clearBus()
-    b.write(0x74, [q.RMi2c[rm]])
+    b.write(0x74, ngccmGroup(rm))
     return b.sendBatch()
 
-open(0)
+print open(0)
