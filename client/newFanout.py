@@ -32,5 +32,7 @@ def bridgeRead(cardList,nBytes):
         b.read(bridgeAddress[card],nBytes)
     return b.sendBatch()
 
-print open(3)
-print bridgeRead([1,3],1)
+def findRM(rmList):
+    for rm in rmList:
+        print open(rm)
+        print bridgeRead([1,3],1)
