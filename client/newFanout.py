@@ -1,7 +1,7 @@
 # new fanout pi6
 
 from client import webBus
-b = webBus("pi6")
+b = webBus("pi6",0)
 
 bridgeAddress = [0x19, 0x1a,0x1b, 0x1c]
 
@@ -42,6 +42,7 @@ def search(nGroups):
     b.read(0x72,1)
     print '0x72 = ',b.sendBatch()
     for i in xrange(nGroups):
+        print '--- Write to 0x74: ',ngccmGroup(i)
         b.write(0x74,[ngccmGroup(i)])
         b.read(0x74,1)
         print '0x74 = ',b.sendBatch()
