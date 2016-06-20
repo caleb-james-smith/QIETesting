@@ -28,6 +28,7 @@ def open(rm):
 
 def bridgeRead(cardList,nBytes):
     for card in cardList:
+        b.write(bridgeAddress[card],[0x0])
         b.read(bridgeAddress[card],nBytes)
     return b.sendBatch()
 
@@ -45,6 +46,6 @@ def search(nGroups):
         b.write(0x74,[ngccmGroup(i)])
         b.read(0x74,1)
         print '0x74 = ',b.sendBatch()
-        print 'Bridge Read = ',bridgeRead([1,3],1)
+        print 'Bridge Read = ',bridgeRead([1,3],4)
 
 search(4)
