@@ -1,5 +1,6 @@
 # Read UniqueID from QIE Card
-# from client import webBus
+
+from client import webBus
 import TestLib as t
 from caleb_checksum import checkCRC
 b = webBus("pi5",0)
