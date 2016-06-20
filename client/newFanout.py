@@ -10,7 +10,7 @@ def ngccmGroup(rm):
     return i2cGroups[rm-1]
 
 def openRM(rm):
-    b.write(0x00,[0x06])
+    # b.write(0x00,[0x06])
     if rm in [0,1]:
         # Open channel to ngCCM for RM 0,1: J1 - J10
         print '### Open RM ', rm
@@ -25,6 +25,7 @@ def openRM(rm):
         return 'closed channel'
     # Open channel to i2c group
     b.write(0x74, [ngccmGroup(rm)])
+    b.read(0x74,1)
     # b.write(0x74, [0xFF])
     return b.sendBatch()
 
@@ -54,8 +55,10 @@ def search(nGroups):
 def write70(rm):
     print openRM(rm)
     b.write(0x70,[0x40])
+    b.read(0x70,2)
     print b.sendBatch()
     b.write(0x70,[0x2,0xFF])
+    b.read(0x70,2)
     print b.sendBatch()
 
 write70(3)
