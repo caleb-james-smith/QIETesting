@@ -20,11 +20,11 @@ def openRM(rm):
     if rm in [1,2]:
         # Open channel to ngCCM for RM 0,1: J1 - J10
         print '### Open RM ', rm
-        b.write(0x72,[0x02])
+        b.write(0x72,[1])
     elif rm in [3,4]:
         # Open channel to ngCCM for RM 2,3: J17 - J26
         print '### Open RM ', rm
-        b.write(0x72,[0x01])
+        b.write(0x72,[2])
     else:
         print 'Invalid RM = ', rm
         print 'Please choose RM = {0,1,2,3}'
@@ -71,6 +71,13 @@ def write70(bus):
     bus.write(0x70,[1,0])
     print bus.sendBatch()
 
+def readClock(add,bus):
+    openRM(1)
+    for i in xrange(4):
+        bus.write(add,[0x12])
+        bus.read(add,4)
+    bus.sendBatch
+
 # write70(bus6)
-search(1)
-# openRM(1)
+# search(1)
+openRM(1)
