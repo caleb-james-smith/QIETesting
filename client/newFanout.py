@@ -10,6 +10,7 @@ def ngccmGroup(rm):
     return i2cGroups[rm-1]
 
 def open(rm):
+    b.write(0x00,[0x06])
     if rm in [0,1]:
         # Open channel to ngCCM for RM 0,1: J1 - J10
         print '### Open RM ', rm
