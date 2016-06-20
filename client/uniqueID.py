@@ -27,6 +27,7 @@ def getUniqueIDs(rmList, slotList, verbose=0):
     uniqueIDArray = []
     # Iterate through RM 0, 1, 2, 3 (include desired RMs in list)
     for rm in rmList:
+        print '--- RM ',rm, ' ---'
         t.openRM(rm)
         idList = []
         # Iterate through Slot 0, 1, 2, 3 (run for all 4 slots by default)
@@ -34,9 +35,8 @@ def getUniqueIDs(rmList, slotList, verbose=0):
             message = uniqueID(slot)
             # print checkCRC(message,7,10, verbose)
             idList.append(message)
+            message =
         uniqueIDArray.append(idList)
-        print '--- RM ',rm, ' ---'
-        print idList
     return uniqueIDArray
 
 def testCRC():
@@ -47,5 +47,5 @@ def testCRC():
     print checkCRC(message,7,10,1)
 
 rmList = [3,0] # Run RM 3 tests, then run RM 0 tests
-slotList = [ [0,3], 0, 0, [1,2,3] ]
-print getUniqueIDs(rmList, slotList, 1)
+slotList = [ [0,3], 0, 0, [2,3] ]
+getUniqueIDs(rmList, slotList, 1)

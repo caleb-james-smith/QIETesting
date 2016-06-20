@@ -267,7 +267,7 @@ def toHex(message, colon=2):
 # Parse Serial Number from 8 byte Registration Number.
 def serialNum(message):
     message_list = message.split()
-    message_list = message_list[1:-1]
+    message_list = message_list[2:-1]
     s = " "
     return s.join(message_list)
 
