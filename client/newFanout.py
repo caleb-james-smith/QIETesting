@@ -27,7 +27,7 @@ def open(rm):
     # Open channel to i2c group
     # print '##### open i2c ' + hex(q.RMi2c[rm])
     # b.clearBus()
-    b.write(0x74, ngccmGroup(rm))
+    b.write(0x74, [ngccmGroup(rm)])
     return b.sendBatch()
 
 print open(0)
