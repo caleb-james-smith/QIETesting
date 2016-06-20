@@ -5,19 +5,23 @@ b = webBus("pi5",0)
 bus5 = webBus("pi5",0)
 bus6 = webBus("pi6",0)
 
-bridgeAddress = [0x19, 0x1a,0x1b, 0x1c]
+# Slots 1,2,3,4
+def bridgeAddress(slot):
+    address = [0x19, 0x1a,0x1b, 0x1c]
+    return address[slot-1]
 
+# RMs 1,2,3,4
 def ngccmGroup(rm):
     i2cGroups = [0x01,0x10,0x20,0x02]
     return i2cGroups[rm-1]
 
 def openRM(rm):
     # b.write(0x00,[0x06])
-    if rm in [0,1]:
+    if rm in [1,2]:
         # Open channel to ngCCM for RM 0,1: J1 - J10
         print '### Open RM ', rm
         b.write(0x72,[0x02])
-    elif rm in [2,3]:
+    elif rm in [3,4]:
         # Open channel to ngCCM for RM 2,3: J17 - J26
         print '### Open RM ', rm
         b.write(0x72,[0x01])
@@ -33,14 +37,14 @@ def openRM(rm):
 
 def bridgeRead(cardList,nBytes):
     for card in cardList:
-        b.write(bridgeAddress[card],[0x0])
-        b.read(bridgeAddress[card],nBytes)
+        b.write(bridgeAddress(card),[0x0])
+        b.read(bridgeAddress(card),nBytes)
     return b.sendBatch()
 
 def findRM(rmList):
     for rm in rmList:
         print openRM(rm)
-        print bridgeRead([1,3],1)
+        print bridgeRead([2,4],1)
 
 def search(nGroups):
     b.write(0x72,[0x01])
@@ -52,7 +56,7 @@ def search(nGroups):
         b.write(0x74,[byte])
         b.read(0x74,1)
         print '0x74 = ',b.sendBatch()
-        print 'Bridge Read = ',bridgeRead([0,1,2,3],4)
+        print 'Bridge Read = ',bridgeRead([1,2,3,4],4)
 
 def write70(bus):
     bus.write(0x72,[0x01])
@@ -68,4 +72,5 @@ def write70(bus):
     print bus.sendBatch()
 
 # write70(bus6)
-search(1)
+# search(1)
+openRM(1)
