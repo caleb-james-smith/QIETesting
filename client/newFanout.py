@@ -63,13 +63,13 @@ def write70(bus):
     bus.read(0x70,1)
     print bus.sendBatch()
 
-    bus.write(0x70,[0x40])
-    bus.write(0x70,[0x2,0xFF])
+    bus.write(0x70,[1,0])
+    bus.write(0x70,[3,0xFF])
     print bus.sendBatch()
 
     bus.write(0x70,[0x40])
     bus.read(0x70,2)
     print bus.sendBatch()
 
-write70(bus5)
+write70(bus6)
 # search(8)
