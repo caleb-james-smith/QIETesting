@@ -49,4 +49,4 @@ def search(nGroups):
         print '0x74 = ',b.sendBatch()
         print 'Bridge Read = ',bridgeRead([1,3],4)
 
-search(4)
+search(8)
