@@ -67,4 +67,4 @@ def write70(rm):
     print b.sendBatch()
 
 write70(3)
-search(8)
+# search(8)
