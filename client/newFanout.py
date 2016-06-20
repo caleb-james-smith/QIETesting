@@ -73,9 +73,10 @@ def write70(bus):
 
 def readClock(rm,slot,bus):
     openRM(rm,bus)
+    address = bridgeAddress(slot)
     for i in xrange(4):
-        bus.write(add,[0x12])
-        bus.read(add,4)
+        bus.write(address,[0x12])
+        bus.read(address,4)
         print bus.sendBatch
 
 # write70(bus6)
