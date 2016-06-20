@@ -1,9 +1,9 @@
 #TestLib.py
 #Testing Library for QIE Tests.
 
-# from client import webBus
-# import QIELib as q
-# b = webBus("pi5",0)
+from client import webBus
+import QIELib as q
+b = webBus("pi5",0)
 
 #MUX slave addresses (slave i2c addresses)
 MUXs = {
