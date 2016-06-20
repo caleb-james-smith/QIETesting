@@ -67,5 +67,5 @@ def write70(bus):
     bus.write(0x70,[1,0])
     print bus.sendBatch()
 
-write70(bus6)
-# search(8)
+# write70(bus6)
+search(8)
