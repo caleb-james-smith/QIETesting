@@ -72,5 +72,5 @@ def write70(bus):
     print bus.sendBatch()
 
 # write70(bus6)
-# search(1)
-openRM(1)
+search(1)
+# openRM(1)
