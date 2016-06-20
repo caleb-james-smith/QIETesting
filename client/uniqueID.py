@@ -2,7 +2,7 @@
 # from client import webBus
 import TestLib as t
 from caleb_checksum import checkCRC
-# b = webBus("pi5",0)
+b = webBus("pi5",0)
 
 # Read UniqueID 8 bytes from SSN, U48 on QIE Card
 def uniqueID(slot):
