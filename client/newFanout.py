@@ -1,7 +1,7 @@
 # new fanout pi6
 
 from client import webBus
-b = webBus("pi6",0)
+b = webBus("pi5",0)
 
 bridgeAddress = [0x19, 0x1a,0x1b, 0x1c]
 
