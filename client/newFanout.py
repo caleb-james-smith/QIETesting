@@ -47,6 +47,6 @@ def search(nGroups):
         b.write(0x74,[byte])
         b.read(0x74,1)
         print '0x74 = ',b.sendBatch()
-        print 'Bridge Read = ',bridgeRead([1,3],4)
+        print 'Bridge Read = ',bridgeRead([0,1,2,3],4)
 
 search(8)
