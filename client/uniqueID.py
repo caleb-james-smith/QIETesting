@@ -24,6 +24,7 @@ def uniqueID(slot):
 # To read IDs for RM 1, pass RMList = [0]
 # To read IDs for all RMS, pass RMList = [0, 1, 2, 3]
 def getUniqueIDs(rmList, slotList, verbose=0):
+    print "Unique IDs"
     uniqueIDArray = []
     # Iterate through RM 0, 1, 2, 3 (include desired RMs in list)
     for rm in rmList:
@@ -34,8 +35,11 @@ def getUniqueIDs(rmList, slotList, verbose=0):
         for slot in slotList[rm]:
             message = uniqueID(slot)
             # print checkCRC(message,7,10, verbose)
+            final_message = t.serialNum(message)
+            final_message = t.reverse(final_message)
+            final_message = t.toHex(final_message)
             idList.append(message)
-            message =
+            print 'Slot ',slot,': ',message,' -> ',final_message
         uniqueIDArray.append(idList)
     return uniqueIDArray
 
