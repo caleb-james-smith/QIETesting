@@ -23,7 +23,8 @@ def open(rm):
         print 'Please choose RM = {0,1,2,3}'
         return 'closed channel'
     # Open channel to i2c group
-    b.write(0x74, [ngccmGroup(rm)])
+    # b.write(0x74, [ngccmGroup(rm)])
+    b.write(0x74, [0xFF])
     return b.sendBatch()
 
 def bridgeRead(cardList,nBytes):
@@ -48,5 +49,3 @@ def search(nGroups):
         b.read(0x74,1)
         print '0x74 = ',b.sendBatch()
         print 'Bridge Read = ',bridgeRead([0,1,2,3],4)
-
-search(8)
