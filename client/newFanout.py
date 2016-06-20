@@ -1,9 +1,9 @@
 # new fanout pi6
 
 from client import webBus
-import TestLib as t
-from caleb_checksum import checkCRC
-b = webBus("pi6",1)
+b = webBus("pi6")
+
+bridgeAddress = [0x19, 0x1a,0x1b, 0x1c]
 
 def ngccmGroup(rm):
     i2cGroups = [0x01,0x10,0x20,0x02]
@@ -28,7 +28,13 @@ def open(rm):
     # print '##### open i2c ' + hex(q.RMi2c[rm])
     # b.clearBus()
     b.write(0x74, [ngccmGroup(rm)])
-    b.read(0x1a,1)
+    return b.sendBatch()
+
+def bridgeRead(cardList,nBytes):
+    for card in cardList:
+        print 'Card: ',card
+        b.read(bridgeAddress[cardList],nBytes)
     return b.sendBatch()
 
 print open(3)
+print bridgeRead([1,3],1)
