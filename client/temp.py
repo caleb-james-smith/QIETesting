@@ -117,4 +117,4 @@ def run(rmList,slotList,iterations,verbosity=0):
 
 rmList = [3,0] # Run RM 3 tests, then run RM 0 tests
 slotList = [ [0,3], 0, 0, [2,3] ]
-run(rmList,slotList,10,0)
+run(rmList,slotList,100,0)
