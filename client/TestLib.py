@@ -233,10 +233,6 @@ def moveFamilyCode(message):
     s = " "
     return s.join(finalList)
 
-# only use serial (6 bytes)
-def onlySerial():
-    return 0
-
 # reverse all bits
 def reverseBits():
     return 0
@@ -265,7 +261,7 @@ def toHex(message, colon=2):
     s = ""
     return '0x' + s.join(message_list)
 
-# Parse Serial Number from 8 byte Registration Number.
+# Parse Serial Number (6 bytes) from 8 byte Registration Number.
 def serialNum(message):
     message_list = message.split()
     message_list = message_list[2:-1]

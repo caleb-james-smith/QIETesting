@@ -2,6 +2,7 @@
 # CRC = Cyclic Redundancy Check
 
 import collections
+import Format as f
 
 # Convert string of ints to list of ints.
 def toIntList(message, base=10):
@@ -66,11 +67,25 @@ testList = ['Happy Data', 'Sad Data', 'I2C Error']
 binDataList = [binDataHappy, binDataSad, binI2Cerror]
 intDataList = [intDataHappy, intDataSad, intI2Cerror]
 
-def testCRC(numTests):
+def tempTest(numTests):
     for test in xrange(numTests):
         print '\n',testList[test]
         print binDataList[test], ' : ', checkCRC(binDataList[test], 2, 2)
         print intDataList[test], ' : ', checkCRC(intDataList[test], 2, 10),'\n'
 
-# numTests = 3... happy, sad, and I2C Error
-# testCRC(1)
+def uniqueIDTest(idList):
+    for ID in idList:
+        message = ID
+        print '\n--- Raw ID: ',ID
+        print '*** New ID: ',message
+        print checkCRC(message,7,10,1)
+
+idList = [
+    '0 112 138 191 234 0 0 0 132',
+    '0 112 54 183 234 0 0 0 192',
+    '0 112 236 157 234 0 0 0 142',
+    '0 112 96 185 234 0 0 0 254',
+    '0 112 121 170 215 0 0 0 212'
+]
+
+uniqueIDTest(idList)
