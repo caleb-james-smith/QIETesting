@@ -86,7 +86,7 @@ class Backplane:
         return self.bus.sendBatch()
 
     def findActiveSlots(self):
-        print '\nBUS = ' + str(self.bus) + '\n'
+        print '\nBUS = ' + '\n'
         activeSlots = []
         for rm in [1,2,3,4]:
             self.openRM(rm)
