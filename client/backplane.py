@@ -40,6 +40,7 @@ def bridgeRead(slot,nBytes,bus):
     if message != herm:
         print 'HERM_ERROR : ', message
         return 0
+    print 'ACTIVE_SLOT : ', message
     return 1
 
 def findRM(rmList):
