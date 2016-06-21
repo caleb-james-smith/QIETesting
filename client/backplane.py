@@ -32,13 +32,13 @@ def bridgeRead(slot,nBytes,bus):
     bus.write(bridgeAddress(slot),[0x0])
     bus.read(bridgeAddress(slot),nBytes)
     batch = bus.sendBatch()
-    print 'BATCH: ',batch
+    # print 'BATCH: ',batch
     message = batch[-1]
     if int(message[0]) != 0:
-        print 'I2C_ERROR'
+        print 'I2C_ERROR : ',message
         return 0
     if message != herm:
-        print 'HERM_ERROR'
+        print 'HERM_ERROR : 'message
         return 0
     return 1
 
