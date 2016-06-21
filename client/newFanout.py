@@ -16,23 +16,20 @@ def ngccmGroup(rm):
     return i2cGroups[rm-1]
 
 def openRM(rm,bus):
-    # b.write(0x00,[0x06])
-    if rm in [1,2]:
-        # Open channel to ngCCM for RM 0,1: J1 - J10
-        print '### Open RM ', rm
-        bus.write(0x72,[1])
-    elif rm in [3,4]:
-        # Open channel to ngCCM for RM 2,3: J17 - J26
+    if rm in [3,4]:
+        # Open channel to ngCCM for RM 3,4: J1 - J10
         print '### Open RM ', rm
         bus.write(0x72,[2])
+    elif rm in [1,2]:
+        # Open channel to ngCCM for RM 1,2: J17 - J26
+        print '### Open RM ', rm
+        bus.write(0x72,[1])
     else:
         print 'Invalid RM = ', rm
-        print 'Please choose RM = {0,1,2,3}'
+        print 'Please choose RM = {1,2,3,4}'
         return 'closed channel'
     # Open channel to i2c group
     bus.write(0x74, [ngccmGroup(rm)])
-    # b.read(0x74,1)
-    # b.write(0x74, [0xFF])
     return bus.sendBatch()
 
 def bridgeRead(cardList,nBytes,bus):
