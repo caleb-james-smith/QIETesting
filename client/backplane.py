@@ -80,17 +80,17 @@ class Backplane:
         self.bus.write(0x74, [ngccmGroup(rm)])
         return self.bus.sendBatch()
 
-        def findActiveSlots(self):
-            activeSlots = []
-            for rm in [1,2,3,4]:
-                self.openRM(rm)
-                for slot in [1,2,3,4]:
-                    if bridgeRead(slot,4,self.bus):
-                        activeSlots.append(getSlot(rm,slot))
-            return activeSlots
+    def findActiveSlots(self):
+        activeSlots = []
+        for rm in [1,2,3,4]:
+            self.openRM(rm)
+            for slot in [1,2,3,4]:
+                if bridgeRead(slot,4,self.bus):
+                    activeSlots.append(getSlot(rm,slot))
+        return activeSlots
 
 backplane5 = Backplane(bus5)
 backplane6 = Backplane(bus6)
 
-print backplane5.findActiveSlots()
-print backplane6.findActiveSlots()
+print backplane5.activeSlots
+print backplane6.activeSlots
