@@ -34,7 +34,7 @@ def bridgeRead(slot,nBytes,bus):
     batch = bus.sendBatch()
     print 'BATCH: ',batch
     message = batch[-1]
-    if message[0] != 0:
+    if int(message[0]) != 0:
         print 'I2C_ERROR'
         return 0
     if message != herm:
