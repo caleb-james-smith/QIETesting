@@ -88,4 +88,4 @@ idList = [
     '0 112 121 170 215 0 0 0 212'
 ]
 
-uniqueIDTest(idList)
+# uniqueIDTest(idList)
