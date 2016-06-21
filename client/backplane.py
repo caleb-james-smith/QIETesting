@@ -27,9 +27,9 @@ def ngccmGroup(rm):
     return i2cGroups[rm-1]
 
 # MREH (ASCII) = '0 77 82 69 72'
-def bridgeRead(slot,nBytes,bus):
+def bridgeRead(slot,address,nBytes,bus):
     herm = '0 77 82 69 72'
-    bus.write(bridgeAddress(slot),[0x0])
+    bus.write(bridgeAddress(slot),[address])
     bus.read(bridgeAddress(slot),nBytes)
     batch = bus.sendBatch()
     # print 'BATCH: ',batch
@@ -40,13 +40,13 @@ def bridgeRead(slot,nBytes,bus):
     if message != herm:
         print 'HERM_ERROR : ', message
         return 0
-    print 'ACTIVE_SLOT : ', message
+    print 'ACTIVE_SLOT ',slot,' : ', message
     return 1
 
-def findRM(rmList):
+def findRM(rmList,bus):
     for rm in rmList:
         print openRM(rm)
-        print bridgeRead([2,4],1)
+        print bridgeRead(4,0,4,bus)
 
 def search(nGroups,bus):
     bus.write(0x72,[0x01])
@@ -58,7 +58,7 @@ def search(nGroups,bus):
         bus.write(0x74,[byte])
         bus.read(0x74,1)
         print '0x74 = ',bus.sendBatch()
-        print 'Bridge Read = ',bridgeRead([1,2,3,4],4,bus)
+        print 'Bridge Read = ',bridgeRead(4,0,4,bus)
 
 class Backplane:
     def __init__(self,bus):
@@ -83,11 +83,12 @@ class Backplane:
         return self.bus.sendBatch()
 
     def findActiveSlots(self):
+        print '\nBUS = ',self.bus,'\n'
         activeSlots = []
         for rm in [1,2,3,4]:
             self.openRM(rm)
             for slot in [1,2,3,4]:
-                if bridgeRead(slot,4,self.bus):
+                if bridgeRead(slot,0,4,self.bus):
                     activeSlots.append(getSlot(rm,slot))
         return activeSlots
 
