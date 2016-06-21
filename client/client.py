@@ -17,9 +17,7 @@ class webBus:
         a = "ws://%s:1738/ws" % serverAddress
         self.ws = create_connection(a)
         self.address = serverAddress
-
-    def __str__(self):
-        print self.address
+        # print 'address = ',self.address
 
     def read(self, address, numbytes):
         m = "r %i %i" % (address, numbytes)

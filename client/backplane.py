@@ -1,8 +1,6 @@
 # Backplane
 
 from client import webBus
-bus5 = webBus("pi5",0)
-bus6 = webBus("pi6",0)
 
 slotArray = [
     [23,24,25,26],
@@ -34,13 +32,14 @@ def bridgeRead(slot,address,nBytes,bus):
     batch = bus.sendBatch()
     # print 'BATCH: ',batch
     message = batch[-1]
+    s = 'Slot ' + str(slot)
     if int(message[0]) != 0:
-        print 'I2C_ERROR : ', message
+        print s + ' I2C_ERROR : ', message
         return 0
     if message != herm:
-        print 'HERM_ERROR : ', message
+        print s + ' HERM_ERROR : ', message
         return 0
-    print 'ACTIVE_SLOT ',slot,' : ', message
+    print s + ' ACTIVE_SLOT : ', message
     return 1
 
 def findRM(rmList,bus):
@@ -63,10 +62,10 @@ def search(nGroups,bus):
 class Backplane:
     def __init__(self,bus):
         self.bus = bus
-        self.activeSlots = self.findActiveSlots
+        self.activeSlots = self.findActiveSlots()
 
     def __str__(self):
-        return str(self.bus)
+        return self.bus.address
 
     def openRM(self,rm):
         if rm in [3,4]:
@@ -86,17 +85,20 @@ class Backplane:
         return self.bus.sendBatch()
 
     def findActiveSlots(self):
-        print '\nBUS = ' + '\n'
+        print '\nBUS = ' + str(self) + '\n'
         activeSlots = []
-        for rm in [1,2,3,4]:
+        for rm in [4,3,2,1]:
             self.openRM(rm)
             for slot in [1,2,3,4]:
                 if bridgeRead(slot,0,4,self.bus):
                     activeSlots.append(getSlot(rm,slot))
         return activeSlots
 
+bus5 = webBus("pi5",0)
+bus6 = webBus("pi6",0)
+
 backplane5 = Backplane(bus5)
 backplane6 = Backplane(bus6)
 
-print backplane5.activeSlots
-print backplane6.activeSlots
+print '\n',str(backplane5),' active slots: ', backplane5.activeSlots
+print str(backplane5),' active slots: ',backplane6.activeSlots,'\n'
