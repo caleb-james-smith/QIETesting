@@ -63,7 +63,10 @@ def search(nGroups,bus):
 class Backplane:
     def __init__(self,bus):
         self.bus = bus
-        self.activeSlots = self.findActiveSlots()
+        self.activeSlots = self.findActiveSlots
+
+    def __str__(self):
+        return str(self.bus)
 
     def openRM(self,rm):
         if rm in [3,4]:
@@ -83,7 +86,7 @@ class Backplane:
         return self.bus.sendBatch()
 
     def findActiveSlots(self):
-        print '\nBUS = ',self.bus,'\n'
+        print '\nBUS = ' + str(self.bus) + '\n'
         activeSlots = []
         for rm in [1,2,3,4]:
             self.openRM(rm)
