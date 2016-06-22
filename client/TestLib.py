@@ -141,11 +141,36 @@ def readRegisterIgloo(slot, address, num_bytes):
 # Label Slots as 0, 1, 2, 3
 # Open Channel for QIE Card Given RM
 
+####### happy slot things #####################
+
+slotArray = [
+    [23,24,25,26],
+    [18,19,20,21],
+    [7,8,9,10],
+    [2,3,4,5]
+]
+
+# RM = 1,2,3,4
+# Slot = 1,2,3,4
+def getSlot(rm,slot):
+    return slotArray[rm-1][slot-1]
+
+# Slots 1,2,3,4
+def bridgeAddress(slot):
+    address = [0x19, 0x1a,0x1b, 0x1c]
+    return address[slot-1]
+
+# RMs 1,2,3,4
+def ngccmGroup(rm):
+    i2cGroups = [0x01,0x10,0x20,0x02]
+    return i2cGroups[rm-1]
+
+
 def openRM(rm):
-    if rm in [0,1]:
+    if rm in [3,4]:
         # Open channel to ngCCM for RM 0,1: J1 - J10
         b.write(q.MUXs["fanout"],[0x02])
-    elif rm in [2,3]:
+    elif rm in [1,2]:
         # Open channel to ngCCM for RM 2,3: J17 - J26
         b.write(q.MUXs["fanout"],[0x01])
     else:

@@ -6,7 +6,7 @@ b = webBus("pi5")
 
 # Examlpe for register address 0x00
 def igloo0(rm,slot):
-    t.openRM(rm,slot)
+    t.openRM(rm)
     b.write(q.QIEi2c[slot],[0x11,0x03,0,0,0])
     b.write(0x09,[0x00])
     b.read(0x09,8)
@@ -14,28 +14,30 @@ def igloo0(rm,slot):
 
 # Adry's open Igloo function
 def openIgloo(rm,slot):
-    t.openRM(rm,slot)
+    t.openRM(rm)
     #the igloo is value "3" in I2C_SELECT table
     b.write(q.QIEi2c[slot],[0x11,0x03,0,0,0])
     b.sendBatch()
 
 ############### Igloo Register Tests #############################
 
-def runIglooTests(RMList, num_slots, num_tests, verbosity=0):
+def runIglooTests(rmList, slotList, testList, verbosity=0):
     print '\n\nBRIDGE TEST\n\n'
     total_passed = 0
     total_failed = 0
     total_neither = 0
+    num_slots = len(slotList)
+    num_tests = len(testList)
     total_number_tests = num_slots * num_tests
     total_test_list = [total_passed, total_failed, total_neither]
-    for rm in RMList:
+    for rm in rmList:
         t.openRM(rm)
         print '\n-------------------- Test RM: ', rm, ' --------------------'
-        for slot in xrange(num_slots):
+        for slot in slotList:
             # Reset all devices!
             b.write(0x00,[0x06]) # also present in readRegisterIgloo.
             print '\n-------------------- Test Slot: ', slot, ' --------------------'
-            test_list = iglooTests(slot,num_tests)
+            test_list = iglooTests(slot,testList,verbosity)
             total_test_list = map(add, total_test_list, test_list)
             # daisyChain = q.qCard(webBus("pi5",0), q.QIEi2c[slot])
             # print '\n~~~~~~~~~~ QIE Daisy Chain ~~~~~~~~~~'
@@ -53,12 +55,13 @@ def runIglooTests(RMList, num_slots, num_tests, verbosity=0):
     print 'Number neither pass nor fail = ', total_test_list[2]
     print 'Check total number of tests: ', total_number_tests == sum(total_test_list), '\n'
 
-def iglooTests(slot, num_tests, verbosity=0):
+def iglooTests(slot, testList, verbosity=0):
     passed = 0
     failed = 0
     neither = 0
+    num_tests = len(testList)
     print '## Number of Tests: ', num_tests
-    for test in xrange(num_tests):
+    for test in testList:
         print '\n### Igloo Test: ', test, ' ###'
         print '\n### Test Name: ', iglooDict[test]['name']
         function = iglooDict[test]['function']
@@ -406,5 +409,5 @@ iglooDict = {
     }
 }
 
-# runIglooTests(RMList, num_slots, num_tests, verbosity=0)
-runIglooTests([0],4,40)
+# runIglooTests(RMList, slotList, testList, verbosity=0)
+runIglooTests([0],[0,3],[7,8])

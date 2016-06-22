@@ -3,7 +3,8 @@ import collections
 import caleb_checksum as cc
 import TestLib as t
 import QIELib as q
-bus = webBus("pi6",0)
+bus = webBus("pi5",0)
+# bus = webBus("pi6",0)
 
 # binDataHappy = '0 01110000 00111100 10000011'
 # intDataHappy = '0 112 60 131'
@@ -115,6 +116,9 @@ def run(rmList,slotList,iterations,verbosity=0):
                 print '\n-----\n',key, ' ', hold,'\n-----\n'
                 readManyTemps(slot,iterations,key,hold,verbosity)
 
-rmList = [2,3] # Run RM 3 tests, then run RM 0 tests
-slotList = [ 0, 0, [1,3], [1,3]]
-run(rmList,slotList,20,0)
+print '\nBUS = ',bus.address
+rmList5 = [0]
+slotList5 = [[0,3], 0, 0, 0]
+rmList6 = [2,3]
+slotList6 = [ 0, 0, [3], [2,3]]
+run(rmList5,slotList5,20,0)
