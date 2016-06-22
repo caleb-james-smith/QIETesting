@@ -120,8 +120,8 @@ bridgeDict = {
 # Read number of bytes from register for Bridge
 
 def readRegisterBridge(slot, address, num_bytes):
-    b.write(q.QIEi2c[slot],[address])
-    b.read(q.QIEi2c[slot], num_bytes)
+    b.write(ngccmGroup(slot),[address])
+    b.read(ngccmGroup(slot), num_bytes)
     message = b.sendBatch()[-1]
     return reverseBytes(message)
 
@@ -129,7 +129,7 @@ def readRegisterBridge(slot, address, num_bytes):
 
 def readRegisterIgloo(slot, address, num_bytes):
     b.write(0x00,[0x06])
-    b.write(q.QIEi2c[slot],[0x11,0x03,0,0,0])
+    b.write(ngccmGroup(slot),[0x11,0x03,0,0,0])
     b.write(0x09,[address])
     b.read(0x09, num_bytes)
     message = b.sendBatch()[-1]
@@ -178,7 +178,7 @@ def openRM(rm):
         print 'Please choose RM = {0,1,2,3}'
         return 'closed channel'
     # Open channel to i2c group
-    b.write(q.MUXs["ngccm"]["u10"], [q.RMi2c[rm]])
+    b.write(q.MUXs["ngccm"]["u10"], [ngccmGroup(rm)])
     return b.sendBatch()
 
 # Print UniqueID Arrary

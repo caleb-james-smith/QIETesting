@@ -7,28 +7,30 @@ b = webBus("pi5")
 # Examlpe for register address 0x00
 def bridge0(rm,slot):
     t.openRM(rm)
-    b.write(q.QIEi2c[slot],[0x00])
-    b.read(q.QIEi2c[slot],4)
+    b.write(t.ngccmGroup(slot),[0x00])
+    b.read(t.ngccmGroup(slot),4)
     return b.sendBatch()[-1]
 
 # Bridge Register Tests
 
-def runBridgeTests(RMList, num_slots, num_tests, verbosity=0):
+def runBridgeTests(RMList, slotList, testList, verbosity=0):
     print '\n\nBRIDGE TEST\n\n'
     total_passed = 0
     total_failed = 0
     total_neither = 0
+    num_slots = len(slotList)
+    num_tests = len(testList)
     total_number_tests = num_slots * num_tests
     total_test_list = [total_passed, total_failed, total_neither]
     for rm in RMList:
         t.openRM(rm)
         print '\n-------------------- Test RM: ', rm, ' --------------------'
-        for slot in xrange(num_slots):
+        for slot in slotList:
             b.write(0x00,[0x06])
             print '\n-------------------- Test Slot: ', slot, ' --------------------'
-            test_list = bridgeTests(slot,num_tests)
+            test_list = bridgeTests(slot,testList)
             total_test_list = map(add, total_test_list, test_list)
-            daisyChain = q.qCard(webBus("pi5",0), q.QIEi2c[slot])
+            daisyChain = q.qCard(webBus("pi5",0), t.ngccmGroup(slot))
             print '\n~~~~~~~~~~ QIE Daisy Chain ~~~~~~~~~~'
             print str(daisyChain)
             if verbosity:
@@ -44,12 +46,13 @@ def runBridgeTests(RMList, num_slots, num_tests, verbosity=0):
     print 'Number neither pass nor fail = ', total_test_list[2]
     print 'Check total number of tests: ', total_number_tests == sum(total_test_list), '\n'
 
-def bridgeTests(slot, num_tests, verbosity=0):
+def bridgeTests(slot, testList, verbosity=0):
     passed = 0
     failed = 0
     neither = 0
+    num_tests = len(testList)
     print '## Number of Tests: ', num_tests
-    for test in xrange(num_tests):
+    for test in testList:
         print '\n### Bridge Test: ', test, ' ###'
         print '\n### Test Name: ', bridgeDict[test]['name']
         function = bridgeDict[test]['function']
@@ -421,6 +424,6 @@ i2cDict = {
 
 ###############################################################################
 
-# runBridgeTests(RMList, num_slots, num_tests, verbosity=0)
+# runBridgeTests(RMList, slotList, testList, verbosity=0)
 # 27 is max num of tests
-runBridgeTests([0],4,27,0)
+runBridgeTests([4],[1,4],[16],0)
