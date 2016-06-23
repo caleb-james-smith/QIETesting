@@ -3,7 +3,7 @@
 
 from client import webBus
 import QIELib as q
-b = webBus("pi5",0)
+b = webBus("pi6",0)
 
 #MUX slave addresses (slave i2c addresses)
 MUXs = {
@@ -119,20 +119,20 @@ bridgeDict = {
 
 # Read number of bytes from register for Bridge
 
-def readRegisterBridge(slot, address, num_bytes):
-    b.write(ngccmGroup(slot),[address])
-    b.read(ngccmGroup(slot), num_bytes)
-    message = b.sendBatch()[-1]
+def readRegisterBridge(bus, slot, address, num_bytes):
+    bus.write(bridgeAddress(slot),[address])
+    bus.read(bridgeAddress(slot), num_bytes)
+    message = bus.sendBatch()[-1]
     return reverseBytes(message)
 
 # Read number of bytes from register for Igloo
 
-def readRegisterIgloo(slot, address, num_bytes):
-    b.write(0x00,[0x06])
-    b.write(ngccmGroup(slot),[0x11,0x03,0,0,0])
-    b.write(0x09,[address])
-    b.read(0x09, num_bytes)
-    message = b.sendBatch()[-1]
+def readRegisterIgloo(bus, slot, address, num_bytes):
+    bus.write(0x00,[0x06])
+    bus.write(bridgeAddress(slot),[0x11,0x03,0,0,0])
+    bus.write(0x09,[address])
+    bus.read(0x09, num_bytes)
+    message = bus.sendBatch()[-1]
     return reverseBytes(message)
 
 ######## open channel to RM! ######################
@@ -155,6 +155,11 @@ slotArray = [
 def getSlot(rm,slot):
     return slotArray[rm-1][slot-1]
 
+def getSlotList(rm,slot):
+    slotList = [0,0,0,0]
+    slotList[4-rm] = [slot]
+    return slotList
+
 # Slots 1,2,3,4
 def bridgeAddress(slot):
     address = [0x19, 0x1a,0x1b, 0x1c]
@@ -166,20 +171,20 @@ def ngccmGroup(rm):
     return i2cGroups[rm-1]
 
 
-def openRM(rm):
+def openRM(bus,rm):
     if rm in [3,4]:
         # Open channel to ngCCM for RM 0,1: J1 - J10
-        b.write(q.MUXs["fanout"],[0x02])
+        bus.write(q.MUXs["fanout"],[0x02])
     elif rm in [1,2]:
         # Open channel to ngCCM for RM 2,3: J17 - J26
-        b.write(q.MUXs["fanout"],[0x01])
+        bus.write(q.MUXs["fanout"],[0x01])
     else:
         print 'Invalid RM = ', rm
-        print 'Please choose RM = {0,1,2,3}'
+        print 'Please choose RM = {1,2,3,4}'
         return 'closed channel'
     # Open channel to i2c group
-    b.write(q.MUXs["ngccm"]["u10"], [ngccmGroup(rm)])
-    return b.sendBatch()
+    bus.write(q.MUXs["ngccm"]["u10"], [ngccmGroup(rm)])
+    return bus.sendBatch()
 
 # Print UniqueID Arrary
 # RN = Registration Number
@@ -258,10 +263,6 @@ def moveFamilyCode(message):
     s = " "
     return s.join(finalList)
 
-# reverse all bits
-def reverseBits():
-    return 0
-
 # Convert string of ints to list of ints.
 def toIntList(message):
     message_list = message.split()
@@ -300,3 +301,21 @@ def toASCII(message):
         message_list[byte] = chr(int(message_list[byte]))
     s = ""
     return s.join(message_list)
+
+def getValueOld(message):
+    value = ''
+    mList = message.split()
+    mList.pop(0)
+    for byte in xrange(len(mList)):
+        initialByte = bin(int(mList[byte]))[2:]
+        length = len(initialByte)
+        zeros = "".join(list('0' for i in xrange(8-length)))
+        fullByte = zeros + initialByte
+        value += fullByte
+    # value = value[:-2] + '00' # only for Temperature and Humidity!!!
+    return int(value,2)
+
+# Simple Version
+def getValue(message):
+    hex_message = toHex(message,0)[2:]
+    return int(hex_message,16)

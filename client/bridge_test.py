@@ -1,15 +1,29 @@
 from client import webBus
 from operator import add
 import TestLib as t
-import QIELib as q
-b = webBus("pi5")
+import time
+b = webBus("pi5",0)
 
-# Examlpe for register address 0x00
-def bridge0(rm,slot):
+# Cryptic 0x70 Reset
+def reset(ngccm):
+    b.write(0x72,[ngccm])
+    b.write(0x74,[0x08])
+    b.write(0x70,[0x3,0])
+    b.write(0x70,[0x1,0])
+    return b.sendBatch()
+
+# Read from Bridge
+def readBridge(slot, address, num_bytes):
+    b.write(t.bridgeAddress(slot),[address])
+    b.read(t.bridgeAddress(slot), num_bytes)
+    message = b.sendBatch()[-1]
+    return t.reverseBytes(message)
+
+# Write to Bridge
+def writeBridge(rm,slot,address,messageList):
     t.openRM(rm)
-    b.write(t.ngccmGroup(slot),[0x00])
-    b.read(t.ngccmGroup(slot),4)
-    return b.sendBatch()[-1]
+    b.write(t.bridgeAddress(slot),[address] + messageList)
+    return b.sendBatch()
 
 # Bridge Register Tests
 
@@ -25,14 +39,14 @@ def runBridgeTests(RMList, slotList, testList, verbosity=0):
     for rm in RMList:
         t.openRM(rm)
         print '\n-------------------- Test RM: ', rm, ' --------------------'
-        for slot in slotList:
+        for slot in slotList[4-rm]:
             b.write(0x00,[0x06])
             print '\n-------------------- Test Slot: ', slot, ' --------------------'
-            test_list = bridgeTests(slot,testList)
+            test_list = bridgeTests(slot,testList, verbosity)
             total_test_list = map(add, total_test_list, test_list)
-            daisyChain = q.qCard(webBus("pi5",0), t.ngccmGroup(slot))
-            print '\n~~~~~~~~~~ QIE Daisy Chain ~~~~~~~~~~'
-            print str(daisyChain)
+            # daisyChain = q.qCard(webBus("pi5",0), t.bridgeAddress(slot))
+            # print '\n~~~~~~~~~~ QIE Daisy Chain ~~~~~~~~~~'
+            # print str(daisyChain)
             if verbosity:
                 print '\nNumber passed = ', test_list[0]
                 print 'Number failed = ', test_list[1]
@@ -58,9 +72,10 @@ def bridgeTests(slot, testList, verbosity=0):
         function = bridgeDict[test]['function']
         address = bridgeDict[test]['address']
         num_bytes = bridgeDict[test]['bits']/8
-        message = t.readRegisterBridge(slot, address, num_bytes)
+        message = readBridge(slot, address, num_bytes)
         print '\n*********** RAW MESSAGE :', t.reverseBytes(message),'\n'
         result = function(message)
+        print 'RESULT = ',result
         if result == 'PASS':
             passed += 1
         elif result == 'FAIL':
@@ -128,6 +143,11 @@ def onesZeroes(message):
     print 'int message: ', message
     print 'hex message: ', hex_message
     return passFail(hex_message==correct_value)
+
+def orbitHisto(message):
+    simplePrint(message)
+    value = t.getValue(message)
+    return value
 
 def qieDaisyChain0(message):
     hex_message = t.toHex(message,1)
@@ -284,63 +304,56 @@ bridgeDict = {
         'name' : 'ControlReg',
         # 'function' : controlReg,
         'function' : simplePrint,
-        'address' : 0x2A,
+        'address' : 0x18,
         'bits' : 32,
         'write' : True
     },
     17 : {
         'name' : 'orbit_histo[167:144]',
-        # 'function' : orbitHisto6,
-        'function' : simplePrint,
-        'address' : 0x2B,
+        'function' : orbitHisto,
+        'address' : 0x19,
         'bits' : 24,
         'write' : False
     },
     18 : {
         'name' : 'orbit_histo[143:120]',
-        # 'function' : orbitHisto5,
-        'function' : simplePrint,
-        'address' : 0x2C,
+        'function' : orbitHisto,
+        'address' : 0x1A,
         'bits' : 24,
         'write' : False
     },
     19 : {
         'name' : 'orbit_histo[119:96]',
-        # 'function' : orbitHisto4,
-        'function' : simplePrint,
-        'address' : 0x2D,
+        'function' : orbitHisto,
+        'address' : 0x1B,
         'bits' : 24,
         'write' : False
     },
     20 : {
         'name' : 'orbit_histo[95:72]',
-        # 'function' : orbitHisto3,
-        'function' : simplePrint,
-        'address' : 0x2E,
+        'function' : orbitHisto,
+        'address' : 0x1C,
         'bits' : 24,
         'write' : False
     },
     21 : {
         'name' : 'orbit_histo[71:48]',
-        # 'function' : orbitHisto2,
-        'function' : simplePrint,
-        'address' : 0x2F,
+        'function' : orbitHisto,
+        'address' : 0x1D,
         'bits' : 24,
         'write' : False
     },
     22 : {
         'name' : 'orbit_histo[47:24]',
-        # 'function' : orbitHisto1,
-        'function' : simplePrint,
-        'address' : 0x30,
+        'function' : orbitHisto,
+        'address' : 0x1E,
         'bits' : 24,
         'write' : False
     },
     23 : {
         'name' : 'orbit_histo[23:0]',
-        # 'function' : orbitHisto0,
-        'function' : simplePrint,
-        'address' : 0x31,
+        'function' : orbitHisto,
+        'address' : 0x1F,
         'bits' : 24,
         'write' : False
     },
@@ -426,4 +439,19 @@ i2cDict = {
 
 # runBridgeTests(RMList, slotList, testList, verbosity=0)
 # 27 is max num of tests
-runBridgeTests([4],[1,4],[16],0)
+
+print reset(1)
+print reset(2)
+
+def control_reg_orbit_histo(rm,slot,delay):
+    print writeBridge(rm,slot,0x18,[2,0,0,0])
+    print writeBridge(rm,slot,0x18,[1,0,0,0])
+    time.sleep(delay)
+    print writeBridge(rm,slot,0x18,[0,0,0,0])
+    runBridgeTests([rm],t.getSlotList(rm,slot),range(16,24),0)
+
+# runBridgeTests([4], [[1,4],0,0,0], range(27))
+# runBridgeTests([2,1], [0,0,[2,3,4],[1,4]], range(27))
+
+control_reg_orbit_histo(4,4,0)
+control_reg_orbit_histo(4,4,1)

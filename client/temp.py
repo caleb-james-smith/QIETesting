@@ -1,10 +1,11 @@
 from client import webBus
 import collections
-import caleb_checksum as cc
 import TestLib as t
 import QIELib as q
-bus = webBus("pi5",0)
-# bus = webBus("pi6",0)
+import caleb_checksum as cc
+from checksumClass import Checksum
+# bus = webBus("pi5",0)
+bus = webBus("pi6",0)
 
 # binDataHappy = '0 01110000 00111100 10000011'
 # intDataHappy = '0 112 60 131'
@@ -18,6 +19,12 @@ bus = webBus("pi5",0)
 # Trigger RH measurement    hold master     1110'0101   0xE5
 # Trigger T measurement     no hold master  1111'0011   0xF3
 # Trigger RH measurement    no hold master  1111'0101   0xF5
+
+def reverse(message):
+    mlist = message.split()
+    error = mlist.pop(0)
+    mlist.reverse()
+    return error + " " + " ".join(mlist)
 
 def getValue(message):
     value = ''
@@ -68,13 +75,19 @@ function = {
 
 def readTempHumi(slot, num_bytes, key, hold, verbosity=0):
     bus.write(0x00,[0x06])
-    bus.write(q.QIEi2c[slot],[0x11,0x05,0,0,0])
+    bus.write(t.bridgeAddress(slot),[0x11,0x05,0,0,0])
     bus.write(0x40,[triggerDict[key][hold]])
     bus.read(0x40, num_bytes + 1) # also read checksum byte
     message = bus.sendBatch()[-1]
-    # message = intDataHappy
+
+    # reversed_message = reverse(message)
+    # check = Checksum(reversed_message)
+    # crc = check.result
+
+    crc = cc.checkCRC(message,2)
+
     value = getValue(message)
-    crc = cc.checkCRC(message, 2)
+
     if verbosity > 1:
         print 'message: ', message
         print 'checksum: ', crc
@@ -107,8 +120,8 @@ def readManyTemps(slot,iterations,key,hold,verbosity=0):
 
 def run(rmList,slotList,iterations,verbosity=0):
     for rm in rmList:
-        t.openRM(rm)
-        for slot in slotList[rm]:
+        t.openRM(bus,rm)
+        for slot in slotList[4-rm]:
             print '\n--- RM: ',rm,' Slot: ',slot,'---\n'
             for key in triggerDict:
                 # for hold in triggerDict[key]:
@@ -117,8 +130,8 @@ def run(rmList,slotList,iterations,verbosity=0):
                 readManyTemps(slot,iterations,key,hold,verbosity)
 
 print '\nBUS = ',bus.address
-rmList5 = [0]
-slotList5 = [[0,3], 0, 0, 0]
-rmList6 = [2,3]
-slotList6 = [ 0, 0, [3], [2,3]]
-run(rmList5,slotList5,20,0)
+# rmList5 = [0]
+# slotList5 = [[0,3], 0, 0, 0]
+rmList6 = [2,1]
+slotList6 = [ 0, 0, [3,4], [1,4]]
+run(rmList6,slotList6,20,0)

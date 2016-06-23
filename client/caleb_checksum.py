@@ -3,6 +3,7 @@
 
 import collections
 import Format as f
+import TestLib as t
 
 # Convert string of ints to list of ints.
 def toIntList(message, base=10):
@@ -19,20 +20,27 @@ def checkCRC(message, numBytes, base=10, verbose=0):
     errorCode = mList[0]
     dataList = mList[1:-1]
     checksum = mList[-1]
+    if verbose > 2:
+        print 'hex = ',t.toHex(message)
+        print 'data = ',dataList
+        print 'checksum = ',checksum
     if errorCode != 0:
         return 'I2C_BUS_ERROR'
     # calculates 8-bit checksum with give polynomial
     for byteCtr in xrange(numBytes):
         crc ^= dataList[byteCtr]
+        # crc &= 0xFF
         if verbose > 1:
             print "CRC = ",crc
         for bit in xrange(8,0,-1):
             if crc & 0x80: # True if crc >= 128, False if crc < 128
                 crc = (crc << 1) ^ POLYNOMIAL
+                # crc &= 0xFF
                 if verbose > 1:
                     print 'true crc = ',crc
             else: # crc < 128
                 crc = (crc << 1)
+                # crc &= 0xFF
                 if verbose > 1:
                     print 'false crc = ',crc
     if verbose > 0:
@@ -78,7 +86,7 @@ def uniqueIDTest(idList):
         message = ID
         print '\n--- Raw ID: ',ID
         print '*** New ID: ',message
-        print checkCRC(message,7,10,1)
+        print checkCRC(message,7,10,2)
 
 idList = [
     '0 112 138 191 234 0 0 0 132',
@@ -88,4 +96,4 @@ idList = [
     '0 112 121 170 215 0 0 0 212'
 ]
 
-# uniqueIDTest(idList)
+# uniqueIDTest([idList[0]])

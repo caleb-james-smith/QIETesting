@@ -4,19 +4,29 @@ import TestLib as t
 import QIELib as q
 b = webBus("pi5")
 
-# Examlpe for register address 0x00
-def igloo0(rm,slot):
+# Read from Igloo
+def readIgloo(slot, address, num_bytes):
+    b.write(0x00,[0x06])
+    b.write(t.bridgeAddress(slot),[0x11,0x03,0,0,0])
+    b.write(0x09,[address])
+    b.read(0x09, num_bytes)
+    message = b.sendBatch()[-1]
+    return t.reverseBytes(message)
+
+# Write to Igloo
+def writeIgloo(rm,slot,address,messageList):
     t.openRM(rm)
-    b.write(q.QIEi2c[slot],[0x11,0x03,0,0,0])
-    b.write(0x09,[0x00])
-    b.read(0x09,8)
-    return b.sendBatch()[-1]
+    b.write(0x00,[0x06])
+    b.write(t.bridgeAddress(slot),[0x11,0x03,0,0,0])
+    b.write(0x09,[address] + messageList)
+    message = b.sendBatch()[-1]
+    return t.reverseBytes(message)
 
 # Adry's open Igloo function
 def openIgloo(rm,slot):
     t.openRM(rm)
     #the igloo is value "3" in I2C_SELECT table
-    b.write(q.QIEi2c[slot],[0x11,0x03,0,0,0])
+    b.write(t.bridgeAddress(slot),[0x11,0x03,0,0,0])
     b.sendBatch()
 
 ############### Igloo Register Tests #############################
@@ -33,13 +43,13 @@ def runIglooTests(rmList, slotList, testList, verbosity=0):
     for rm in rmList:
         t.openRM(rm)
         print '\n-------------------- Test RM: ', rm, ' --------------------'
-        for slot in slotList:
+        for slot in slotList[4-rm]:
             # Reset all devices!
             b.write(0x00,[0x06]) # also present in readRegisterIgloo.
             print '\n-------------------- Test Slot: ', slot, ' --------------------'
             test_list = iglooTests(slot,testList,verbosity)
             total_test_list = map(add, total_test_list, test_list)
-            # daisyChain = q.qCard(webBus("pi5",0), q.QIEi2c[slot])
+            # daisyChain = q.qCard(webBus("pi5",0), t.bridgeAddress(slot))
             # print '\n~~~~~~~~~~ QIE Daisy Chain ~~~~~~~~~~'
             # print str(daisyChain)
             if verbosity:
@@ -132,7 +142,7 @@ iglooDict = {
         # 'function' : writeUniqueID,
         'function' : t.simplePrint,
         'address' : 0x05,
-        'bits' : 8,
+        'bits' : 16,
         'write' : True
     },
     6 : {
@@ -409,5 +419,11 @@ iglooDict = {
     }
 }
 
+# writeIgloo(rm,slot,address,messageList):
 # runIglooTests(RMList, slotList, testList, verbosity=0)
-runIglooTests([0],[0,3],[7,8])
+
+print writeIgloo(4,1,iglooDict[7]['address'],[0,0,0,1])
+runIglooTests([4],[[1],0,0,0],[7,8,9,10])
+
+# print writeIgloo(4,1,iglooDict[39]['address'],[0xA,0xD,0xA,0xD])
+# runIglooTests([4],[[1],0,0,0],[39])
