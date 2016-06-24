@@ -94,11 +94,11 @@ class Backplane:
                     activeSlots.append(getSlot(rm,slot))
         return activeSlots
 
-bus5 = webBus("pi5",0)
+# bus5 = webBus("pi5",0)
 bus6 = webBus("pi6",0)
 
-backplane5 = Backplane(bus5)
+# backplane5 = Backplane(bus5)
 backplane6 = Backplane(bus6)
 
-print '\n',str(backplane5),' active slots: ', backplane5.activeSlots
-print str(backplane5),' active slots: ',backplane6.activeSlots,'\n'
+# print '\n',str(backplane5),' active slots: ', backplane5.activeSlots
+print '\n',str(backplane6),' active slots: ',backplane6.activeSlots,'\n'

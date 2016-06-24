@@ -2,7 +2,7 @@ from client import webBus
 from operator import add
 import TestLib as t
 import QIELib as q
-b = webBus("pi5")
+b = webBus("pi6",0)
 
 # Read from Igloo
 def readIgloo(slot, address, num_bytes):
@@ -15,7 +15,7 @@ def readIgloo(slot, address, num_bytes):
 
 # Write to Igloo
 def writeIgloo(rm,slot,address,messageList):
-    t.openRM(rm)
+    t.openRM(b,rm)
     b.write(0x00,[0x06])
     b.write(t.bridgeAddress(slot),[0x11,0x03,0,0,0])
     b.write(0x09,[address] + messageList)
@@ -24,7 +24,7 @@ def writeIgloo(rm,slot,address,messageList):
 
 # Adry's open Igloo function
 def openIgloo(rm,slot):
-    t.openRM(rm)
+    t.openRM(b,rm)
     #the igloo is value "3" in I2C_SELECT table
     b.write(t.bridgeAddress(slot),[0x11,0x03,0,0,0])
     b.sendBatch()
@@ -41,7 +41,7 @@ def runIglooTests(rmList, slotList, testList, verbosity=0):
     total_number_tests = num_slots * num_tests
     total_test_list = [total_passed, total_failed, total_neither]
     for rm in rmList:
-        t.openRM(rm)
+        t.openRM(b,rm)
         print '\n-------------------- Test RM: ', rm, ' --------------------'
         for slot in slotList[4-rm]:
             # Reset all devices!
@@ -77,7 +77,7 @@ def iglooTests(slot, testList, verbosity=0):
         function = iglooDict[test]['function']
         address = iglooDict[test]['address']
         num_bytes = iglooDict[test]['bits']/8
-        message = t.readRegisterIgloo(slot, address, num_bytes)
+        message = readIgloo(slot, address, num_bytes)
         result = function(message)
         if result == 'PASS':
             passed += 1
@@ -150,7 +150,7 @@ iglooDict = {
         # 'function' : statusReg,
         'function' : t.simplePrint,
         'address' : 0x10,
-        'bits' : 8,
+        'bits' : 32,
         'write' : False
     },
     7 : {
@@ -422,8 +422,8 @@ iglooDict = {
 # writeIgloo(rm,slot,address,messageList):
 # runIglooTests(RMList, slotList, testList, verbosity=0)
 
-print writeIgloo(4,1,iglooDict[7]['address'],[0,0,0,1])
-runIglooTests([4],[[1],0,0,0],[7,8,9,10])
+# print writeIgloo(4,1,iglooDict[7]['address'],[0,0,0,1])
+runIglooTests([2,1],[0,0,[3,4],[1,4]],[6])
 
 # print writeIgloo(4,1,iglooDict[39]['address'],[0xA,0xD,0xA,0xD])
 # runIglooTests([4],[[1],0,0,0],[39])

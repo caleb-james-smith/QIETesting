@@ -1,0 +1,632 @@
+BRIDGE TEST
+
+
+
+-------------------- Test RM:  4  --------------------
+
+-------------------- Test Slot:  1  --------------------
+## Number of Tests:  27
+
+### Bridge Test:  0  ###
+
+### Test Name:  ID string
+
+*********** RAW MESSAGE : 0 77 82 69 72
+
+correct value:  HERM
+ASCII message:  HERM
+RESULT =  FAIL
+
+### Bridge Test:  1  ###
+
+### Test Name:  ID string cont
+
+*********** RAW MESSAGE : 0 103 100 114 66
+
+correct value:  Brdg
+ASCII message:  Brdg
+RESULT =  FAIL
+
+### Bridge Test:  2  ###
+
+### Test Name:  FW Version
+
+*********** RAW MESSAGE : 0 64 17 14 1
+
+hex message:  00:01:0e:11:40
+RESULT =  00:01:0e:11:40
+Neither PASS Nor FAIL
+
+### Bridge Test:  3  ###
+
+### Test Name:  Ones
+
+*********** RAW MESSAGE : 0 255 255 255 255
+
+correct value:  0xffffffff
+int message:  0 255 255 255 255
+hex message:  0x00ffffffff
+RESULT =  FAIL
+
+### Bridge Test:  4  ###
+
+### Test Name:  Zeroes
+
+*********** RAW MESSAGE : 0 0 0 0 0
+
+correct value:  0x00000000
+int message:  0 0 0 0 0
+hex message:  0x0000000000
+RESULT =  FAIL
+
+### Bridge Test:  5  ###
+
+### Test Name:  OnesZeroes
+
+*********** RAW MESSAGE : 0 170 170 170 170
+
+correct value:  0xaaaaaaaa
+int message:  0 170 170 170 170
+hex message:  0x00aaaaaaaa
+RESULT =  FAIL
+
+### Bridge Test:  6  ###
+
+### Test Name:  Scratch
+
+*********** RAW MESSAGE : 0 0 0 0 128
+
+int message:  0 128 0 0 0
+hex message: 00 80 00 00 00
+RESULT =  00 80 00 00 00
+Neither PASS Nor FAIL
+
+### Bridge Test:  7  ###
+
+### Test Name:  Status
+
+*********** RAW MESSAGE : 0 1 0 0 0
+
+int message:  0 0 0 0 1
+hex message: 00 00 00 00 01
+RESULT =  00 00 00 00 01
+Neither PASS Nor FAIL
+
+### Bridge Test:  8  ###
+
+### Test Name:  I2C_SELECT
+
+*********** RAW MESSAGE : 0 0 0 0 0
+
+int message:  0 0 0 0 0
+hex message: 00 00 00 00 00
+RESULT =  00 00 00 00 00
+Neither PASS Nor FAIL
+
+### Bridge Test:  9  ###
+
+### Test Name:  Clock Counter
+
+*********** RAW MESSAGE : 0 210 10 0 0
+
+int message:  0 0 0 10 210
+hex message: 00 00 00 0a d2
+RESULT =  00 00 00 0a d2
+Neither PASS Nor FAIL
+
+### Bridge Test:  10  ###
+
+### Test Name:  RES_QIE Counter
+
+*********** RAW MESSAGE : 0 80 6 32 0
+
+int message:  0 0 32 6 80
+hex message: 00 00 20 06 50
+RESULT =  00 00 20 06 50
+Neither PASS Nor FAIL
+
+### Bridge Test:  11  ###
+
+### Test Name:  WTE Counter
+
+*********** RAW MESSAGE : 0 131 6 32 0
+
+int message:  0 0 32 6 131
+hex message: 00 00 20 06 83
+RESULT =  00 00 20 06 83
+Neither PASS Nor FAIL
+
+### Bridge Test:  12  ###
+
+### Test Name:  BkPln_Spare_1 Counter
+
+*********** RAW MESSAGE : 0 0 0 0 0
+
+int message:  0 0 0 0 0
+hex message: 00 00 00 00 00
+RESULT =  00 00 00 00 00
+Neither PASS Nor FAIL
+
+### Bridge Test:  13  ###
+
+### Test Name:  BkPln_Spare_2 Counter
+
+*********** RAW MESSAGE : 0 0 0 0 0
+
+int message:  0 0 0 0 0
+hex message: 00 00 00 00 00
+RESULT =  00 00 00 00 00
+Neither PASS Nor FAIL
+
+### Bridge Test:  14  ###
+
+### Test Name:  BkPln_Spare_3 Counter
+
+*********** RAW MESSAGE : 0 0 0 0 0
+
+int message:  0 0 0 0 0
+hex message: 00 00 00 00 00
+RESULT =  00 00 00 00 00
+Neither PASS Nor FAIL
+
+### Bridge Test:  15  ###
+
+### Test Name:  igloo2 FPGA Control
+
+*********** RAW MESSAGE : 0 224
+
+int message:  0 224
+hex message: 00 e0
+RESULT =  00 e0
+Neither PASS Nor FAIL
+
+### Bridge Test:  16  ###
+
+### Test Name:  ControlReg
+
+*********** RAW MESSAGE : 0 84 35 36 3
+
+int message:  0 3 36 35 84
+hex message: 00 03 24 23 54
+RESULT =  00 03 24 23 54
+Neither PASS Nor FAIL
+
+### Bridge Test:  17  ###
+
+### Test Name:  orbit_histo[167:144]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  18  ###
+
+### Test Name:  orbit_histo[143:120]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  19  ###
+
+### Test Name:  orbit_histo[119:96]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  20  ###
+
+### Test Name:  orbit_histo[95:72]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  21  ###
+
+### Test Name:  orbit_histo[71:48]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  22  ###
+
+### Test Name:  orbit_histo[47:24]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  23  ###
+
+### Test Name:  orbit_histo[23:0]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  24  ###
+
+### Test Name:  QIE Daisy Chain 0
+
+*********** RAW MESSAGE : 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0
+
+int message:  0 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229
+hex message: 00 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5
+QIE  1 :  00 00 40 00 00 00 26 1f
+QIE  2 :  e5 00 40 00 00 00 26 1f
+QIE  3 :  e5 00 40 00 00 00 26 1f
+QIE  4 :  e5 00 40 00 00 00 26 1f
+QIE  5 :  e5 00 40 00 00 00 26 1f
+QIE  6 :  e5 00 40 00 00 00 26 1f
+RESULT =  00 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5
+Neither PASS Nor FAIL
+
+### Bridge Test:  25  ###
+
+### Test Name:  QIE Daisy Chain 1
+
+*********** RAW MESSAGE : 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0
+
+int message:  0 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229
+hex message: 00 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5
+QIE  7 :  00 00 40 00 00 00 26 1f
+QIE  8 :  e5 00 40 00 00 00 26 1f
+QIE  9 :  e5 00 40 00 00 00 26 1f
+QIE  10 :  e5 00 40 00 00 00 26 1f
+QIE  11 :  e5 00 40 00 00 00 26 1f
+QIE  12 :  e5 00 40 00 00 00 26 1f
+RESULT =  00 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5
+Neither PASS Nor FAIL
+
+### Bridge Test:  26  ###
+
+### Test Name:  Thermometer One Wire
+
+*********** RAW MESSAGE : 0 239 190 173 222
+
+int message:  0 222 173 190 239
+hex message: 00 de ad be ef
+RESULT =  00 de ad be ef
+Neither PASS Nor FAIL
+
+-------------------- Test Slot:  4  --------------------
+## Number of Tests:  27
+
+### Bridge Test:  0  ###
+
+### Test Name:  ID string
+
+*********** RAW MESSAGE : 0 77 82 69 72
+
+correct value:  HERM
+ASCII message:  HERM
+RESULT =  FAIL
+
+### Bridge Test:  1  ###
+
+### Test Name:  ID string cont
+
+*********** RAW MESSAGE : 0 103 100 114 66
+
+correct value:  Brdg
+ASCII message:  Brdg
+RESULT =  FAIL
+
+### Bridge Test:  2  ###
+
+### Test Name:  FW Version
+
+*********** RAW MESSAGE : 0 0 0 13 1
+
+hex message:  00:01:0d:00:00
+RESULT =  00:01:0d:00:00
+Neither PASS Nor FAIL
+
+### Bridge Test:  3  ###
+
+### Test Name:  Ones
+
+*********** RAW MESSAGE : 0 255 255 255 255
+
+correct value:  0xffffffff
+int message:  0 255 255 255 255
+hex message:  0x00ffffffff
+RESULT =  FAIL
+
+### Bridge Test:  4  ###
+
+### Test Name:  Zeroes
+
+*********** RAW MESSAGE : 0 0 0 0 0
+
+correct value:  0x00000000
+int message:  0 0 0 0 0
+hex message:  0x0000000000
+RESULT =  FAIL
+
+### Bridge Test:  5  ###
+
+### Test Name:  OnesZeroes
+
+*********** RAW MESSAGE : 0 170 170 170 170
+
+correct value:  0xaaaaaaaa
+int message:  0 170 170 170 170
+hex message:  0x00aaaaaaaa
+RESULT =  FAIL
+
+### Bridge Test:  6  ###
+
+### Test Name:  Scratch
+
+*********** RAW MESSAGE : 0 243 255 253 62
+
+int message:  0 62 253 255 243
+hex message: 00 3e fd ff f3
+RESULT =  00 3e fd ff f3
+Neither PASS Nor FAIL
+
+### Bridge Test:  7  ###
+
+### Test Name:  Status
+
+*********** RAW MESSAGE : 0 4 0 0 0
+
+int message:  0 0 0 0 4
+hex message: 00 00 00 00 04
+RESULT =  00 00 00 00 04
+Neither PASS Nor FAIL
+
+### Bridge Test:  8  ###
+
+### Test Name:  I2C_SELECT
+
+*********** RAW MESSAGE : 0 0 0 0 0
+
+int message:  0 0 0 0 0
+hex message: 00 00 00 00 00
+RESULT =  00 00 00 00 00
+Neither PASS Nor FAIL
+
+### Bridge Test:  9  ###
+
+### Test Name:  Clock Counter
+
+*********** RAW MESSAGE : 0 235 8 0 0
+
+int message:  0 0 0 8 235
+hex message: 00 00 00 08 eb
+RESULT =  00 00 00 08 eb
+Neither PASS Nor FAIL
+
+### Bridge Test:  10  ###
+
+### Test Name:  RES_QIE Counter
+
+*********** RAW MESSAGE : 0 75 57 194 0
+
+int message:  0 0 194 57 75
+hex message: 00 00 c2 39 4b
+RESULT =  00 00 c2 39 4b
+Neither PASS Nor FAIL
+
+### Bridge Test:  11  ###
+
+### Test Name:  WTE Counter
+
+*********** RAW MESSAGE : 0 135 57 194 0
+
+int message:  0 0 194 57 135
+hex message: 00 00 c2 39 87
+RESULT =  00 00 c2 39 87
+Neither PASS Nor FAIL
+
+### Bridge Test:  12  ###
+
+### Test Name:  BkPln_Spare_1 Counter
+
+*********** RAW MESSAGE : 0 0 0 0 0
+
+int message:  0 0 0 0 0
+hex message: 00 00 00 00 00
+RESULT =  00 00 00 00 00
+Neither PASS Nor FAIL
+
+### Bridge Test:  13  ###
+
+### Test Name:  BkPln_Spare_2 Counter
+
+*********** RAW MESSAGE : 0 0 0 0 0
+
+int message:  0 0 0 0 0
+hex message: 00 00 00 00 00
+RESULT =  00 00 00 00 00
+Neither PASS Nor FAIL
+
+### Bridge Test:  14  ###
+
+### Test Name:  BkPln_Spare_3 Counter
+
+*********** RAW MESSAGE : 0 0 0 0 0
+
+int message:  0 0 0 0 0
+hex message: 00 00 00 00 00
+RESULT =  00 00 00 00 00
+Neither PASS Nor FAIL
+
+### Bridge Test:  15  ###
+
+### Test Name:  igloo2 FPGA Control
+
+*********** RAW MESSAGE : 0 224
+
+int message:  0 224
+hex message: 00 e0
+RESULT =  00 e0
+Neither PASS Nor FAIL
+
+### Bridge Test:  16  ###
+
+### Test Name:  ControlReg
+
+*********** RAW MESSAGE : 0 0 0 0 0
+
+int message:  0 0 0 0 0
+hex message: 00 00 00 00 00
+RESULT =  00 00 00 00 00
+Neither PASS Nor FAIL
+
+### Bridge Test:  17  ###
+
+### Test Name:  orbit_histo[167:144]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  18  ###
+
+### Test Name:  orbit_histo[143:120]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  19  ###
+
+### Test Name:  orbit_histo[119:96]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  20  ###
+
+### Test Name:  orbit_histo[95:72]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  21  ###
+
+### Test Name:  orbit_histo[71:48]
+
+*********** RAW MESSAGE : 0 57 44 0
+
+int message:  0 0 44 57
+hex message: 00 00 2c 39
+RESULT =  11321
+Neither PASS Nor FAIL
+
+### Bridge Test:  22  ###
+
+### Test Name:  orbit_histo[47:24]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  23  ###
+
+### Test Name:  orbit_histo[23:0]
+
+*********** RAW MESSAGE : 0 0 0 0
+
+int message:  0 0 0 0
+hex message: 00 00 00 00
+RESULT =  0
+Neither PASS Nor FAIL
+
+### Bridge Test:  24  ###
+
+### Test Name:  QIE Daisy Chain 0
+
+*********** RAW MESSAGE : 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0
+
+int message:  0 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229
+hex message: 00 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5
+QIE  1 :  00 00 40 00 00 00 26 1f
+QIE  2 :  e5 00 40 00 00 00 26 1f
+QIE  3 :  e5 00 40 00 00 00 26 1f
+QIE  4 :  e5 00 40 00 00 00 26 1f
+QIE  5 :  e5 00 40 00 00 00 26 1f
+QIE  6 :  e5 00 40 00 00 00 26 1f
+RESULT =  00 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5
+Neither PASS Nor FAIL
+
+### Bridge Test:  25  ###
+
+### Test Name:  QIE Daisy Chain 1
+
+*********** RAW MESSAGE : 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0 229 31 38 0 0 0 64 0
+
+int message:  0 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229 0 64 0 0 0 38 31 229
+hex message: 00 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5
+QIE  7 :  00 00 40 00 00 00 26 1f
+QIE  8 :  e5 00 40 00 00 00 26 1f
+QIE  9 :  e5 00 40 00 00 00 26 1f
+QIE  10 :  e5 00 40 00 00 00 26 1f
+QIE  11 :  e5 00 40 00 00 00 26 1f
+QIE  12 :  e5 00 40 00 00 00 26 1f
+RESULT =  00 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5 00 40 00 00 00 26 1f e5
+Neither PASS Nor FAIL
+
+### Bridge Test:  26  ###
+
+### Test Name:  Thermometer One Wire
+
+*********** RAW MESSAGE : 0 239 190 173 222
+
+int message:  0 222 173 190 239
+hex message: 00 de ad be ef
+RESULT =  00 de ad be ef
+Neither PASS Nor FAIL
+
+
+########   Final Test Results  ########
+
+Total Number of Tests =  108
+Number passed =  0
+Number failed =  10
+Number neither pass nor fail =  44
+Check total number of tests:  False

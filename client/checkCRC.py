@@ -10,16 +10,18 @@ def check(bus,rmList,slotList):
     for rm in rmList:
         t.openRM(bus,rm)
         for slot in slotList[4-rm]:
+            print '\nUnique ID'
             uniqueID = ID(bus)
             print uniqueID.getID(slot)
-            check = Checksum(uniqueID.raw)
-            print check.result
+            check = Checksum(uniqueID.raw,0)
+            print 'result = ',check.result
             if check.result == 2:
                 print 'i2c error'
             if check.result == 1:
                 print 'checksum error'
             if check.result == 0:
                 print 'checksum ok'
+
 
 # idA = ID(bus6)
 # idB = ID(bus6)
@@ -33,4 +35,4 @@ def check(bus,rmList,slotList):
 # checkB = Checksum(idB.raw)
 # print checkB.result
 
-check(bus6,[2,1],[0,0,[3,4],[1,4]])
+check(bus6,[2,1],[0,0,[1,4],[1]])

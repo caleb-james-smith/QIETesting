@@ -1,8 +1,6 @@
 # It is time to check your sum!
 # CRC = Cyclic Redundancy Check
 
-import collections
-import Format as f
 import TestLib as t
 
 # Convert string of ints to list of ints.

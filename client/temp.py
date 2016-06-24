@@ -80,11 +80,10 @@ def readTempHumi(slot, num_bytes, key, hold, verbosity=0):
     bus.read(0x40, num_bytes + 1) # also read checksum byte
     message = bus.sendBatch()[-1]
 
-    # reversed_message = reverse(message)
-    # check = Checksum(reversed_message)
-    # crc = check.result
+    check = Checksum(message,1)
+    crc = check.result
 
-    crc = cc.checkCRC(message,2)
+    # crc = cc.checkCRC(message,2)
 
     value = getValue(message)
 
@@ -101,8 +100,11 @@ def readManyTemps(slot,iterations,key,hold,verbosity=0):
         if verbosity > 0:
             print tempList
         tempArray.append(tempList)
-        if tempList[0] != 'CHECKSUM_OK':
-            print '~~~~~ ERROR for Test ', i,' : ', tempList
+        # if tempList[0] != 'CHECKSUM_OK':
+        if int(tempList[0]) == 2:
+            print '~~~~~ i2c error for test ', i, ' : ', tempList
+        if int(tempList[0]) == 1:
+            print '~~~~~ checksum error for test ', i,' : ', tempList
     transpose = zip(*tempArray)
     finalTempList = transpose[1]
     tempMin = min(finalTempList)
@@ -133,5 +135,5 @@ print '\nBUS = ',bus.address
 # rmList5 = [0]
 # slotList5 = [[0,3], 0, 0, 0]
 rmList6 = [2,1]
-slotList6 = [ 0, 0, [3,4], [1,4]]
+slotList6 = [ 0, 0, [1,4], [1]]
 run(rmList6,slotList6,20,0)

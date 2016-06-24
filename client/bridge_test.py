@@ -2,7 +2,7 @@ from client import webBus
 from operator import add
 import TestLib as t
 import time
-b = webBus("pi5",0)
+b = webBus("pi6",0)
 
 # Cryptic 0x70 Reset
 def reset(ngccm):
@@ -21,7 +21,7 @@ def readBridge(slot, address, num_bytes):
 
 # Write to Bridge
 def writeBridge(rm,slot,address,messageList):
-    t.openRM(rm)
+    t.openRM(b,rm)
     b.write(t.bridgeAddress(slot),[address] + messageList)
     return b.sendBatch()
 
@@ -32,12 +32,14 @@ def runBridgeTests(RMList, slotList, testList, verbosity=0):
     total_passed = 0
     total_failed = 0
     total_neither = 0
-    num_slots = len(slotList)
+    num_slots = 0
+    for rm in RMList:
+        num_slots += len(slotList[4-rm])
     num_tests = len(testList)
     total_number_tests = num_slots * num_tests
     total_test_list = [total_passed, total_failed, total_neither]
     for rm in RMList:
-        t.openRM(rm)
+        t.openRM(b,rm)
         print '\n-------------------- Test RM: ', rm, ' --------------------'
         for slot in slotList[4-rm]:
             b.write(0x00,[0x06])
@@ -74,6 +76,15 @@ def bridgeTests(slot, testList, verbosity=0):
         num_bytes = bridgeDict[test]['bits']/8
         message = readBridge(slot, address, num_bytes)
         print '\n*********** RAW MESSAGE :', t.reverseBytes(message),'\n'
+
+        # Check for i2c Error
+        mList = message.split()
+        error = mList.pop(0)
+        if int(error) != 0:
+            print '\n@@@@@@ I2C ERROR : ',message,'\n'
+        message = " ".join(mList)
+
+
         result = function(message)
         print 'RESULT = ',result
         if result == 'PASS':
@@ -297,7 +308,7 @@ bridgeDict = {
         # 'function' : iglooControl,
         'function' : simplePrint,
         'address' : 0x22,
-        'bits' : 11,
+        'bits' : 16, # 11
         'write' : True
     },
     16 : {
@@ -450,8 +461,15 @@ def control_reg_orbit_histo(rm,slot,delay):
     print writeBridge(rm,slot,0x18,[0,0,0,0])
     runBridgeTests([rm],t.getSlotList(rm,slot),range(16,24),0)
 
-# runBridgeTests([4], [[1,4],0,0,0], range(27))
-# runBridgeTests([2,1], [0,0,[2,3,4],[1,4]], range(27))
 
-control_reg_orbit_histo(4,4,0)
-control_reg_orbit_histo(4,4,1)
+# writeBridge(2,3,0x22,[0xE0,4])
+# writeBridge(2,4,0x22,[0xE0,4])
+# writeBridge(1,1,0x22,[0xE0,4])
+
+# writeBridge(1,4,0x22,[0xE0,4,0,0])
+
+# runBridgeTests([4], [[1,4],0,0,0], [15])
+# runBridgeTests([2], [0,0,[1],0], range(7))
+
+# control_reg_orbit_histo(4,4,0)
+# control_reg_orbit_histo(4,4,1)
