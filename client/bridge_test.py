@@ -2,15 +2,34 @@ from client import webBus
 from operator import add
 import TestLib as t
 import time
-b = webBus("pi6",0)
+b = webBus("pi5",0)
 
-# Cryptic 0x70 Reset
-def reset(ngccm):
+# Cryptic Magic Reset on 0x70
+def magicReset(ngccm):
     b.write(0x72,[ngccm])
     b.write(0x74,[0x08])
-    b.write(0x70,[0x3,0])
-    b.write(0x70,[0x1,0])
+    b.write(0x70,[0x3,0x8])
+    b.write(0x70,[0x1,0x8])
     return b.sendBatch()
+
+# Power Enable on 0x70
+def powerEnable(ngccm):
+    b.write(0x72,[ngccm])
+    b.write(0x74,[0x0])
+    b.write(0x74,[0x08])
+    b.write(0x74,[0x18])
+    b.write(0x74,[0x08])
+    b.read(0x70,1)
+    batch = b.sendBatch()
+    print 'initial = ', batch
+
+    message = batch[-1][2:]
+    value = int(message) | 0x8
+    b.write(0x70,[0x1,value])
+    b.write(0x70,[0x1])
+    b.read(0x70,1)
+    batch = b.sendBatch()
+    return 'final = ', batch
 
 # Read from Bridge
 def readBridge(slot, address, num_bytes):
@@ -69,13 +88,14 @@ def bridgeTests(slot, testList, verbosity=0):
     num_tests = len(testList)
     print '## Number of Tests: ', num_tests
     for test in testList:
-        print '\n### Bridge Test: ', test, ' ###'
-        print '\n### Test Name: ', bridgeDict[test]['name']
+        print '\nNumber: ', test, ' ###'
+        print 'Name: ', bridgeDict[test]['name']
         function = bridgeDict[test]['function']
         address = bridgeDict[test]['address']
         num_bytes = bridgeDict[test]['bits']/8
         message = readBridge(slot, address, num_bytes)
-        print '\n*********** RAW MESSAGE :', t.reverseBytes(message),'\n'
+        # print '*** RAW MESSAGE :', t.reverseBytes(message)
+        print 'hex message: ', t.toHex(message,1)
 
         # Check for i2c Error
         mList = message.split()
@@ -83,7 +103,6 @@ def bridgeTests(slot, testList, verbosity=0):
         if int(error) != 0:
             print '\n@@@@@@ I2C ERROR : ',message,'\n'
         message = " ".join(mList)
-
 
         result = function(message)
         print 'RESULT = ',result
@@ -102,7 +121,6 @@ def bridgeTests(slot, testList, verbosity=0):
     test_list = [passed, failed, neither]
     return test_list
 
-
 ##### TestLib ########
 
 def passFail(result):
@@ -113,57 +131,42 @@ def passFail(result):
 def idString(message):
     correct_value = "HERM"
     message = t.toASCII(message)
-    print 'correct value: ', correct_value
     print 'ASCII message: ', message
     return passFail(message==correct_value)
 
 def idStringCont(message):
     correct_value = "Brdg"
     message = t.toASCII(message)
-    print 'correct value: ', correct_value
     print 'ASCII message: ', message
     return passFail(message==correct_value)
 
 def fwVersion(message):
     # correct_value = "N/A" # We need to find Firmware Version
     message = t.toHex(message)
-    # print 'correct value: ', correct_value
-    print 'hex message: ', message
     return message
 
 def ones(message):
     correct_value = '0xffffffff'
     hex_message = t.toHex(message,0)
-    print 'correct value: ', correct_value
-    print 'int message: ', message
-    print 'hex message: ', hex_message
     return passFail(hex_message==correct_value)
 
 def zeroes(message):
     correct_value = '0x00000000'
     hex_message = t.toHex(message,0)
-    print 'correct value: ', correct_value
-    print 'int message: ', message
-    print 'hex message: ', hex_message
     return passFail(hex_message==correct_value)
 
 def onesZeroes(message):
     correct_value = '0xaaaaaaaa'
     hex_message = t.toHex(message,0)
-    print 'correct value: ', correct_value
-    print 'int message: ', message
-    print 'hex message: ', hex_message
     return passFail(hex_message==correct_value)
 
 def orbitHisto(message):
     simplePrint(message)
     value = t.getValue(message)
-    return value
+    return passFail(value==0)
 
 def qieDaisyChain0(message):
     hex_message = t.toHex(message,1)
-    print 'int message: ', message
-    print 'hex message:', hex_message
     split_message = t.splitMessage(hex_message,6)
     for i in xrange(len(split_message)):
         print 'QIE ',i+1,': ',split_message[i]
@@ -171,19 +174,13 @@ def qieDaisyChain0(message):
 
 def qieDaisyChain1(message):
     hex_message = t.toHex(message,1)
-    print 'int message: ', message
-    print 'hex message:', hex_message
     split_message = t.splitMessage(hex_message,6)
     for i in xrange(len(split_message)):
         print 'QIE ',i+7,': ',split_message[i]
     return hex_message
 
-    return hex_message
-
 def simplePrint(message):
     hex_message = t.toHex(message,1)
-    print 'int message: ', message
-    print 'hex message:', hex_message
     return hex_message
 
 # Input and compare all correct values in same format...
@@ -451,25 +448,46 @@ i2cDict = {
 # runBridgeTests(RMList, slotList, testList, verbosity=0)
 # 27 is max num of tests
 
-print reset(1)
-print reset(2)
+def zeroOrbits(rm,slot):
+    # Check for zeros for all oribts but [71:48] (bin 3 of 7)
+    # This nonzero bin is address 0x1D
+    zeroOrbitRegisters = [0x19,0x1A,0x1B,0x1C,0x1E,0x1F]
+    t.openRM(b,rm)
+    for address in zeroOrbitRegisters:
+        message = readBridge(slot,address,3)
+        if t.getValue(message) != 0:
+            print 'Nonzero orbit error!'
+            return False
+    return True
 
 def control_reg_orbit_histo(rm,slot,delay):
-    print writeBridge(rm,slot,0x18,[2,0,0,0])
-    print writeBridge(rm,slot,0x18,[1,0,0,0])
+    # Return value of [71:48] (bin 3 of 7)
+    # This nonzero bin is address 0x1D
+    writeBridge(rm,slot,0x18,[2,0,0,0])
+    writeBridge(rm,slot,0x18,[1,0,0,0])
     time.sleep(delay)
-    print writeBridge(rm,slot,0x18,[0,0,0,0])
-    runBridgeTests([rm],t.getSlotList(rm,slot),range(16,24),0)
-
+    writeBridge(rm,slot,0x18,[0,0,0,0])
+    # runBridgeTests([rm],t.getSlotList(rm,slot),range(16,24),0)
+    t.openRM(b,rm)
+    message = readBridge(slot, 0x1D, 3)
+    value = t.getValue(message)
+    return value
 
 # writeBridge(2,3,0x22,[0xE0,4])
 # writeBridge(2,4,0x22,[0xE0,4])
 # writeBridge(1,1,0x22,[0xE0,4])
-
 # writeBridge(1,4,0x22,[0xE0,4,0,0])
 
-# runBridgeTests([4], [[1,4],0,0,0], [15])
-# runBridgeTests([2], [0,0,[1],0], range(7))
+# print reset(1)
+# print reset(2)
 
-# control_reg_orbit_histo(4,4,0)
-# control_reg_orbit_histo(4,4,1)
+runBridgeTests([4], [[1,4],0,0,0], range(16,24))
+# runBridgeTests([2,1], [0,0,[1,4],[1]], range(16,24))
+
+# control_reg_orbit_histo(1,1,0)
+# control_reg_orbit_histo(1,1,1)
+
+# print reset(1)
+# print reset(2)
+# print powerEnable(1)
+# print powerEnable(2)

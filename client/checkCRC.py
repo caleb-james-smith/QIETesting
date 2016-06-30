@@ -11,8 +11,9 @@ def check(bus,rmList,slotList):
         t.openRM(bus,rm)
         for slot in slotList[4-rm]:
             print '\nUnique ID'
-            uniqueID = ID(bus)
-            print uniqueID.getID(slot)
+            uniqueID = ID(bus,slot)
+            print uniqueID.raw
+            print uniqueID.cooked
             check = Checksum(uniqueID.raw,0)
             print 'result = ',check.result
             if check.result == 2:
@@ -35,4 +36,4 @@ def check(bus,rmList,slotList):
 # checkB = Checksum(idB.raw)
 # print checkB.result
 
-check(bus6,[2,1],[0,0,[1,4],[1]])
+check(bus6,[2,1],[0,0,[1,4],[1,4]])

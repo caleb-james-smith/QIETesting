@@ -3,7 +3,7 @@
 
 from client import webBus
 import QIELib as q
-b = webBus("pi6",0)
+b = webBus("pi5",0)
 
 #MUX slave addresses (slave i2c addresses)
 MUXs = {
@@ -270,6 +270,13 @@ def toIntList(message):
         message_list[byte] = int(message_list[byte])
     return message_list
 
+# Parse Serial Number (6 bytes) from 8 byte Registration Number.
+def serialNum(message):
+    message_list = message.split()
+    message_list = message_list[2:-1]
+    s = " "
+    return s.join(message_list)
+    
 # Convert string of ints with spaces to a string of hex values with no spaces... one long string.
 def toHex(message, colon=2):
     message_list = message.split()
@@ -286,13 +293,6 @@ def toHex(message, colon=2):
         return s.join(message_list)
     s = ""
     return '0x' + s.join(message_list)
-
-# Parse Serial Number (6 bytes) from 8 byte Registration Number.
-def serialNum(message):
-    message_list = message.split()
-    message_list = message_list[2:-1]
-    s = " "
-    return s.join(message_list)
 
 #ASCII
 def toASCII(message):

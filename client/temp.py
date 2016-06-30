@@ -1,10 +1,8 @@
 from client import webBus
 import collections
+import time
 import TestLib as t
-import QIELib as q
-import caleb_checksum as cc
 from checksumClass import Checksum
-# bus = webBus("pi5",0)
 bus = webBus("pi6",0)
 
 # binDataHappy = '0 01110000 00111100 10000011'
@@ -83,8 +81,6 @@ def readTempHumi(slot, num_bytes, key, hold, verbosity=0):
     check = Checksum(message,1)
     crc = check.result
 
-    # crc = cc.checkCRC(message,2)
-
     value = getValue(message)
 
     if verbosity > 1:
@@ -93,9 +89,10 @@ def readTempHumi(slot, num_bytes, key, hold, verbosity=0):
         print 'value: ', value
     return [crc,function[key](value)]
 
-def readManyTemps(slot,iterations,key,hold,verbosity=0):
+def readManyTemps(slot,iterations,key,hold,delay,verbosity=0):
     tempArray = []
     for i in xrange(iterations):
+        time.sleep(delay)
         tempList = readTempHumi(slot,2,key,hold,verbosity)
         if verbosity > 0:
             print tempList
@@ -113,14 +110,15 @@ def readManyTemps(slot,iterations,key,hold,verbosity=0):
     tempCounter = collections.Counter(finalTempList)
     tempModeList = tempCounter.most_common()
 
-    print 'Iterations: ',iterations
+    print 'Iterations: ', iterations
+    print 'Delay: ', delay
     print key,' Mean: ', tempMean
     print key,' Min: ', tempMin
     print key,' Max: ', tempMax
     print key,' Range: ', tempMax - tempMin
     print key,' Mode List: ', tempModeList
 
-def run(rmList,slotList,iterations,verbosity=0):
+def run(rmList,slotList,iterations,delay,verbosity=0):
     for rm in rmList:
         t.openRM(bus,rm)
         for slot in slotList[4-rm]:
@@ -129,11 +127,9 @@ def run(rmList,slotList,iterations,verbosity=0):
                 # for hold in triggerDict[key]:
                 hold = 'nohold'
                 print '\n-----\n',key, ' ', hold,'\n-----\n'
-                readManyTemps(slot,iterations,key,hold,verbosity)
+                readManyTemps(slot,iterations,key,hold,delay,verbosity)
 
 print '\nBUS = ',bus.address
-# rmList5 = [0]
-# slotList5 = [[0,3], 0, 0, 0]
-rmList6 = [2,1]
-slotList6 = [ 0, 0, [1,4], [1]]
-run(rmList6,slotList6,20,0)
+rmList = [2,1]
+slotList = [0, 0, [1,3], [1,3]]
+run(rmList,slotList,5,0.5)

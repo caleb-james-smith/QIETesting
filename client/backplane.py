@@ -94,11 +94,15 @@ class Backplane:
                     activeSlots.append(getSlot(rm,slot))
         return activeSlots
 
-# bus5 = webBus("pi5",0)
+def run(bus):
+    bp = Backplane(bus)
+    print '\n',str(bp),' active slots: ', bp.activeSlots, '\n'
+
+bus5 = webBus("pi5",0)
 bus6 = webBus("pi6",0)
 
-# backplane5 = Backplane(bus5)
-backplane6 = Backplane(bus6)
+run(bus5)
+run(bus6)
 
-# print '\n',str(backplane5),' active slots: ', backplane5.activeSlots
-print '\n',str(backplane6),' active slots: ',backplane6.activeSlots,'\n'
+# backplane6 = Backplane(bus6)
+# print '\n',str(backplane6),' active slots: ',backplane6.activeSlots,'\n'
